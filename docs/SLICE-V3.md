@@ -1,11 +1,14 @@
-# SLICE-V3 — Unattended at 08:30
+# SLICE-V3 — The daily agent (unattended at 08:30)
 
 ## Goal
 
-The agent runs without a human: a scheduled Actions workflow lets the
-deterministic gate decide, wakes the model only on change, deploys the sitrep
-document and the Leaflet map page to the external host, and fails loudly
-when it would be blind.
+**This is the slice that makes it run every day.** The agent runs without a
+human: a scheduled Actions workflow (cron 00:00 UTC) fetches the feeds, lets
+the deterministic gate decide, wakes the model only on change, deploys the
+sitrep document and the Leaflet map page to the external host by 08:30 SGT,
+and fails loudly when it would be blind. V1 builds the fetching machinery
+and V2 the sitrep itself — both human-triggered until this slice adds the
+schedule.
 
 ## Why this cut
 
