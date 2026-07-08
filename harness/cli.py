@@ -12,9 +12,15 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
     parser.add_argument("--model", help=f"model id (default: {DEFAULT_MODEL})")
     parser.add_argument("--once", metavar="PROMPT", help="send one prompt and exit")
+    parser.add_argument(
+        "--system", metavar="FILE", help="standing orders: system prompt text file"
+    )
     args = parser.parse_args(argv)
 
-    agent = Agent(model=args.model)
+    if args.system:
+        agent = Agent.with_system_file(args.system, model=args.model)
+    else:
+        agent = Agent(model=args.model)
 
     if args.once:
         print(agent.send(args.once))
