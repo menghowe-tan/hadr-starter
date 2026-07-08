@@ -1,0 +1,14 @@
+[project]
+name = "hadr-monitor"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "anthropic>=0.116.0",
+    "httpx>=0.28.1",
+    "jsonschema>=4.26.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
