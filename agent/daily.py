@@ -14,6 +14,7 @@ model; a degraded morning publishes with the banner.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -21,6 +22,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_ROOT / "scripts"))
 sys.path.insert(0, str(_ROOT))
 
+import health  # noqa: E402
 from pipeline import render, runner  # noqa: E402
 
 from agent import assess  # noqa: E402
@@ -85,10 +87,23 @@ def main() -> None:
         manifest = run_daily(args.replay, args.data_dir, args.out, assessor)
     except Abort as abort:
         print(abort, file=sys.stderr)
-        raise SystemExit(2)
+        _emit_github_output("QUIET", "abort")
+        raise SystemExit(health.ABORT_EXIT_CODE)
 
     print(f"sitrep: {args.out} · store: {args.data_dir}")
-    print(manifest["verdict"])
+
+    verdict = health.evaluate(manifest)
+    print(f"health: {verdict['status']}")
+    _emit_github_output(manifest["verdict"], verdict["status"])
+    print(manifest["verdict"])  # docstring contract: the final line is the verdict
+
+
+def _emit_github_output(verdict: str, status: str) -> None:
+    """Machine-readable signal for the sitrep workflow (PRD §13 outputs)."""
+    if output := os.environ.get("GITHUB_OUTPUT"):
+        with open(output, "a") as fh:
+            fh.write(f"verdict={verdict}\n")
+            fh.write(f"health={status}\n")
 
 
 if __name__ == "__main__":

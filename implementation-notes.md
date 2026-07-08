@@ -220,3 +220,65 @@ Kept by the agent, reviewed by you. One entry per working block.
   "out of scope: the map page"). The zone renders a bordered note saying
   so, keeping the six-zone anatomy and the no-network guarantee. Reason:
   honest placeholder over a broken link or an external tile request.
+
+- **2026-07-08 — V1/V2/V3 merged into `main`; the §13 contract was adapted
+  to the shipped pipeline, not the other way round.** V1 (#7), V2 (#9) and
+  V3 (#8) were merged into their own PR base branches, never `main` — #9's
+  base was `slice-v1-quiet-or-not`, #8's was `worktree-shiny-spinning-puffin`,
+  so none of this was actually on `main` until this integration. Auditing
+  the merge surfaced that V3's `schemas/`, `scripts/health.py` and
+  `scripts/render_dashboard.py` were built against the PRD §13 stage
+  contract, but V1/V2 never implemented that contract — `schemas/` didn't
+  exist on their branch, and the real `pipeline.store`/`pipeline.runner`
+  manifest and event shapes differ from §13 throughout (`run_at` not
+  `run_utc`, flat event dicts keyed by `event_id` not nested
+  `identity`/`geo`/`severity`, no `deploy_state` carry-forward, no
+  `GITHUB_OUTPUT`). Decision: adapt V3's consumers to the real, tested
+  68→107-test pipeline rather than rewrite `pipeline.store`/`normalise`/
+  `diff` to match a contract that was never load-bearing. Specifically:
+  - `scripts/health.py` reads `feed["fetched_at"]` (was `last_success_utc`);
+    `pipeline.runner`'s `_feed()` already carries the last successful
+    fetch forward on failure, so the field means the same thing.
+  - `scripts/render_dashboard.py` reads the real flat event schema
+    (`event_id`, `lat`/`lon`, `alert_level`/`episode_alert_level` via
+    `pipeline.diff.effective_level_rank`, `pipeline.render.display_title`)
+    instead of the §13 nested shape; the marker's "change" text comes from
+    the run's `manifest["changes"]` (the diff's own classification), not
+    from a field on the event. The canonical event has no forecast-track
+    field yet (GDACS cyclone tracks are unbuilt), so the map draws no
+    polyline instead of inventing one — a scoped gap, not a bug.
+  - `pipeline.runner.run_cycle` now carries `deploy_state` forward from
+    the previous manifest (previously only `stub_pipeline.run` did this);
+    without it, every cycle's `store.save()` would erase what
+    `scripts/deploy.py` wrote, forcing a real deploy every run.
+  - `scripts/run.py` and `agent/daily.py` gained `scripts/health.py`
+    integration: a `health: <status>` print line (before the verdict,
+    which stays the documented final line), `GITHUB_OUTPUT` (`verdict`,
+    `health`) for the workflows, and an abort exit code. `agent/daily.py`'s
+    abort exit code changed from 2 to `health.ABORT_EXIT_CODE` (3), for
+    one consistent contract across both CLIs; no test asserted the old
+    value.
+  - Removed as fully superseded: `scripts/stub_pipeline.py`,
+    `scripts/render_canned_sitrep.py`, `schemas/`, `tests/test_pipeline.py`,
+    `tests/test_canned_sitrep.py`, and the stub-shaped
+    `tests/fixtures/{eventful,quiet}/store/` snapshots — the real pipeline
+    and `agent/daily.py` (with `--assess off` as the no-API-key fallback)
+    replace them, matching what PR #8's own description already flagged as
+    the integration step ("swap the stub command").
+  - `.github/workflows/sitrep.yml` collapsed its separate "gate" and
+    "write sitrep" steps into one `agent/daily.py` call — V2's
+    `run_daily()` already does cycle → gate → gated assessment → render in
+    one process, so the split was only needed for the stub contract.
+  - `harness/` and `agent/main.py` (the reusable tool-calling loop and its
+    HADR tools) are kept — real, tested, demoed code — but are no longer
+    wired into `sitrep.yml`: `agent/daily.py`'s deterministic render +
+    validated structured-output assessment is the better-specified
+    replacement for the sitrep role that V3's own notes already called out
+    as provisional ("V2's real renderer supersedes this when it lands").
+  - Added `tests/fixtures/gdacs-down/` (real `usgs.json`/`reliefweb.xml`,
+    `gdacs.json` omitted) and `tests/fixtures/both-down/` (empty) so the
+    workflows' `workflow_dispatch` scenario input can still exercise
+    degraded/abort against the real pipeline (`fetch.py` reports a missing
+    replay file as `down`) without a purpose-built stub scenario.
+  - Both crons (`*/15 * * * *` monitor, `0 0 * * *` sitrep) are uncommented:
+    the real V1/V2 stages they were waiting on are now in `main`.

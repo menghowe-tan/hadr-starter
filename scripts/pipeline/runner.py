@@ -103,6 +103,11 @@ def run_cycle(replay_dir: Path | None, data_dir: Path) -> dict:
         "active_events": sorted(
             event_id for event_id, r in updated.items() if r.get("status") == "active"
         ),
+        # Carried forward, not recomputed here: scripts/deploy.py owns this
+        # key and patches it in place after a real deploy. Without carrying
+        # it forward, the next cycle's store.save() would wipe it and every
+        # cycle would look like changed content (V3 integration deviation).
+        "deploy_state": previous_manifest.get("deploy_state", {}),
     }
 
     store.save(data_dir, updated, manifest)

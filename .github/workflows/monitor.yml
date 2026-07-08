@@ -1,12 +1,11 @@
 # Monitor loop — deterministic, model-free (PRD decisions #17–18).
 # Fetch → normalise → merge → diff; on change, commit data/ and redeploy the
 # live dashboard. A failed cycle skips silently (the next cycle retries);
-# ≥1h without a real-time-feed success fails loudly (PRD §7).
+# both real-time feeds down (this cycle, or ≥1h of silence) fails loudly
+# (PRD §7, scripts/health.py).
 #
 # Cadence decided in slice V3 (PRD §12): every 15 minutes — a 5-min cron
-# jitters badly and burns the free-tier minutes quota. The cron stays
-# commented until the real V1 pipeline replaces the stage stub below;
-# scheduling fixture replays would publish fake data and waste minutes.
+# jitters badly and burns the free-tier minutes quota.
 
 name: Monitor loop
 
@@ -14,12 +13,12 @@ on:
   workflow_dispatch:
     inputs:
       scenario:
-        description: Stage-stub scenario (real V1 stages replace this at integration)
+        description: Replay fixture under tests/fixtures/ (omit for a live fetch)
         type: choice
         default: eventful
-        options: [eventful, quiet, gdacs-down, both-down]
-  # schedule:
-  #   - cron: "*/15 * * * *"   # uncomment at integration (real stages + secrets)
+        options: [eventful, quiet, gdacs-down, both-down, live]
+  schedule:
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: write
@@ -36,12 +35,19 @@ jobs:
 
       - uses: astral-sh/setup-uv@v5
 
-      # The deterministic pipeline. At integration this becomes the real
-      # V1 stages; the workflow only depends on the §13 contract — the
-      # manifest, the step outputs, and the exit code.
+      # The deterministic pipeline (PRD §3 stages, scripts/pipeline/).
+      # Exit 3 = abort-blind: both real-time feeds down, handled below
+      # without failing the whole job (a monitor cycle degrades, it
+      # doesn't crash — PRD §7).
       - id: pipeline
         continue-on-error: true # a failed cycle skips silently (§7)
-        run: uv run scripts/stub_pipeline.py --scenario "${{ inputs.scenario || 'eventful' }}"
+        run: |
+          scenario="${{ inputs.scenario || 'eventful' }}"
+          if [ "$scenario" = "live" ]; then
+            uv run scripts/run.py
+          else
+            uv run scripts/run.py --replay "tests/fixtures/$scenario"
+          fi
 
       - name: Commit store on change
         id: store
@@ -51,7 +57,7 @@ jobs:
             git config user.name "hadr-monitor[bot]"
             git config user.email "hadr-monitor[bot]@users.noreply.github.com"
             git add data/
-            git commit -m "monitor: store update ($(jq -r .run_utc data/manifest.json))"
+            git commit -m "monitor: store update ($(jq -r .run_at data/manifest.json))"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -73,9 +79,9 @@ jobs:
         run: uv run scripts/deploy.py
 
       # Persistent blindness alerts without waiting for the morning run:
-      # abort-health (both real-time feeds ≥1h silent) fails this workflow.
+      # abort-health (both real-time feeds down) fails this workflow.
       - name: Alert on persistent feed failure
         if: always() && steps.pipeline.outputs.health == 'abort'
         run: |
-          echo "::error::Both real-time feeds have been silent for ≥1h — the monitor is blind (PRD §7)."
+          echo "::error::Both real-time feeds are down — the monitor is blind (PRD §7)."
           exit 1

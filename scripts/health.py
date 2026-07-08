@@ -40,7 +40,7 @@ def feed_state(name: str, feed: dict, now: datetime) -> str:
     """fresh | stale | down for one feed at time `now`."""
     if feed.get("status") == "down":
         return "down"
-    last_raw = feed.get("last_success_utc")
+    last_raw = feed.get("fetched_at")
     if last_raw is None:
         return "down"
     age = now - datetime.fromisoformat(last_raw)

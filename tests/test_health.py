@@ -13,7 +13,7 @@ def manifest(gdacs=1, usgs=1, reliefweb=20, down=()):
     return {
         "feeds": {
             name: {
-                "last_success_utc": (NOW - timedelta(minutes=age)).isoformat(),
+                "fetched_at": (NOW - timedelta(minutes=age)).isoformat(),
                 "status": "down" if name in down else "ok",
             }
             for name, age in ages.items()
@@ -58,4 +58,4 @@ def test_down_after_an_hour_of_silence():
 
 
 def test_missing_last_success_counts_as_down():
-    assert health.feed_state("gdacs", {"status": "ok", "last_success_utc": None}, NOW) == "down"
+    assert health.feed_state("gdacs", {"status": "ok", "fetched_at": None}, NOW) == "down"

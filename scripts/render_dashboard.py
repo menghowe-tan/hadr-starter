@@ -17,61 +17,64 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import health
+from pipeline import diff as pipeline_diff
+from pipeline.render import display_title
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# Design tokens (product design §7), light / dark.
+# Design tokens (product design §7), light / dark. GDACS Green/Orange/Red are
+# the only alert bands the design specifies; USGS PAGER yellow buckets with
+# Green (no dedicated token) rather than invent a fourth colour.
 ALERT_COLOURS = {"Red": "#C0392B", "Orange": "#B85B08", "Green": "#2E7D32"}
 
 
 def load_store(data_dir: Path) -> tuple[dict, list[dict]]:
     manifest = json.loads((data_dir / "manifest.json").read_text())
-    events = [
-        json.loads(p.read_text())
-        for p in sorted((data_dir / "events").glob("*.json"))
-    ]
+    all_events = (json.loads(p.read_text()) for p in sorted((data_dir / "events").glob("*.json")))
+    events = [e for e in all_events if e.get("status") == "active"]
     return manifest, events
 
 
-def sitrep_anchor(event: dict) -> str:
-    identity = event.get("identity", {})
-    if identity.get("usgs_ids"):
-        return str(identity["usgs_ids"][0])
-    if identity.get("gdacs_event_id"):
-        return str(identity["gdacs_event_id"])
-    return event["id"]
+def alert_word(event: dict) -> str:
+    """GDACS/PAGER alert level, collapsed to the three design tokens."""
+    rank = pipeline_diff.effective_level_rank(event)
+    if rank >= pipeline_diff.LEVEL_RANK["red"]:
+        return "Red"
+    if rank >= pipeline_diff.LEVEL_RANK["orange"]:
+        return "Orange"
+    return "Green"
 
 
-def marker_payload(event: dict) -> dict:
+def marker_payload(event: dict, changes_by_id: dict) -> dict:
     """The slice of a canonical event the map needs — derived, never invented."""
-    severity = event.get("severity", {})
-    impact = event.get("impact", [])
-    headline = (
-        f"{impact[0]['metric']}: {impact[0]['value']} ({impact[0]['label'].title()})"
-        if impact
-        else None
-    )
+    change = changes_by_id.get(event["event_id"])
+    change_text = None
+    if change:
+        change_text = change["change"] + (f": {change['detail']}" if change.get("detail") else "")
     return {
-        "id": event["id"],
+        "id": event["event_id"],
         "hazard": event["hazard"],
-        "name": event.get("geo", {}).get("place_name") or event["id"],
-        "level": severity.get("gdacs_alertlevel") or "Green",
-        "lat": event["geo"]["lat"],
-        "lon": event["geo"]["lon"],
-        "track": event.get("geo", {}).get("track") or [],
-        "magnitude": severity.get("magnitude"),
-        "change": event.get("change", {}).get("summary"),
-        "headline": headline,
-        "anchor": sitrep_anchor(event),
+        "name": display_title(event),
+        "level": alert_word(event),
+        "lat": event["lat"],
+        "lon": event["lon"],
+        # V1/V2's canonical event has no forecast-track field yet (GDACS
+        # cyclone tracks are future work); the map just draws no polyline.
+        "track": event.get("track") or [],
+        "magnitude": event.get("magnitude"),
+        "change": change_text,
+        "headline": event.get("gate_reason"),
+        "anchor": event["event_id"],
     }
 
 
 def render(manifest: dict, events: list[dict], now: datetime) -> str:
     verdict = health.evaluate(manifest, now)
-    markers = [marker_payload(e) for e in events]
+    changes_by_id = {c["event_id"]: c for c in manifest.get("changes", [])}
+    markers = [marker_payload(e, changes_by_id) for e in events]
     feeds_meta = {
         name: {
-            "last_success_utc": feed.get("last_success_utc"),
+            "fetched_at": feed.get("fetched_at"),
             "state": verdict["feed_states"].get(name, "down"),
         }
         for name, feed in manifest.get("feeds", {}).items()
@@ -87,7 +90,7 @@ def render(manifest: dict, events: list[dict], now: datetime) -> str:
         {"markers": markers, "feeds": feeds_meta, "colours": ALERT_COLOURS}
     )
     generated = now.isoformat(timespec="seconds")
-    run_utc = html.escape(manifest.get("run_utc", ""))
+    run_utc = html.escape(manifest.get("run_at", ""))
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -177,7 +180,7 @@ const now = Date.now();
 document.getElementById("feed-chips").innerHTML = Object.entries(DATA.feeds)
   .map(([name, f]) =>
     `<span class="chip" title="${{f.state}}"><span class="dot" style="background:${{STATE_COLOUR[f.state]}}"></span>` +
-    `${{name.toUpperCase()}} ${{ago(f.last_success_utc, now)}}${{f.state !== "fresh" ? " (" + f.state + ")" : ""}}</span> `
+    `${{name.toUpperCase()}} ${{ago(f.fetched_at, now)}}${{f.state !== "fresh" ? " (" + f.state + ")" : ""}}</span> `
   ).join("");
 
 const listEl = document.getElementById("event-list");

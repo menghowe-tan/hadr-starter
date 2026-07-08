@@ -1,12 +1,25 @@
 Deterministic checks live here — anything that must give the same answer twice does not belong in a prompt. Nothing under `scripts/` ever calls a model; the generative layer lives in `agent/` (see CLAUDE.md).
 
-## Layout (slices V1–V2)
+## Layout (slices V1–V3)
 
 - `run.py` — CLI: one invocation = one **monitor** cycle, model-free.
   `--replay <fixture-dir>` replays captured feeds; without it, one polite
   live fetch per feed. Prints the verdict (`CHANGED`/`QUIET`) as its final
-  line. The daily sitrep CLI (the only place a model wakes) is
-  `agent/daily.py`.
+  line, and the machine-readable feed health (`scripts/health.py`) on the
+  line before it, plus `GITHUB_OUTPUT` (`verdict`, `health`) for the
+  monitor workflow. Exits 3 (`health.ABORT_EXIT_CODE`) when both real-time
+  feeds are down. The daily sitrep CLI (the only place a model wakes) is
+  `agent/daily.py` — same health/output/exit-code contract, plus the gated
+  model assessment.
+- `health.py` — PRD §7 truth table (ok/degraded/abort) shared by `run.py`,
+  `agent/daily.py` and `render_dashboard.py`.
+- `render_dashboard.py` — deterministic Leaflet dashboard over
+  `data/manifest.json` + `data/events/*.json`: alert-coloured markers,
+  current event list, per-feed freshness chips, degraded banner. Writes
+  `out/dashboard/index.html`.
+- `deploy.py` — pushes `out/` to Netlify, idempotent via a content hash
+  kept in `data/manifest.json`'s `deploy_state` (carried forward by
+  `pipeline.runner.run_cycle` across cycles).
 - `pipeline/` — the model-free pipeline, in PRD §3 order:
   - `fetch` — raw payloads per feed, live or replayed; per-feed
     ok/down status (a down feed degrades, never crashes).
