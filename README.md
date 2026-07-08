@@ -9,7 +9,8 @@ By Wednesday afternoon this repository contains an agent that:
 
 - watches live disaster feeds — GDACS, USGS and ReliefWeb (see [`feeds/`](feeds/))
 - filters out the noise and assesses what remains: what happened, where, how bad, who is affected
-- publishes a morning situation report to `dashboard.html` at 08:30 Singapore time
+- publishes a live map dashboard (redeployed every monitor cycle) and a
+  morning situation report at 08:30 Singapore time, both to an external host
 - runs on a schedule, unattended, and stays quiet when nothing has changed
 
 How it does any of that is not specified anywhere in this repository. That is
@@ -57,23 +58,56 @@ implementation-notes.md   Kept by the agent, reviewed by you: decisions, open
                           a bug.
 CLAUDE.md                 Project instructions every agent session loads.
                           Yours to fill in.
-.github/workflows/        @claude PR review (live) and the morning sitrep
-                          workflow (disabled until it has something to run).
+.github/workflows/        @claude PR review, the 15-min monitor loop, and
+                          the morning sitrep — see "Running the system" below.
 .github/ISSUE_TEMPLATE/   Templates for vertical slices and for filing issues
                           against a neighbour's skill.
 ```
 
+## Running the system
+
+Everything below works offline, against the replay fixtures under
+[`tests/fixtures/`](tests/fixtures/) — no network access or API key needed
+until you switch to `live`.
+
+```
+uv run pytest                                              # 98 tests, deterministic and offline
+
+# One monitor cycle: fetch → normalise → merge → gate → diff → store → dashboard skeleton
+uv run scripts/run.py --replay tests/fixtures/eventful
+uv run scripts/run.py                                       # live: one polite fetch per feed
+
+# The daily sitrep — the only place a model wakes, and only when the gate says CHANGED
+uv run agent/daily.py --replay tests/fixtures/eventful --assess off        # no model, deterministic fallback
+uv run agent/daily.py --replay tests/fixtures/morning-1 --assess recorded  # replays a committed assessment.json
+uv run agent/daily.py --assess live                                        # live fetch + live model (needs ANTHROPIC_API_KEY)
+
+# Render the live Leaflet dashboard from the committed store, then deploy out/ to Netlify
+uv run scripts/render_dashboard.py
+uv run scripts/deploy.py --dry-run                          # hash + decide, never calls the host
+uv run scripts/deploy.py                                    # needs NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID
+```
+
+Both CLIs print the verdict (`CHANGED`/`QUIET`) as their final line and exit
+`3` if GDACS and USGS are both down (`scripts/health.py`'s abort path,
+PRD §7) — a blind morning is worse than no report.
+
+Unattended, two GitHub Actions workflows run this same code:
+[`monitor.yml`](.github/workflows/monitor.yml) every 15 minutes (dashboard
+only) and [`sitrep.yml`](.github/workflows/sitrep.yml) daily at 00:00 UTC
+(targeting an 08:30 SGT publish). Both are also dispatchable on demand from
+the Actions tab with a `scenario` input — `eventful`, `quiet`, `gdacs-down`,
+`both-down` (replays a fixture under `tests/fixtures/`) or `live`.
+
 ## The one architectural rule
 
-The disabled workflow, [`.github/workflows/sitrep.yml.disabled`](.github/workflows/sitrep.yml.disabled),
-encodes the shape the pipeline must take:
+[`.github/workflows/sitrep.yml`](.github/workflows/sitrep.yml) encodes the
+shape the pipeline must take:
 
 1. a **deterministic script** decides whether anything changed;
 2. a **headless model call** runs only if it did.
 
-The model never decides whether to wake up. Keep the workflow disabled until
-both steps exist — a scheduled workflow that does nothing still costs minutes
-and trust.
+The model never decides whether to wake up.
 
 ## Working conventions
 
