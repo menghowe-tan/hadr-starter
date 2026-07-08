@@ -1,0 +1,4901 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "bbox": [
+    29.1779,
+    -5.901,
+    29.1779,
+    -5.901
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     29.1779,
+     -5.901
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103210,
+    "episodeid": 3,
+    "eventname": "",
+    "glide": "FL-2025-000050-COD",
+    "name": "Flood in Democratic Republic of Congo",
+    "description": "Flood in Democratic Republic of Congo",
+    "htmldescription": "Orange Flood in Democratic Republic of Congo from: 28 Mar 2025 01 to: 17 Apr 2025 11.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103210&episodeid=3",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103210&episodeid=3&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103210"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Democratic Republic of Congo",
+    "fromdate": "2025-03-28T01:00:00",
+    "todate": "2025-04-17T11:00:00",
+    "datemodified": "2025-04-18T07:30:34",
+    "iso3": "COD",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CD",
+      "iso3": "COD",
+      "countryname": "Democratic Republic of Congo"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.9692,
+    21.7073,
+    95.9692,
+    21.7073
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.9692,
+     21.7073
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474479,
+    "episodeid": 1630686,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Red M 6.7 Earthquake in Myanmar at: 28 Mar 2025 06:32:04.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Red/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474479&episodeid=1630686",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474479&episodeid=1630686&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474479"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Red",
+    "episodealertscore": 2.96659150958462,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T06:32:04",
+    "todate": "2025-03-28T06:32:04",
+    "datemodified": "2025-03-29T15:01:31",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 6.7,
+     "severitytext": "Magnitude 6.7M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.9216,
+    22.0128,
+    95.9216,
+    22.0128
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.9216,
+     22.0128
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474477,
+    "episodeid": 1630564,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Red M 7.7 Earthquake in Myanmar at: 28 Mar 2025 06:20:54.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Red/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474477&episodeid=1630564",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474477&episodeid=1630564&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474477"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Red",
+    "episodealertscore": 5.66386019805219,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T06:20:54",
+    "todate": "2025-03-28T06:20:54",
+    "datemodified": "2025-06-23T13:39:26",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 7.7,
+     "severitytext": "Magnitude 7.7M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    71.49,
+    37.203,
+    71.49,
+    37.203
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     71.49,
+     37.203
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017535,
+    "episodeid": 50,
+    "eventname": "Central Asia-2024",
+    "glide": "DR-2024-000232-EGY",
+    "name": "Drought in Afghanistan, Islamic Republic of Iran, Pakistan, Tajikistan, Turkmenistan",
+    "description": "Drought in Afghanistan, Islamic Republic of Iran, Pakistan, Tajikistan, Turkmenistan",
+    "htmldescription": "Green Drought in Afghanistan, Islamic Republic of Iran, Pakistan, Tajikistan, Turkmenistan from: 21 Oct 2024  to: 20 May 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017535&episodeid=50",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017535&episodeid=50&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017535"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Afghanistan, Islamic Republic of Iran, Pakistan, Tajikistan, Turkmenistan",
+    "fromdate": "2024-10-21T00:00:00",
+    "todate": "2026-05-20T00:00:00",
+    "datemodified": "2026-06-19T07:47:02",
+    "iso3": "AFG",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AF",
+      "iso3": "AFG",
+      "countryname": "Afghanistan"
+     },
+     {
+      "iso2": "IR",
+      "iso3": "IRN",
+      "countryname": "Islamic Republic of Iran"
+     },
+     {
+      "iso2": "PK",
+      "iso3": "PAK",
+      "countryname": "Pakistan"
+     },
+     {
+      "iso2": "TJ",
+      "iso3": "TJK",
+      "countryname": "Tajikistan"
+     },
+     {
+      "iso2": "TM",
+      "iso3": "TKM",
+      "countryname": "Turkmenistan"
+     }
+    ],
+    "severitydata": {
+     "severity": 60288.0,
+     "severitytext": "Minor impact for agricultural drought in 60288 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -53.808,
+    -24.245,
+    -53.808,
+    -24.245
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -53.808,
+     -24.245
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016449,
+    "episodeid": 99,
+    "eventname": "South America-2023",
+    "glide": "DR-2023-000204-BRA",
+    "name": "Drought in Argentina, Bolivia, Brazil, Paraguay",
+    "description": "Drought in Argentina, Bolivia, Brazil, Paraguay",
+    "htmldescription": "Green Drought in Argentina, Bolivia, Brazil, Paraguay from: 11 Jun 2023  to: 10 May 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016449&episodeid=99",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016449&episodeid=99&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016449"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Argentina, Bolivia, Brazil, Paraguay",
+    "fromdate": "2023-06-11T00:00:00",
+    "todate": "2026-05-10T00:00:00",
+    "datemodified": "2026-06-03T13:07:01",
+    "iso3": "ARG",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AR",
+      "iso3": "ARG",
+      "countryname": "Argentina"
+     },
+     {
+      "iso2": "BO",
+      "iso3": "BOL",
+      "countryname": "Bolivia"
+     },
+     {
+      "iso2": "BR",
+      "iso3": "BRA",
+      "countryname": "Brazil"
+     },
+     {
+      "iso2": "PY",
+      "iso3": "PRY",
+      "countryname": "Paraguay"
+     }
+    ],
+    "severitydata": {
+     "severity": 320952.0,
+     "severitytext": "Minor impact for agricultural drought in 320952 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -74.9731,
+    -12.7873,
+    -74.9731,
+    -12.7873
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -74.9731,
+     -12.7873
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103107,
+    "episodeid": 16,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Peru",
+    "description": "Flood in Peru",
+    "htmldescription": "Green Flood in Peru from: 22 Jan 2025 01 to: 10 Mar 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103107&episodeid=16",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103107&episodeid=16&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103107"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Peru",
+    "fromdate": "2025-01-22T01:00:00",
+    "todate": "2026-03-10T01:00:00",
+    "datemodified": "2026-04-02T12:11:45",
+    "iso3": "PER",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PE",
+      "iso3": "PER",
+      "countryname": "Peru"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    18.844,
+    45.88,
+    18.844,
+    45.88
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     18.844,
+     45.88
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017051,
+    "episodeid": 59,
+    "eventname": "South-Eastern Europe-2024",
+    "glide": "OT-2022-000172-RUS",
+    "name": "Drought in Bosnia  and  Herzegovina, Croatia, Hungary, Romania, Serbia",
+    "description": "Drought in Bosnia  and  Herzegovina, Croatia, Hungary, Romania, Serbia",
+    "htmldescription": "Green Drought in Bosnia  and  Herzegovina, Croatia, Hungary, Romania, Serbia from: 21 Mar 2024  to: 30 Dec 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017051&episodeid=59",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017051&episodeid=59&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017051"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Bosnia & Herzegovina, Croatia, Hungary, Romania, Serbia",
+    "fromdate": "2024-03-21T00:00:00",
+    "todate": "2025-12-30T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "BIH",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "BA",
+      "iso3": "BIH",
+      "countryname": "Bosnia & Herzegovina"
+     },
+     {
+      "iso2": "HR",
+      "iso3": "HRV",
+      "countryname": "Croatia"
+     },
+     {
+      "iso2": "HU",
+      "iso3": "HUN",
+      "countryname": "Hungary"
+     },
+     {
+      "iso2": "RO",
+      "iso3": "ROU",
+      "countryname": "Romania"
+     },
+     {
+      "iso2": "RS",
+      "iso3": "SRB",
+      "countryname": "Serbia"
+     }
+    ],
+    "severitydata": {
+     "severity": 69028.0,
+     "severitytext": "Minor impact for agricultural drought in 69028 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    3.58,
+    51.278,
+    3.58,
+    51.278
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     3.58,
+     51.278
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016401,
+    "episodeid": 91,
+    "eventname": "Europe-2023",
+    "glide": "DR-2023-000138-AUT",
+    "name": "Drought in Belgium, Netherlands",
+    "description": "Drought in Belgium, Netherlands",
+    "htmldescription": "Green Drought in Belgium, Netherlands from: 21 May 2023  to: 30 Dec 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016401&episodeid=91",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016401&episodeid=91&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016401"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Belgium, Netherlands",
+    "fromdate": "2023-05-21T00:00:00",
+    "todate": "2025-12-30T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "BEL",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "BE",
+      "iso3": "BEL",
+      "countryname": "Belgium"
+     },
+     {
+      "iso2": "NL",
+      "iso3": "NLD",
+      "countryname": "Netherlands"
+     }
+    ],
+    "severitydata": {
+     "severity": 3673.0,
+     "severitytext": "Minor impact for agricultural drought in 3673 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -117.5,
+    55.499,
+    -117.5,
+    55.499
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -117.5,
+     55.499
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1018001,
+    "episodeid": 15,
+    "eventname": "Canada-2025",
+    "glide": "",
+    "name": "Drought in Canada",
+    "description": "Drought in Canada",
+    "htmldescription": "Green Drought in Canada from: 21 Feb 2025  to: 20 Dec 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1018001&episodeid=15",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1018001&episodeid=15&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1018001"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Canada",
+    "fromdate": "2025-02-21T00:00:00",
+    "todate": "2025-12-20T00:00:00",
+    "datemodified": "2026-02-02T07:47:40",
+    "iso3": "CAN",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CA",
+      "iso3": "CAN",
+      "countryname": "Canada"
+     }
+    ],
+    "severitydata": {
+     "severity": 7035.0,
+     "severitytext": "Minor impact for agricultural drought in 7035 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    7.163,
+    7.915,
+    7.163,
+    7.915
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.163,
+     7.915
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016995,
+    "episodeid": 60,
+    "eventname": "Central-Western Africa-2024",
+    "glide": "",
+    "name": "Drought in Nigeria",
+    "description": "Drought in Nigeria",
+    "htmldescription": "Green Drought in Nigeria from: 21 Feb 2024  to: 10 Dec 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016995&episodeid=60",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016995&episodeid=60&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016995"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Nigeria",
+    "fromdate": "2024-02-21T00:00:00",
+    "todate": "2025-12-10T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "NGA",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "NG",
+      "iso3": "NGA",
+      "countryname": "Nigeria"
+     }
+    ],
+    "severitydata": {
+     "severity": 146302.0,
+     "severitytext": "Minor impact for agricultural drought in 146302 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    47.412,
+    -16.598,
+    47.412,
+    -16.598
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     47.412,
+     -16.598
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016833,
+    "episodeid": 70,
+    "eventname": "Madagascar-2023",
+    "glide": "DR-2023-000270-MDG",
+    "name": "Drought in Madagascar",
+    "description": "Drought in Madagascar",
+    "htmldescription": "Green Drought in Madagascar from: 21 Oct 2023  to: 20 Nov 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016833&episodeid=70",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016833&episodeid=70&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016833"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Madagascar",
+    "fromdate": "2023-10-21T00:00:00",
+    "todate": "2025-11-20T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "MDG",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MG",
+      "iso3": "MDG",
+      "countryname": "Madagascar"
+     }
+    ],
+    "severitydata": {
+     "severity": 143241.0,
+     "severitytext": "Minor impact for agricultural drought in 143241 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -109.988,
+    35.006,
+    -109.988,
+    35.006
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -109.988,
+     35.006
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016963,
+    "episodeid": 56,
+    "eventname": "Mexico, Western USA-2024",
+    "glide": "DR-2024-000076-BLZ",
+    "name": "Drought in Mexico, United States",
+    "description": "Drought in Mexico, United States",
+    "htmldescription": "Green Drought in Mexico, United States from: 21 Feb 2025  to: 20 Oct 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016963&episodeid=56",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016963&episodeid=56&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016963"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico, United States",
+    "fromdate": "2025-02-21T00:00:00",
+    "todate": "2025-10-20T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "MEX",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     },
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 80742.0,
+     "severitytext": "Minor impact for agricultural drought in 80742 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    86.504,
+    27.0,
+    86.504,
+    27.0
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.504,
+     27.0
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017644,
+    "episodeid": 6,
+    "eventname": "Himalaya-2025",
+    "glide": "DR-2025-000125-NPL",
+    "name": "Drought in China, India, Nepal",
+    "description": "Drought in China, India, Nepal",
+    "htmldescription": "Green Drought in China, India, Nepal from: 21 Jan 2025  to: 30 Sep 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017644&episodeid=6",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017644&episodeid=6&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017644"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "China, India, Nepal",
+    "fromdate": "2025-01-21T00:00:00",
+    "todate": "2025-09-30T00:00:00",
+    "datemodified": "2025-10-28T14:48:09",
+    "iso3": "CHN",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     },
+     {
+      "iso2": "IN",
+      "iso3": "IND",
+      "countryname": "India"
+     },
+     {
+      "iso2": "NP",
+      "iso3": "NPL",
+      "countryname": "Nepal"
+     }
+    ],
+    "severitydata": {
+     "severity": 43989.0,
+     "severitytext": "Minor impact for agricultural drought in 43989 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    138.556,
+    -33.654,
+    138.556,
+    -33.654
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.556,
+     -33.654
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017869,
+    "episodeid": 12,
+    "eventname": "Australia-2025",
+    "glide": "",
+    "name": "Drought in Australia",
+    "description": "Drought in Australia",
+    "htmldescription": "Green Drought in Australia from: 21 Jan 2025  to: 20 Sep 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017869&episodeid=12",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017869&episodeid=12&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017869"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Australia",
+    "fromdate": "2025-01-21T00:00:00",
+    "todate": "2025-09-20T00:00:00",
+    "datemodified": "2025-10-22T08:57:44",
+    "iso3": "AUS",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AU",
+      "iso3": "AUS",
+      "countryname": "Australia"
+     }
+    ],
+    "severitydata": {
+     "severity": 29878.0,
+     "severitytext": "Minor impact for agricultural drought in 29878 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    107.981,
+    32.087,
+    107.981,
+    32.087
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     107.981,
+     32.087
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017173,
+    "episodeid": 35,
+    "eventname": "China-2024",
+    "glide": "",
+    "name": "Drought in China",
+    "description": "Drought in China",
+    "htmldescription": "Green Drought in China from: 21 May 2024  to: 10 Sep 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017173&episodeid=35",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017173&episodeid=35&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017173"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "China",
+    "fromdate": "2024-05-21T00:00:00",
+    "todate": "2025-09-10T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "CHN",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     }
+    ],
+    "severitydata": {
+     "severity": 104631.0,
+     "severitytext": "Minor impact for agricultural drought in 104631 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -2.5,
+    34.5,
+    -2.5,
+    34.5
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -2.5,
+     34.5
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016686,
+    "episodeid": 67,
+    "eventname": "Northern Africa-2023",
+    "glide": "DR-2023-000260-DZA",
+    "name": "Drought in Algeria, Morocco",
+    "description": "Drought in Algeria, Morocco",
+    "htmldescription": "Green Drought in Algeria, Morocco from: 21 Nov 2024  to: 20 Aug 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016686&episodeid=67",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016686&episodeid=67&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016686"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Algeria, Morocco",
+    "fromdate": "2024-11-21T00:00:00",
+    "todate": "2025-08-20T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "DZA",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "DZ",
+      "iso3": "DZA",
+      "countryname": "Algeria"
+     },
+     {
+      "iso2": "MA",
+      "iso3": "MAR",
+      "countryname": "Morocco"
+     }
+    ],
+    "severitydata": {
+     "severity": 10188.0,
+     "severitytext": "Minor impact for agricultural drought in 10188 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    127.932,
+    0.6536,
+    127.932,
+    0.6536
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.932,
+     0.6536
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103103,
+    "episodeid": 67,
+    "eventname": "",
+    "glide": "FL-2025-000035-IDN",
+    "name": "Flood in Indonesia",
+    "description": "Flood in Indonesia",
+    "htmldescription": "Green Flood in Indonesia from: 21 Jan 2025 01 to: 23 Jun 2025 14.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103103&episodeid=67",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103103&episodeid=67&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103103"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Indonesia",
+    "fromdate": "2025-01-21T01:00:00",
+    "todate": "2025-06-23T14:00:00",
+    "datemodified": "2025-06-29T16:59:53",
+    "iso3": "IDN",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ID",
+      "iso3": "IDN",
+      "countryname": "Indonesia"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    32.497,
+    -2.743,
+    32.497,
+    -2.743
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     32.497,
+     -2.743
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017671,
+    "episodeid": 11,
+    "eventname": "Uganda, Tanzania-2025",
+    "glide": "",
+    "name": "Drought in Tanzania, Uganda",
+    "description": "Drought in Tanzania, Uganda",
+    "htmldescription": "Green Drought in Tanzania, Uganda from: 21 Jan 2025  to: 20 Jun 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017671&episodeid=11",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017671&episodeid=11&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017671"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Tanzania, Uganda",
+    "fromdate": "2025-01-21T00:00:00",
+    "todate": "2025-06-20T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "TZA",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TZ",
+      "iso3": "TZA",
+      "countryname": "Tanzania"
+     },
+     {
+      "iso2": "UG",
+      "iso3": "UGA",
+      "countryname": "Uganda"
+     }
+    ],
+    "severitydata": {
+     "severity": 49122.0,
+     "severitytext": "Minor impact for agricultural drought in 49122 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    20.617,
+    32.271,
+    20.617,
+    32.271
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     20.617,
+     32.271
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017799,
+    "episodeid": 6,
+    "eventname": "Libya-2025",
+    "glide": "",
+    "name": "Drought in Libya",
+    "description": "Drought in Libya",
+    "htmldescription": "Green Drought in Libya from: 21 Mar 2025  to: 10 Jun 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017799&episodeid=6",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017799&episodeid=6&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017799"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Libya",
+    "fromdate": "2025-03-21T00:00:00",
+    "todate": "2025-06-10T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "LBY",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LY",
+      "iso3": "LBY",
+      "countryname": "Libya"
+     }
+    ],
+    "severitydata": {
+     "severity": 4824.0,
+     "severitytext": "Minor impact for agricultural drought in 4824 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    67.33,
+    38.339,
+    67.33,
+    38.339
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     67.33,
+     38.339
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017686,
+    "episodeid": 4,
+    "eventname": "Central Asia-2025",
+    "glide": "",
+    "name": "Drought in Afghanistan, Islamic Republic of Iran, Kyrgyzstan, Kazakhstan, Pakistan, Tajikistan, Turkmenistan, Uzbekistan",
+    "description": "Drought in Afghanistan, Islamic Republic of Iran, Kyrgyzstan, Kazakhstan, Pakistan, Tajikistan, Turkmenistan, Uzbekistan",
+    "htmldescription": "Green Drought in Afghanistan, Islamic Republic of Iran, Kyrgyzstan, Kazakhstan, Pakistan, Tajikistan, Turkmenistan, Uzbekistan from: 21 Dec 2024  to: 30 May 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017686&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017686&episodeid=4&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017686"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.75,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Afghanistan, Islamic Republic of Iran, Kyrgyzstan, Kazakhstan, Pakistan, Tajikistan, Turkmenistan, Uzbekistan",
+    "fromdate": "2024-12-21T00:00:00",
+    "todate": "2025-05-30T00:00:00",
+    "datemodified": "2026-06-03T13:07:43",
+    "iso3": "AFG",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AF",
+      "iso3": "AFG",
+      "countryname": "Afghanistan"
+     },
+     {
+      "iso2": "IR",
+      "iso3": "IRN",
+      "countryname": "Islamic Republic of Iran"
+     },
+     {
+      "iso2": "KG",
+      "iso3": "KGZ",
+      "countryname": "Kyrgyzstan"
+     },
+     {
+      "iso2": "KZ",
+      "iso3": "KAZ",
+      "countryname": "Kazakhstan"
+     },
+     {
+      "iso2": "PK",
+      "iso3": "PAK",
+      "countryname": "Pakistan"
+     },
+     {
+      "iso2": "TJ",
+      "iso3": "TJK",
+      "countryname": "Tajikistan"
+     },
+     {
+      "iso2": "TM",
+      "iso3": "TKM",
+      "countryname": "Turkmenistan"
+     },
+     {
+      "iso2": "UZ",
+      "iso3": "UZB",
+      "countryname": "Uzbekistan"
+     }
+    ],
+    "severitydata": {
+     "severity": 390088.0,
+     "severitytext": "Minor impact for agricultural drought in 390088 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    10.486,
+    52.894,
+    10.486,
+    52.894
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     10.486,
+     52.894
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017709,
+    "episodeid": 4,
+    "eventname": "Central Europe-2025",
+    "glide": "",
+    "name": "Drought in Austria, Belgium, Czech Republic, Germany, Denmark, France, Luxembourg, Netherlands, Poland, Sweden",
+    "description": "Drought in Austria, Belgium, Czech Republic, Germany, Denmark, France, Luxembourg, Netherlands, Poland, Sweden",
+    "htmldescription": "Green Drought in Austria, Belgium, Czech Republic, Germany, Denmark, France, Luxembourg, Netherlands, Poland, Sweden from: 21 Dec 2024  to: 30 Apr 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017709&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017709&episodeid=4&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017709"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.75,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Austria, Belgium, Czech Republic, Germany, Denmark, France, Luxembourg, Netherlands, Poland, Sweden",
+    "fromdate": "2024-12-21T00:00:00",
+    "todate": "2025-04-30T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "AUT",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AT",
+      "iso3": "AUT",
+      "countryname": "Austria"
+     },
+     {
+      "iso2": "BE",
+      "iso3": "BEL",
+      "countryname": "Belgium"
+     },
+     {
+      "iso2": "CZ",
+      "iso3": "CZE",
+      "countryname": "Czech Republic"
+     },
+     {
+      "iso2": "DE",
+      "iso3": "DEU",
+      "countryname": "Germany"
+     },
+     {
+      "iso2": "DK",
+      "iso3": "DNK",
+      "countryname": "Denmark"
+     },
+     {
+      "iso2": "FR",
+      "iso3": "FRA",
+      "countryname": "France"
+     },
+     {
+      "iso2": "LU",
+      "iso3": "LUX",
+      "countryname": "Luxembourg"
+     },
+     {
+      "iso2": "NL",
+      "iso3": "NLD",
+      "countryname": "Netherlands"
+     },
+     {
+      "iso2": "PL",
+      "iso3": "POL",
+      "countryname": "Poland"
+     },
+     {
+      "iso2": "SE",
+      "iso3": "SWE",
+      "countryname": "Sweden"
+     }
+    ],
+    "severitydata": {
+     "severity": 506124.0,
+     "severitytext": "Minor impact for agricultural drought in 506124 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -2.747,
+    53.684,
+    -2.747,
+    53.684
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -2.747,
+     53.684
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017548,
+    "episodeid": 15,
+    "eventname": "UK and Ireland-2024",
+    "glide": "",
+    "name": "Drought in Ireland, , ",
+    "description": "Drought in Ireland, , ",
+    "htmldescription": "Green Drought in Ireland, , from: 21 Oct 2024  to: 30 Apr 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017548&episodeid=15",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017548&episodeid=15&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017548"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Ireland, , ",
+    "fromdate": "2024-10-21T00:00:00",
+    "todate": "2025-04-30T00:00:00",
+    "datemodified": "2026-02-11T12:10:14.497",
+    "iso3": "IRL",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "IE",
+      "iso3": "IRL",
+      "countryname": "Ireland"
+     }
+    ],
+    "severitydata": {
+     "severity": 183340.0,
+     "severitytext": "Minor impact for agricultural drought in 183340 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -84.233,
+    10.2,
+    -84.233,
+    10.2
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -84.233,
+     10.2
+    ]
+   },
+   "properties": {
+    "eventtype": "VO",
+    "eventid": 1000110,
+    "episodeid": 2,
+    "eventname": "Poas",
+    "glide": "",
+    "name": "Eruption  Poas",
+    "description": "Eruption  Poas",
+    "htmldescription": "Green Eruption Poas in Costa Rica at: 23 Apr 2025 07:39.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/VO.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/VO.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=VO&eventid=1000110&episodeid=2",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1000110&episodeid=2&eventtype=VO",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=VO&eventid=1000110"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Costa Rica",
+    "fromdate": "2025-03-27T07:50:00",
+    "todate": "2025-04-23T07:39:00",
+    "datemodified": "2025-04-23T05:39:07",
+    "iso3": "CRI",
+    "source": "WASHINGTON",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CR",
+      "iso3": "CRI",
+      "countryname": "Costa Rica"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    33.898,
+    8.098,
+    33.898,
+    8.098
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     33.898,
+     8.098
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1017730,
+    "episodeid": 4,
+    "eventname": "Ethiopia-2025",
+    "glide": "",
+    "name": "Drought in Ethiopia, Sudan, South Sudan",
+    "description": "Drought in Ethiopia, Sudan, South Sudan",
+    "htmldescription": "Green Drought in Ethiopia, Sudan, South Sudan from: 21 Feb 2025  to: 20 Apr 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1017730&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1017730&episodeid=4&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1017730"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.25,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Ethiopia, Sudan, South Sudan",
+    "fromdate": "2025-02-21T00:00:00",
+    "todate": "2025-04-20T00:00:00",
+    "datemodified": "2025-05-19T12:48:08",
+    "iso3": "ETH",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ET",
+      "iso3": "ETH",
+      "countryname": "Ethiopia"
+     },
+     {
+      "iso2": "SD",
+      "iso3": "SDN",
+      "countryname": "Sudan"
+     },
+     {
+      "iso2": "SS",
+      "iso3": "SSD",
+      "countryname": "South Sudan"
+     }
+    ],
+    "severitydata": {
+     "severity": 60939.0,
+     "severitytext": "Minor impact for agricultural drought in 60939 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    22.498,
+    -11.834,
+    22.498,
+    -11.834
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     22.498,
+     -11.834
+    ]
+   },
+   "properties": {
+    "eventtype": "DR",
+    "eventid": 1016682,
+    "episodeid": 51,
+    "eventname": "Zambia-Angola-2023",
+    "glide": "DR-2023-000269-NAM",
+    "name": "Drought in Angola, Democratic Republic of Congo, Zambia",
+    "description": "Drought in Angola, Democratic Republic of Congo, Zambia",
+    "htmldescription": "Green Drought in Angola, Democratic Republic of Congo, Zambia from: 21 Aug 2023  to: 20 Apr 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/DR.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=DR&eventid=1016682&episodeid=51",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1016682&episodeid=51&eventtype=DR",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=DR&eventid=1016682"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Angola, Democratic Republic of Congo, Zambia",
+    "fromdate": "2023-08-21T00:00:00",
+    "todate": "2025-04-20T00:00:00",
+    "datemodified": "2025-05-19T12:47:23",
+    "iso3": "AGO",
+    "source": "GDO",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AO",
+      "iso3": "AGO",
+      "countryname": "Angola"
+     },
+     {
+      "iso2": "CD",
+      "iso3": "COD",
+      "countryname": "Democratic Republic of Congo"
+     },
+     {
+      "iso2": "ZM",
+      "iso3": "ZMB",
+      "countryname": "Zambia"
+     }
+    ],
+    "severitydata": {
+     "severity": 36162.0,
+     "severitytext": "Minor impact for agricultural drought in 36162 km2",
+     "severityunit": "km2"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    140.7376,
+    -27.7456,
+    140.7376,
+    -27.7456
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.7376,
+     -27.7456
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103174,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Australia",
+    "description": "Flood in Australia",
+    "htmldescription": "Green Flood in Australia from: 20 Mar 2025 14 to: 13 Apr 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103174&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103174&episodeid=4&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103174"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Australia",
+    "fromdate": "2025-03-20T14:00:00",
+    "todate": "2025-04-13T01:00:00",
+    "datemodified": "2025-04-14T05:10:39",
+    "iso3": "AUS",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AU",
+      "iso3": "AUS",
+      "countryname": "Australia"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    124.4966,
+    6.061,
+    124.4966,
+    6.061
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     124.4966,
+     6.061
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103181,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Philippines",
+    "description": "Flood in Philippines",
+    "htmldescription": "Green Flood in Philippines from: 19 Mar 2025 01 to: 11 Apr 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103181&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103181&episodeid=4&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103181"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Philippines",
+    "fromdate": "2025-03-19T01:00:00",
+    "todate": "2025-04-11T01:00:00",
+    "datemodified": "2025-04-12T06:54:49",
+    "iso3": "PHL",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "PH",
+      "iso3": "PHL",
+      "countryname": "Philippines"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -85.7769,
+    39.5214,
+    -85.7769,
+    39.5214
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -85.7769,
+     39.5214
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103172,
+    "episodeid": 7,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in United States",
+    "description": "Flood in United States",
+    "htmldescription": "Green Flood in United States from: 19 Mar 2025 13 to: 06 Apr 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103172&episodeid=7",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103172&episodeid=7&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103172"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "United States",
+    "fromdate": "2025-03-19T13:00:00",
+    "todate": "2025-04-06T01:00:00",
+    "datemodified": "2025-04-07T06:44:45",
+    "iso3": "USA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    97.9172,
+    19.1849,
+    97.9172,
+    19.1849
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     97.9172,
+     19.1849
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023660,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Thailand",
+    "description": "Forest fires in Thailand",
+    "htmldescription": "Green Forest fires in Thailand from: 26 Mar 2025 to: 04 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023660&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023660&episodeid=1&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023660"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Thailand",
+    "fromdate": "2025-03-26T00:00:00",
+    "todate": "2025-04-04T00:00:00",
+    "datemodified": "2025-04-05T19:01:03",
+    "iso3": "THA",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TH",
+      "iso3": "THA",
+      "countryname": "Thailand"
+     }
+    ],
+    "severitydata": {
+     "severity": 6012.0,
+     "severitytext": "Green impact for forestfire in 6012 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    91.8803,
+    23.7307,
+    91.8803,
+    23.7307
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     91.8803,
+     23.7307
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023657,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in India",
+    "description": "Forest fires in India",
+    "htmldescription": "Green Forest fires in India from: 25 Mar 2025 to: 04 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023657&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023657&episodeid=4&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023657"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "India",
+    "fromdate": "2025-03-25T00:00:00",
+    "todate": "2025-04-04T00:00:00",
+    "datemodified": "2025-04-04T15:00:59",
+    "iso3": "IND",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "IN",
+      "iso3": "IND",
+      "countryname": "India"
+     }
+    ],
+    "severitydata": {
+     "severity": 5678.0,
+     "severitytext": "Green impact for forestfire in 5678 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -67.4034,
+    7.706,
+    -67.4034,
+    7.706
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -67.4034,
+     7.706
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023651,
+    "episodeid": 14,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Venezuela",
+    "description": "Forest fires in Venezuela",
+    "htmldescription": "Green Forest fires in Venezuela from: 27 Mar 2025 to: 03 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023651&episodeid=14",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023651&episodeid=14&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023651"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Venezuela",
+    "fromdate": "2025-03-27T00:00:00",
+    "todate": "2025-04-03T00:00:00",
+    "datemodified": "2025-04-06T15:00:41",
+    "iso3": "VEN",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "VE",
+      "iso3": "VEN",
+      "countryname": "Venezuela"
+     }
+    ],
+    "severitydata": {
+     "severity": 8652.0,
+     "severitytext": "Green impact for forestfire in 8652 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -106.2869,
+    24.3004,
+    -106.2869,
+    24.3004
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.2869,
+     24.3004
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023655,
+    "episodeid": 7,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Mexico",
+    "description": "Forest fires in Mexico",
+    "htmldescription": "Green Forest fires in Mexico from: 23 Mar 2025 to: 02 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023655&episodeid=7",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023655&episodeid=7&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023655"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico",
+    "fromdate": "2025-03-23T00:00:00",
+    "todate": "2025-04-02T00:00:00",
+    "datemodified": "2025-04-02T11:01:47",
+    "iso3": "MEX",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 6428.0,
+     "severitytext": "Green impact for forestfire in 6428 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    88.4,
+    -25.0,
+    88.4,
+    -25.0
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.4,
+     -25.0
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001156,
+    "episodeid": 20,
+    "eventname": "COURTNEY-25",
+    "glide": "",
+    "name": "Tropical Cyclone COURTNEY-25",
+    "description": "Tropical Cyclone COURTNEY-25",
+    "htmldescription": "Green Tropical Cyclone COURTNEY-25 off-shore from: 24 Mar 2025  to: 01 Apr 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001156&episodeid=20",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001156&episodeid=20&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001156"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-24T12:00:00",
+    "todate": "2025-04-01T06:00:00",
+    "datemodified": "2026-02-11T15:18:59.037",
+    "iso3": "",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 231.48,
+     "severitytext": "Tropical Storm (maximum wind speed of 231 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    97.2878,
+    18.4781,
+    97.2878,
+    18.4781
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     97.2878,
+     18.4781
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023653,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Myanmar",
+    "description": "Forest fires in Myanmar",
+    "htmldescription": "Green Forest fires in Myanmar from: 22 Mar 2025 to: 01 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023653&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023653&episodeid=4&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023653"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-22T00:00:00",
+    "todate": "2025-04-01T00:00:00",
+    "datemodified": "2025-04-01T15:03:03",
+    "iso3": "MMR",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 5709.0,
+     "severitytext": "Green impact for forestfire in 5709 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    97.4427,
+    18.4204,
+    97.4427,
+    18.4204
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     97.4427,
+     18.4204
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023650,
+    "episodeid": 10,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Thailand, Myanmar",
+    "description": "Forest fires in Thailand, Myanmar",
+    "htmldescription": "Green Forest fires in Thailand, Myanmar from: 22 Mar 2025 to: 01 Apr 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023650&episodeid=10",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023650&episodeid=10&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023650"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Thailand, Myanmar",
+    "fromdate": "2025-03-22T00:00:00",
+    "todate": "2025-04-01T00:00:00",
+    "datemodified": "2025-04-01T15:02:30",
+    "iso3": "THA",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TH",
+      "iso3": "THA",
+      "countryname": "Thailand"
+     },
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 7759.0,
+     "severitytext": "Green impact for forestfire in 7759 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    37.4233,
+    -7.0843,
+    37.4233,
+    -7.0843
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     37.4233,
+     -7.0843
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103207,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Tanzania",
+    "description": "Flood in Tanzania",
+    "htmldescription": "Green Flood in Tanzania from: 21 Mar 2025 01 to: 31 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103207&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103207&episodeid=1&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103207"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Tanzania",
+    "fromdate": "2025-03-21T01:00:00",
+    "todate": "2025-03-31T01:00:00",
+    "datemodified": "2025-04-11T10:53:26",
+    "iso3": "TZA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TZ",
+      "iso3": "TZA",
+      "countryname": "Tanzania"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -69.9886,
+    6.4725,
+    -69.9886,
+    6.4725
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -69.9886,
+     6.4725
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023654,
+    "episodeid": 3,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Colombia",
+    "description": "Forest fires in Colombia",
+    "htmldescription": "Green Forest fires in Colombia from: 26 Mar 2025 to: 31 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023654&episodeid=3",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023654&episodeid=3&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023654"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Colombia",
+    "fromdate": "2025-03-26T00:00:00",
+    "todate": "2025-03-31T00:00:00",
+    "datemodified": "2025-04-05T19:00:55",
+    "iso3": "COL",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CO",
+      "iso3": "COL",
+      "countryname": "Colombia"
+     }
+    ],
+    "severitydata": {
+     "severity": 5195.0,
+     "severitytext": "Green impact for forestfire in 5195 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    14.3887,
+    11.7877,
+    14.3887,
+    11.7877
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     14.3887,
+     11.7877
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023641,
+    "episodeid": 15,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Nigeria",
+    "description": "Forest fires in Nigeria",
+    "htmldescription": "Green Forest fires in Nigeria from: 23 Mar 2025 to: 31 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023641&episodeid=15",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023641&episodeid=15&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023641"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Nigeria",
+    "fromdate": "2025-03-23T00:00:00",
+    "todate": "2025-03-31T00:00:00",
+    "datemodified": "2025-04-02T11:01:57",
+    "iso3": "NGA",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "NG",
+      "iso3": "NGA",
+      "countryname": "Nigeria"
+     }
+    ],
+    "severitydata": {
+     "severity": 12625.0,
+     "severitytext": "Green impact for forestfire in 12625 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    14.155,
+    37.5878,
+    14.155,
+    37.5878
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     14.155,
+     37.5878
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103166,
+    "episodeid": 6,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Italy",
+    "description": "Flood in Italy",
+    "htmldescription": "Green Flood in Italy from: 14 Mar 2025 01 to: 30 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103166&episodeid=6",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103166&episodeid=6&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103166"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Italy",
+    "fromdate": "2025-03-14T01:00:00",
+    "todate": "2025-03-30T01:00:00",
+    "datemodified": "2025-03-30T07:54:04",
+    "iso3": "ITA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "IT",
+      "iso3": "ITA",
+      "countryname": "Italy"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    103.2385,
+    19.8187,
+    103.2385,
+    19.8187
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.2385,
+     19.8187
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023649,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Laos",
+    "description": "Forest fires in Laos",
+    "htmldescription": "Green Forest fires in Laos from: 21 Mar 2025 to: 30 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023649&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023649&episodeid=4&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023649"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Laos",
+    "fromdate": "2025-03-21T00:00:00",
+    "todate": "2025-03-30T00:00:00",
+    "datemodified": "2025-03-31T19:03:47",
+    "iso3": "LAO",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LA",
+      "iso3": "LAO",
+      "countryname": "Laos"
+     }
+    ],
+    "severitydata": {
+     "severity": 6857.0,
+     "severitytext": "Green impact for forestfire in 6857 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    102.797,
+    19.489,
+    102.797,
+    19.489
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.797,
+     19.489
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023648,
+    "episodeid": 3,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Laos",
+    "description": "Forest fires in Laos",
+    "htmldescription": "Green Forest fires in Laos from: 23 Mar 2025 to: 30 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023648&episodeid=3",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023648&episodeid=3&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023648"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Laos",
+    "fromdate": "2025-03-23T00:00:00",
+    "todate": "2025-03-30T00:00:00",
+    "datemodified": "2025-04-02T11:01:41",
+    "iso3": "LAO",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LA",
+      "iso3": "LAO",
+      "countryname": "Laos"
+     }
+    ],
+    "severitydata": {
+     "severity": 6178.0,
+     "severitytext": "Green impact for forestfire in 6178 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -62.5576,
+    8.6075,
+    -62.5576,
+    8.6075
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -62.5576,
+     8.6075
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023643,
+    "episodeid": 6,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Venezuela",
+    "description": "Forest fires in Venezuela",
+    "htmldescription": "Green Forest fires in Venezuela from: 25 Mar 2025 to: 30 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023643&episodeid=6",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023643&episodeid=6&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023643"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Venezuela",
+    "fromdate": "2025-03-25T00:00:00",
+    "todate": "2025-03-30T00:00:00",
+    "datemodified": "2025-04-04T15:01:06",
+    "iso3": "VEN",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "VE",
+      "iso3": "VEN",
+      "countryname": "Venezuela"
+     }
+    ],
+    "severitydata": {
+     "severity": 6362.0,
+     "severitytext": "Green impact for forestfire in 6362 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -63.0498,
+    9.082,
+    -63.0498,
+    9.082
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -63.0498,
+     9.082
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023642,
+    "episodeid": 9,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Venezuela",
+    "description": "Forest fires in Venezuela",
+    "htmldescription": "Green Forest fires in Venezuela from: 27 Mar 2025 to: 30 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023642&episodeid=9",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023642&episodeid=9&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023642"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Venezuela",
+    "fromdate": "2025-03-27T00:00:00",
+    "todate": "2025-03-30T00:00:00",
+    "datemodified": "2025-04-06T15:00:47",
+    "iso3": "VEN",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "VE",
+      "iso3": "VEN",
+      "countryname": "Venezuela"
+     }
+    ],
+    "severitydata": {
+     "severity": 10185.0,
+     "severitytext": "Green impact for forestfire in 10185 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    24.1118,
+    7.0797,
+    24.1118,
+    7.0797
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     24.1118,
+     7.0797
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023637,
+    "episodeid": 9,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Central African Republic",
+    "description": "Forest fires in Central African Republic",
+    "htmldescription": "Green Forest fires in Central African Republic from: 22 Mar 2025 to: 30 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023637&episodeid=9",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023637&episodeid=9&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023637"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Central African Republic",
+    "fromdate": "2025-03-22T00:00:00",
+    "todate": "2025-03-30T00:00:00",
+    "datemodified": "2025-04-01T15:02:56",
+    "iso3": "CAF",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CF",
+      "iso3": "CAF",
+      "countryname": "Central African Republic"
+     }
+    ],
+    "severitydata": {
+     "severity": 13950.0,
+     "severitytext": "Green impact for forestfire in 13950 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    16.7567,
+    -13.5139,
+    16.7567,
+    -13.5139
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     16.7567,
+     -13.5139
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103194,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Angola",
+    "description": "Flood in Angola",
+    "htmldescription": "Green Flood in Angola from: 27 Mar 2025 01 to: 29 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103194&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103194&episodeid=1&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103194"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Angola",
+    "fromdate": "2025-03-27T01:00:00",
+    "todate": "2025-03-29T01:00:00",
+    "datemodified": "2025-04-05T05:58:18",
+    "iso3": "AGO",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "AO",
+      "iso3": "AGO",
+      "countryname": "Angola"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    17.2612,
+    43.9873,
+    17.2612,
+    43.9873
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     17.2612,
+     43.9873
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103191,
+    "episodeid": 2,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Bosnia  and  Herzegovina",
+    "description": "Flood in Bosnia  and  Herzegovina",
+    "htmldescription": "Green Flood in Bosnia  and  Herzegovina from: 27 Mar 2025 01 to: 29 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103191&episodeid=2",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103191&episodeid=2&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103191"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Bosnia & Herzegovina",
+    "fromdate": "2025-03-27T01:00:00",
+    "todate": "2025-03-29T01:00:00",
+    "datemodified": "2025-03-29T08:31:45",
+    "iso3": "BIH",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "BA",
+      "iso3": "BIH",
+      "countryname": "Bosnia & Herzegovina"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    101.4404,
+    20.0028,
+    101.4404,
+    20.0028
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.4404,
+     20.0028
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023652,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Laos",
+    "description": "Forest fires in Laos",
+    "htmldescription": "Green Forest fires in Laos from: 21 Mar 2025 to: 29 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023652&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023652&episodeid=1&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023652"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Laos",
+    "fromdate": "2025-03-21T00:00:00",
+    "todate": "2025-03-29T00:00:00",
+    "datemodified": "2025-03-31T19:03:40",
+    "iso3": "LAO",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LA",
+      "iso3": "LAO",
+      "countryname": "Laos"
+     }
+    ],
+    "severitydata": {
+     "severity": 5680.0,
+     "severitytext": "Green impact for forestfire in 5680 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    102.5498,
+    19.4594,
+    102.5498,
+    19.4594
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.5498,
+     19.4594
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023647,
+    "episodeid": 2,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Laos",
+    "description": "Forest fires in Laos",
+    "htmldescription": "Green Forest fires in Laos from: 23 Mar 2025 to: 29 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023647&episodeid=2",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023647&episodeid=2&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023647"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Laos",
+    "fromdate": "2025-03-23T00:00:00",
+    "todate": "2025-03-29T00:00:00",
+    "datemodified": "2025-04-02T11:01:33",
+    "iso3": "LAO",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LA",
+      "iso3": "LAO",
+      "countryname": "Laos"
+     }
+    ],
+    "severitydata": {
+     "severity": 5298.0,
+     "severitytext": "Green impact for forestfire in 5298 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    101.4452,
+    18.6758,
+    101.4452,
+    18.6758
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.4452,
+     18.6758
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023646,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Laos",
+    "description": "Forest fires in Laos",
+    "htmldescription": "Green Forest fires in Laos from: 24 Mar 2025 to: 29 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023646&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023646&episodeid=4&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023646"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Laos",
+    "fromdate": "2025-03-24T00:00:00",
+    "todate": "2025-03-29T00:00:00",
+    "datemodified": "2025-04-03T15:01:34",
+    "iso3": "LAO",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "LA",
+      "iso3": "LAO",
+      "countryname": "Laos"
+     }
+    ],
+    "severitydata": {
+     "severity": 8044.0,
+     "severitytext": "Green impact for forestfire in 8044 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    97.1299,
+    20.2465,
+    97.1299,
+    20.2465
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     97.1299,
+     20.2465
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023645,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Myanmar",
+    "description": "Forest fires in Myanmar",
+    "htmldescription": "Green Forest fires in Myanmar from: 22 Mar 2025 to: 29 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023645&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023645&episodeid=4&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023645"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-22T00:00:00",
+    "todate": "2025-03-29T00:00:00",
+    "datemodified": "2025-04-01T15:02:14",
+    "iso3": "MMR",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 5219.0,
+     "severitytext": "Green impact for forestfire in 5219 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    131.3999,
+    31.1115,
+    131.3999,
+    31.1115
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.3999,
+     31.1115
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474611,
+    "episodeid": 1630875,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Japan",
+    "description": "Earthquake in Japan",
+    "htmldescription": "Green M 4.6 Earthquake in Japan at: 28 Mar 2025 19:45:16.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474611&episodeid=1630875",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474611&episodeid=1630875&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474611"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Japan",
+    "fromdate": "2025-03-28T19:45:16",
+    "todate": "2025-03-28T19:45:16",
+    "datemodified": "2025-03-29T17:08:11",
+    "iso3": "JPN",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "JP",
+      "iso3": "JPN",
+      "countryname": "Japan"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.6,
+     "severitytext": "Magnitude 4.6M, Depth:46.3km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    123.8,
+    -16.2,
+    123.8,
+    -16.2
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     123.8,
+     -16.2
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001157,
+    "episodeid": 4,
+    "eventname": "DIANNE-25",
+    "glide": "",
+    "name": "Tropical Cyclone DIANNE-25",
+    "description": "Tropical Cyclone DIANNE-25",
+    "htmldescription": "Green Tropical Cyclone DIANNE-25 in Australia from: 28 Mar 2025  to: 28 Mar 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001157&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001157&episodeid=4&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001157"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Australia",
+    "fromdate": "2025-03-28T00:00:00",
+    "todate": "2025-03-28T18:00:00",
+    "datemodified": "2026-02-11T15:18:59.037",
+    "iso3": "AUS",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "AU",
+      "iso3": "AUS",
+      "countryname": "Australia"
+     }
+    ],
+    "severitydata": {
+     "severity": 83.3328,
+     "severitytext": "Tropical Storm (maximum wind speed of 83 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -176.3659,
+    -16.0525,
+    -176.3659,
+    -16.0525
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -176.3659,
+     -16.0525
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474574,
+    "episodeid": 1630710,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Tonga",
+    "description": "Earthquake in Tonga",
+    "htmldescription": "Green M 4.7 Earthquake in Tonga at: 28 Mar 2025 17:24:20.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474574&episodeid=1630710",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474574&episodeid=1630710&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474574"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Tonga",
+    "fromdate": "2025-03-28T17:24:20",
+    "todate": "2025-03-28T17:24:20",
+    "datemodified": "2025-03-28T20:16:23",
+    "iso3": "TON",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "TO",
+      "iso3": "TON",
+      "countryname": "Tonga"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.7,
+     "severitytext": "Magnitude 4.7M, Depth:373.74km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -29.7602,
+    0.7605,
+    -29.7602,
+    0.7605
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -29.7602,
+     0.7605
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474569,
+    "episodeid": 1630908,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in ",
+    "description": "Earthquake in ",
+    "htmldescription": "Green M 6.6 Earthquake off-shore at: 28 Mar 2025 17:17:27.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474569&episodeid=1630908",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474569&episodeid=1630908&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474569"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-28T17:17:27",
+    "todate": "2025-03-28T17:17:27",
+    "datemodified": "2025-03-30T14:06:05",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 6.6,
+     "severitytext": "Magnitude 6.6M, Depth:12.544km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    96.137,
+    20.2248,
+    96.137,
+    20.2248
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.137,
+     20.2248
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474570,
+    "episodeid": 1630679,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.5 Earthquake in Myanmar at: 28 Mar 2025 16:46:21.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474570&episodeid=1630679",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474570&episodeid=1630679&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474570"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T16:46:21",
+    "todate": "2025-03-28T16:46:21",
+    "datemodified": "2025-03-28T17:29:23",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -174.2948,
+    52.3653,
+    -174.2948,
+    52.3653
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -174.2948,
+     52.3653
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474560,
+    "episodeid": 1630667,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in United States",
+    "description": "Earthquake in United States",
+    "htmldescription": "Green M 4.9 Earthquake in United States at: 28 Mar 2025 16:08:49.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474560&episodeid=1630667",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474560&episodeid=1630667&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474560"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "United States",
+    "fromdate": "2025-03-28T16:08:49",
+    "todate": "2025-03-28T16:08:49",
+    "datemodified": "2025-03-28T16:54:03",
+    "iso3": "USA",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "US",
+      "iso3": "USA",
+      "countryname": "United States"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:120.061km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    126.0091,
+    -7.1972,
+    126.0091,
+    -7.1972
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     126.0091,
+     -7.1972
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474522,
+    "episodeid": 1630623,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Indonesia",
+    "description": "Earthquake in Indonesia",
+    "htmldescription": "Green M 4.5 Earthquake in Indonesia at: 28 Mar 2025 12:56:10.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474522&episodeid=1630623",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474522&episodeid=1630623&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474522"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Indonesia",
+    "fromdate": "2025-03-28T12:56:10",
+    "todate": "2025-03-28T12:56:10",
+    "datemodified": "2025-03-28T13:36:22",
+    "iso3": "IDN",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ID",
+      "iso3": "IDN",
+      "countryname": "Indonesia"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:491.723km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.9699,
+    22.0108,
+    95.9699,
+    22.0108
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.9699,
+     22.0108
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474520,
+    "episodeid": 1630909,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.6 Earthquake in Myanmar at: 28 Mar 2025 12:21:56.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474520&episodeid=1630909",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474520&episodeid=1630909&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474520"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T12:21:56",
+    "todate": "2025-03-28T12:21:56",
+    "datemodified": "2025-03-29T23:02:02",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.6,
+     "severitytext": "Magnitude 4.6M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    47.4872,
+    -18.634,
+    47.4872,
+    -18.634
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     47.4872,
+     -18.634
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103188,
+    "episodeid": 2,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Madagascar",
+    "description": "Flood in Madagascar",
+    "htmldescription": "Green Flood in Madagascar from: 23 Mar 2025 01 to: 28 Mar 2025 12.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103188&episodeid=2",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103188&episodeid=2&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103188"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Madagascar",
+    "fromdate": "2025-03-23T01:00:00",
+    "todate": "2025-03-28T12:00:00",
+    "datemodified": "2025-03-29T08:26:54",
+    "iso3": "MDG",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MG",
+      "iso3": "MDG",
+      "countryname": "Madagascar"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    117.9252,
+    -8.19,
+    117.9252,
+    -8.19
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     117.9252,
+     -8.19
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474514,
+    "episodeid": 1630612,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Indonesia",
+    "description": "Earthquake in Indonesia",
+    "htmldescription": "Green M 4.7 Earthquake in Indonesia at: 28 Mar 2025 11:59:01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474514&episodeid=1630612",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474514&episodeid=1630612&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474514"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Indonesia",
+    "fromdate": "2025-03-28T11:59:01",
+    "todate": "2025-03-28T11:59:01",
+    "datemodified": "2025-03-28T12:44:02",
+    "iso3": "IDN",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ID",
+      "iso3": "IDN",
+      "countryname": "Indonesia"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.7,
+     "severitytext": "Magnitude 4.7M, Depth:22.397km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    147.3022,
+    47.9458,
+    147.3022,
+    47.9458
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     147.3022,
+     47.9458
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474510,
+    "episodeid": 1630606,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in ",
+    "description": "Earthquake in ",
+    "htmldescription": "Green M 4.9 Earthquake off-shore at: 28 Mar 2025 11:57:10.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474510&episodeid=1630606",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474510&episodeid=1630606&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474510"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-28T11:57:10",
+    "todate": "2025-03-28T11:57:10",
+    "datemodified": "2025-03-28T12:15:05",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:417.837km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.7184,
+    22.1908,
+    95.7184,
+    22.1908
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.7184,
+     22.1908
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474525,
+    "episodeid": 1630629,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.5 Earthquake in Myanmar at: 28 Mar 2025 11:16:50.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474525&episodeid=1630629",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474525&episodeid=1630629&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474525"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T11:16:50",
+    "todate": "2025-03-28T11:16:50",
+    "datemodified": "2025-03-28T14:01:50",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    72.9521,
+    42.7673,
+    72.9521,
+    42.7673
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9521,
+     42.7673
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474505,
+    "episodeid": 1630599,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Kazakhstan",
+    "description": "Earthquake in Kazakhstan",
+    "htmldescription": "Green M 5 Earthquake in Kazakhstan at: 28 Mar 2025 10:56:42.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474505&episodeid=1630599",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474505&episodeid=1630599&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474505"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Kazakhstan",
+    "fromdate": "2025-03-28T10:56:42",
+    "todate": "2025-03-28T10:56:42",
+    "datemodified": "2025-03-28T11:36:43",
+    "iso3": "KAZ",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "KZ",
+      "iso3": "KAZ",
+      "countryname": "Kazakhstan"
+     }
+    ],
+    "severitydata": {
+     "severity": 5.0,
+     "severitytext": "Magnitude 5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -103.7767,
+    10.0431,
+    -103.7767,
+    10.0431
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -103.7767,
+     10.0431
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474502,
+    "episodeid": 1630601,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in ",
+    "description": "Earthquake in ",
+    "htmldescription": "Green M 4.8 Earthquake off-shore at: 28 Mar 2025 10:35:10.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474502&episodeid=1630601",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474502&episodeid=1630601&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474502"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-28T10:35:10",
+    "todate": "2025-03-28T10:35:10",
+    "datemodified": "2025-03-28T11:34:43",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 4.8,
+     "severitytext": "Magnitude 4.8M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    96.1921,
+    19.7619,
+    96.1921,
+    19.7619
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.1921,
+     19.7619
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474503,
+    "episodeid": 1630703,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.5 Earthquake in Myanmar at: 28 Mar 2025 09:55:36.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474503&episodeid=1630703",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474503&episodeid=1630703&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474503"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T09:55:36",
+    "todate": "2025-03-28T09:55:36",
+    "datemodified": "2025-03-28T19:55:03",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.8338,
+    22.5423,
+    95.8338,
+    22.5423
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8338,
+     22.5423
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474489,
+    "episodeid": 1630585,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.5 Earthquake in Myanmar at: 28 Mar 2025 07:57:00.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474489&episodeid=1630585",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474489&episodeid=1630585&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474489"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T07:57:00",
+    "todate": "2025-03-28T07:57:00",
+    "datemodified": "2025-03-28T10:01:42",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.5,
+     "severitytext": "Magnitude 4.5M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.8757,
+    22.7463,
+    95.8757,
+    22.7463
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8757,
+     22.7463
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474486,
+    "episodeid": 1630579,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.6 Earthquake in Myanmar at: 28 Mar 2025 07:36:58.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474486&episodeid=1630579",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474486&episodeid=1630579&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474486"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T07:36:58",
+    "todate": "2025-03-28T07:36:58",
+    "datemodified": "2025-03-28T09:01:41",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.6,
+     "severitytext": "Magnitude 4.6M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.8524,
+    22.706,
+    95.8524,
+    22.706
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8524,
+     22.706
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474485,
+    "episodeid": 1630576,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.6 Earthquake in Myanmar at: 28 Mar 2025 07:27:47.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474485&episodeid=1630576",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474485&episodeid=1630576&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474485"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T07:27:47",
+    "todate": "2025-03-28T07:27:47",
+    "datemodified": "2025-03-28T09:01:41",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.6,
+     "severitytext": "Magnitude 4.6M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    96.2925,
+    19.3005,
+    96.2925,
+    19.3005
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.2925,
+     19.3005
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474515,
+    "episodeid": 1630614,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.9 Earthquake in Myanmar at: 28 Mar 2025 06:45:45.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474515&episodeid=1630614",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474515&episodeid=1630614&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474515"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0120719990823182,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T06:45:45",
+    "todate": "2025-03-28T06:45:45",
+    "datemodified": "2025-03-28T12:48:03",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.8365,
+    21.898,
+    95.8365,
+    21.898
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8365,
+     21.898
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474558,
+    "episodeid": 1630664,
+    "eventname": "",
+    "glide": "EQ-2025-000043-MMR",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.9 Earthquake in Myanmar at: 28 Mar 2025 06:42:24.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474558&episodeid=1630664",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474558&episodeid=1630664&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474558"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T06:42:24",
+    "todate": "2025-03-28T06:42:24",
+    "datemodified": "2025-03-28T17:01:52",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.9,
+     "severitytext": "Magnitude 4.9M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    95.8212,
+    19.9711,
+    95.8212,
+    19.9711
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8212,
+     19.9711
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474562,
+    "episodeid": 1630670,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Myanmar",
+    "description": "Earthquake in Myanmar",
+    "htmldescription": "Green M 4.8 Earthquake in Myanmar at: 28 Mar 2025 06:39:15.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474562&episodeid=1630670",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474562&episodeid=1630670&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474562"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-28T06:39:15",
+    "todate": "2025-03-28T06:39:15",
+    "datemodified": "2025-03-28T16:44:03",
+    "iso3": "MMR",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 4.8,
+     "severitytext": "Magnitude 4.8M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -160.0615,
+    -62.7238,
+    -160.0615,
+    -62.7238
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -160.0615,
+     -62.7238
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474466,
+    "episodeid": 1630552,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in ",
+    "description": "Earthquake in ",
+    "htmldescription": "Green M 4.8 Earthquake off-shore at: 28 Mar 2025 05:27:16.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474466&episodeid=1630552",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474466&episodeid=1630552&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474466"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-28T05:27:16",
+    "todate": "2025-03-28T05:27:16",
+    "datemodified": "2025-03-28T05:51:03",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 4.8,
+     "severitytext": "Magnitude 4.8M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    167.8943,
+    -15.9221,
+    167.8943,
+    -15.9221
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     167.8943,
+     -15.9221
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474437,
+    "episodeid": 1630519,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Vanuatu",
+    "description": "Earthquake in Vanuatu",
+    "htmldescription": "Green M 5 Earthquake in Vanuatu at: 28 Mar 2025 01:53:57.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474437&episodeid=1630519",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474437&episodeid=1630519&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474437"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Vanuatu",
+    "fromdate": "2025-03-28T01:53:57",
+    "todate": "2025-03-28T01:53:57",
+    "datemodified": "2025-03-28T02:34:26",
+    "iso3": "VUT",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "VU",
+      "iso3": "VUT",
+      "countryname": "Vanuatu"
+     }
+    ],
+    "severitydata": {
+     "severity": 5.0,
+     "severitytext": "Magnitude 5M, Depth:172.9km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    168.7706,
+    -19.1167,
+    168.7706,
+    -19.1167
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     168.7706,
+     -19.1167
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474434,
+    "episodeid": 1630515,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in Vanuatu",
+    "description": "Earthquake in Vanuatu",
+    "htmldescription": "Green M 5.4 Earthquake in Vanuatu at: 28 Mar 2025 01:20:05.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474434&episodeid=1630515",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474434&episodeid=1630515&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474434"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Vanuatu",
+    "fromdate": "2025-03-28T01:20:05",
+    "todate": "2025-03-28T01:20:05",
+    "datemodified": "2025-03-29T14:03:43",
+    "iso3": "VUT",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "VU",
+      "iso3": "VUT",
+      "countryname": "Vanuatu"
+     }
+    ],
+    "severitydata": {
+     "severity": 5.4,
+     "severitytext": "Magnitude 5.4M, Depth:35km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -98.2788,
+    26.0908,
+    -98.2788,
+    26.0908
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -98.2788,
+     26.0908
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103190,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Mexico",
+    "description": "Flood in Mexico",
+    "htmldescription": "Green Flood in Mexico from: 26 Mar 2025 01 to: 28 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103190&episodeid=1",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103190&episodeid=1&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103190"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico",
+    "fromdate": "2025-03-26T01:00:00",
+    "todate": "2025-03-28T01:00:00",
+    "datemodified": "2025-03-29T07:56:29",
+    "iso3": "MEX",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    32.5814,
+    0.3177,
+    32.5814,
+    0.3177
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     32.5814,
+     0.3177
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103187,
+    "episodeid": 2,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Uganda",
+    "description": "Flood in Uganda",
+    "htmldescription": "Green Flood in Uganda from: 26 Mar 2025 01 to: 28 Mar 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103187&episodeid=2",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103187&episodeid=2&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103187"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Uganda",
+    "fromdate": "2025-03-26T01:00:00",
+    "todate": "2025-03-28T01:00:00",
+    "datemodified": "2025-04-23T15:10:29",
+    "iso3": "UGA",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "UG",
+      "iso3": "UGA",
+      "countryname": "Uganda"
+     }
+    ],
+    "severitydata": {
+     "severity": 0.0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -29.6695,
+    0.7389,
+    -29.6695,
+    0.7389
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -29.6695,
+     0.7389
+    ]
+   },
+   "properties": {
+    "eventtype": "EQ",
+    "eventid": 1474413,
+    "episodeid": 1630476,
+    "eventname": "",
+    "glide": "",
+    "name": "Earthquake in ",
+    "description": "Earthquake in ",
+    "htmldescription": "Green M 6.1 Earthquake off-shore at: 28 Mar 2025 00:34:21.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/EQ.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474413&episodeid=1630476",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1474413&episodeid=1630476&eventtype=EQ",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474413"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.0,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "",
+    "fromdate": "2025-03-28T00:34:21",
+    "todate": "2025-03-28T00:34:21",
+    "datemodified": "2025-03-29T14:02:43",
+    "iso3": "",
+    "source": "NEIC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [],
+    "severitydata": {
+     "severity": 6.1,
+     "severitytext": "Magnitude 6.1M, Depth:10km",
+     "severityunit": "M"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    92.6859,
+    21.4542,
+    92.6859,
+    21.4542
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     92.6859,
+     21.4542
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023635,
+    "episodeid": 7,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Myanmar",
+    "description": "Forest fires in Myanmar",
+    "htmldescription": "Green Forest fires in Myanmar from: 24 Mar 2025 to: 28 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023635&episodeid=7",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023635&episodeid=7&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023635"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Myanmar",
+    "fromdate": "2025-03-24T00:00:00",
+    "todate": "2025-03-28T00:00:00",
+    "datemodified": "2025-04-03T15:01:27",
+    "iso3": "MMR",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MM",
+      "iso3": "MMR",
+      "countryname": "Myanmar"
+     }
+    ],
+    "severitydata": {
+     "severity": 8713.0,
+     "severitytext": "Green impact for forestfire in 8713 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -108.4288,
+    30.1696,
+    -108.4288,
+    30.1696
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -108.4288,
+     30.1696
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1023632,
+    "episodeid": 10,
+    "eventname": "",
+    "glide": "",
+    "name": "Forest fires in Mexico",
+    "description": "Forest fires in Mexico",
+    "htmldescription": "Green Forest fires in Mexico from: 18 Mar 2025 to: 28 Mar 2025.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Green/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1023632&episodeid=10",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1023632&episodeid=10&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1023632"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Mexico",
+    "fromdate": "2025-03-18T00:00:00",
+    "todate": "2025-03-28T00:00:00",
+    "datemodified": "2025-03-28T20:02:48",
+    "iso3": "MEX",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "MX",
+      "iso3": "MEX",
+      "countryname": "Mexico"
+     }
+    ],
+    "severitydata": {
+     "severity": 5712.0,
+     "severitytext": "Green impact for forestfire in 5712 ha",
+     "severityunit": "ha"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,421 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "generated": 1783488703000,
+  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2025-04-09T00%3A00%3A00&endtime=2025-04-09T12%3A00%3A00&minmagnitude=4.5&orderby=time",
+  "title": "USGS Earthquakes",
+  "status": 200,
+  "api": "2.7.0",
+  "count": 10
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.7,
+    "place": "central Mid-Atlantic Ridge",
+    "time": 1744195785262,
+    "updated": 1749925605040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000puhz",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000puhz&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 340,
+    "net": "us",
+    "code": "7000puhz",
+    "ids": ",us7000puhz,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 37,
+    "dmin": 9.019,
+    "rms": 0.68,
+    "gap": 91,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.7 - central Mid-Atlantic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -29.6291,
+     0.707,
+     10
+    ]
+   },
+   "id": "us7000puhz"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.9,
+    "place": "128 km ESE of Kimbe, Papua New Guinea",
+    "time": 1744188276384,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4w4",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4w4&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 369,
+    "net": "us",
+    "code": "6000q4w4",
+    "ids": ",us6000q4w4,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 46,
+    "dmin": 2.026,
+    "rms": 1,
+    "gap": 60,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.9 - 128 km ESE of Kimbe, Papua New Guinea"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     151.1399,
+     -6.1422,
+     10
+    ]
+   },
+   "id": "us6000q4w4"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5,
+    "place": "167 km ESE of Kimbe, Papua New Guinea",
+    "time": 1744187348760,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4w1",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4w1&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 385,
+    "net": "us",
+    "code": "6000q4w1",
+    "ids": ",us6000q4w1,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 41,
+    "dmin": 1.892,
+    "rms": 0.95,
+    "gap": 113,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 5.0 - 167 km ESE of Kimbe, Papua New Guinea"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     151.5254,
+     -6.1441,
+     10
+    ]
+   },
+   "id": "us6000q4w1"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.6,
+    "place": "30 km NE of Shwebo, Burma (Myanmar)",
+    "time": 1744185497271,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4vy",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4vy&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 326,
+    "net": "us",
+    "code": "6000q4vy",
+    "ids": ",us6000q4vy,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 60,
+    "dmin": 1.809,
+    "rms": 0.59,
+    "gap": 97,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.6 - 30 km NE of Shwebo, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8838,
+     22.784,
+     10
+    ]
+   },
+   "id": "us6000q4vy"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "66 km SW of Sechura, Peru",
+    "time": 1744184443530,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4vu",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4vu&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000q4vu",
+    "ids": ",us6000q4vu,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 35,
+    "dmin": 5.475,
+    "rms": 0.83,
+    "gap": 156,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 66 km SW of Sechura, Peru"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -81.3068,
+     -5.9103,
+     26.075
+    ]
+   },
+   "id": "us6000q4vu"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5.4,
+    "place": "central Mid-Atlantic Ridge",
+    "time": 1744184394327,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4vv",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4vv&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": 0,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 449,
+    "net": "us",
+    "code": "6000q4vv",
+    "ids": ",usauto6000q4vv,us6000q4vv,",
+    "sources": ",usauto,us,",
+    "types": ",internal-moment-tensor,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 84,
+    "dmin": 13.994,
+    "rms": 0.95,
+    "gap": 35,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 5.4 - central Mid-Atlantic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -38.0993,
+     8.0867,
+     10
+    ]
+   },
+   "id": "us6000q4vv"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.8,
+    "place": "210 km NNW of Tobelo, Indonesia",
+    "time": 1744183513236,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4vt",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4vt&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 354,
+    "net": "us",
+    "code": "6000q4vt",
+    "ids": ",us6000q4vt,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 78,
+    "dmin": 2.16,
+    "rms": 0.97,
+    "gap": 63,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.8 - 210 km NNW of Tobelo, Indonesia"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.2364,
+     3.4619,
+     42.219
+    ]
+   },
+   "id": "us6000q4vt"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "Bonin Islands, Japan region",
+    "time": 1744179716880,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4vq",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4vq&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000q4vq",
+    "ids": ",us6000q4vq,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 91,
+    "dmin": 2.349,
+    "rms": 0.64,
+    "gap": 39,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - Bonin Islands, Japan region"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.7079,
+     27.9239,
+     506.837
+    ]
+   },
+   "id": "us6000q4vq"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5,
+    "place": "23 km SSE of Yilan, Taiwan",
+    "time": 1744163605983,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4v3",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4v3&format=geojson",
+    "felt": 51,
+    "cdi": 3.8,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 404,
+    "net": "us",
+    "code": "6000q4v3",
+    "ids": ",us6000q4v3,usauto6000q4v3,",
+    "sources": ",us,usauto,",
+    "types": ",dyfi,internal-moment-tensor,moment-tensor,origin,phase-data,",
+    "nst": 173,
+    "dmin": 0.445,
+    "rms": 0.8,
+    "gap": 44,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 5.0 - 23 km SSE of Yilan, Taiwan"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.8518,
+     24.5689,
+     68.993
+    ]
+   },
+   "id": "us6000q4v3"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "150 km W of Constituci\u00f3n, Chile",
+    "time": 1744160308561,
+    "updated": 1749925598040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4uw",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4uw&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000q4uw",
+    "ids": ",us6000q4uw,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 29,
+    "dmin": 2.239,
+    "rms": 0.47,
+    "gap": 193,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 150 km W of Constituci\u00f3n, Chile"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -74.036,
+     -35.0973,
+     10
+    ]
+   },
+   "id": "us6000q4uw"
+  }
+ ],
+ "bbox": [
+  -81.3068,
+  -35.0973,
+  10,
+  151.5254,
+  27.9239,
+  506.837
+ ]
+}
