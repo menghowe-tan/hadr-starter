@@ -1,9 +1,10 @@
-"""Level 3 — one tool.
+"""Level 4 — the agent loop.
 
 Levels so far: (1) a chat loop — read input, send the messages array,
-print the reply; (2) standing orders — a system prompt from a text file.
-Level 3 registers a tool: the model asks, your code runs it, and the
-result goes back into the messages.
+print the reply; (2) standing orders — a system prompt from a text file;
+(3) one tool — the model asks, your code runs it, the result goes back
+into the messages. Level 4 keeps going while the model keeps requesting
+tools. This is the loop /goal wraps a checker around.
 
 The harness stays generic — a `Tool` is a name, a description, a JSON
 schema, and a plain function. Projects define their own and pass them in.
@@ -46,12 +47,14 @@ class Agent:
         tools: list[Tool] | None = None,
         client: anthropic.Anthropic | None = None,
         max_tokens: int = 16000,
+        max_iterations: int = 20,
     ):
         self.client = client or anthropic.Anthropic()
         self.model = model or DEFAULT_MODEL
         self.system = system
         self.tools = {t.name: t for t in (tools or [])}
         self.max_tokens = max_tokens
+        self.max_iterations = max_iterations
         self.messages: list[dict] = []
 
     @classmethod
@@ -60,18 +63,24 @@ class Agent:
         return cls(system=Path(path).read_text(), **kwargs)
 
     def send(self, user_input: str) -> str:
-        """One turn: append the user message, call the model, return its text."""
+        """One turn: keep going while the model keeps requesting tools."""
         self.messages.append({"role": "user", "content": user_input})
-        response = self._create()
-        if response.stop_reason == "tool_use":
-            self.messages.append({"role": "assistant", "content": response.content})
-            self.messages.append({"role": "user", "content": self._run_tools(response)})
+        for _ in range(self.max_iterations):
             response = self._create()
-        if response.stop_reason == "refusal":
-            return "[the model declined this request]"
-        # Echo the full content (including thinking blocks) back into history.
-        self.messages.append({"role": "assistant", "content": response.content})
-        return "".join(b.text for b in response.content if b.type == "text")
+            # Echo the full content (thinking blocks included) into history.
+            self.messages.append({"role": "assistant", "content": response.content})
+            if response.stop_reason == "tool_use":
+                # Every result from this round goes back in ONE user message.
+                self.messages.append(
+                    {"role": "user", "content": self._run_tools(response)}
+                )
+                continue
+            if response.stop_reason == "pause_turn":
+                continue  # server paused mid-turn; re-send to resume
+            if response.stop_reason == "refusal":
+                return "[the model declined this request]"
+            return "".join(b.text for b in response.content if b.type == "text")
+        raise RuntimeError(f"still requesting tools after {self.max_iterations} rounds")
 
     def _create(self):
         request: dict = dict(
