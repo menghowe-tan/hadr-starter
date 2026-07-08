@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hadr/event.schema.json",
+  "title": "Canonical event — data/events/<event-id>.json (PRD §13.1)",
+  "type": "object",
+  "required": ["schema", "id", "hazard", "identity", "times", "geo", "severity", "merge", "change", "sources"],
+  "properties": {
+    "schema": { "const": 1 },
+    "id": { "type": "string", "pattern": "^(EQ|TC|FL|VO|DR|WF)-\\d{4}-\\d{2}-\\d{2}-\\d{3}$" },
+    "hazard": { "enum": ["EQ", "TC", "FL", "VO", "DR", "WF"] },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "glide": { "type": ["string", "null"] },
+        "usgs_ids": { "type": "array", "items": { "type": "string" } },
+        "gdacs_event_id": { "type": ["integer", "null"] },
+        "gdacs_episode_id": { "type": ["integer", "null"] },
+        "reliefweb_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "times": {
+      "type": "object",
+      "required": ["origin_utc", "first_seen_utc", "last_changed_utc"],
+      "additionalProperties": { "type": ["string", "null"], "format": "date-time" }
+    },
+    "geo": {
+      "type": "object",
+      "required": ["lat", "lon"],
+      "properties": {
+        "lat": { "type": "number" },
+        "lon": { "type": "number" },
+        "country_iso3": { "type": ["string", "null"] },
+        "place_name": { "type": ["string", "null"] },
+        "track": {
+          "type": "array",
+          "description": "Forecast track for cyclones: [lat, lon] points, current position first.",
+          "items": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }] }
+        }
+      }
+    },
+    "severity": {
+      "type": "object",
+      "properties": {
+        "gdacs_alertlevel": { "enum": ["Green", "Orange", "Red", null] },
+        "gdacs_episode_alertlevel": { "enum": ["Green", "Orange", "Red", null] },
+        "pager_alert": { "enum": ["green", "yellow", "orange", "red", null] },
+        "usgs_sig": { "type": ["integer", "null"] },
+        "magnitude": { "type": ["number", "null"] },
+        "depth_km": { "type": ["number", "null"] }
+      }
+    },
+    "impact": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric", "value", "label", "source"],
+        "properties": {
+          "metric": { "type": "string" },
+          "value": {},
+          "label": { "enum": ["estimated", "reported"] },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "merge": {
+      "type": "object",
+      "required": ["confidence"],
+      "properties": {
+        "tier": { "enum": [1, 2, 3, null] },
+        "confidence": { "enum": ["confirmed", "high", "possible", "single-source"] },
+        "delta_t_min": { "type": ["number", "null"] },
+        "delta_km": { "type": ["number", "null"] }
+      }
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "reliefweb_umbrellas": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "change": {
+      "type": "object",
+      "required": ["status", "summary"],
+      "properties": {
+        "status": {
+          "enum": ["NEW", "ESCALATED", "REVISED", "UPDATED", "DOWNGRADED", "WITHDRAWN", "AGED_OUT", "UNCHANGED"]
+        },
+        "summary": { "type": "string" },
+        "since_utc": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["feed", "fetched_utc"],
+        "properties": {
+          "feed": { "enum": ["gdacs", "usgs", "reliefweb"] },
+          "fetched_utc": { "type": "string", "format": "date-time" },
+          "record": { "type": "object" }
+        }
+      }
+    }
+  }
+}

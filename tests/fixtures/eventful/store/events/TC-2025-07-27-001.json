@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "id": "TC-2025-07-27-001",
+  "hazard": "TC",
+  "identity": {
+    "glide": "TC-2025-000127-PHL",
+    "usgs_ids": [],
+    "gdacs_event_id": 1001129,
+    "gdacs_episode_id": 1602001,
+    "reliefweb_ids": []
+  },
+  "times": {
+    "origin_utc": "2025-07-27T06:00:00+00:00",
+    "first_seen_utc": "2025-07-27T06:41:22+00:00",
+    "last_changed_utc": "2025-07-30T00:05:17+00:00"
+  },
+  "geo": {
+    "lat": 18.9,
+    "lon": 123.4,
+    "country_iso3": "PHL",
+    "place_name": "Luzon Strait, north of the Philippines",
+    "track": [
+      [18.9, 123.4],
+      [19.6, 121.8],
+      [20.4, 120.1],
+      [21.5, 118.2],
+      [22.8, 116.4]
+    ]
+  },
+  "severity": {
+    "gdacs_alertlevel": "Orange",
+    "gdacs_episode_alertlevel": "Orange",
+    "pager_alert": null,
+    "usgs_sig": null,
+    "magnitude": null,
+    "depth_km": null
+  },
+  "impact": [
+    {
+      "metric": "population in 120 km/h wind zone",
+      "value": 310000,
+      "label": "estimated",
+      "source": "GDACS tropical cyclone model"
+    }
+  ],
+  "merge": {
+    "tier": 1,
+    "confidence": "confirmed",
+    "delta_t_min": null,
+    "delta_km": null
+  },
+  "links": { "reliefweb_umbrellas": ["rw-dis-2025-phl-000127"] },
+  "change": {
+    "status": "UPDATED",
+    "summary": "new episode 1602001 on continuing event; track shifted west",
+    "since_utc": "2025-07-30T00:05:17+00:00"
+  },
+  "sources": [
+    {
+      "feed": "gdacs",
+      "fetched_utc": "2025-07-30T00:29:12+00:00",
+      "record": {
+        "eventid": 1001129,
+        "name": "Tropical Cyclone in Luzon Strait",
+        "alertlevel": "Orange",
+        "istemporary": "false"
+      }
+    }
+  ]
+}
