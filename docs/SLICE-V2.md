@@ -15,6 +15,15 @@ rather than a feed dump: identity (PRD §6), supersession (PRD §4 #5),
 estimate-vs-report labelling (PRD §5), and the three-reader layering
 (design §4). It ends in the product's actual face.
 
+## Independence (PRD §13)
+
+No dependency on V1's code: merge, classifier and render build from the
+hand-authored **store fixtures** (§13.6), which stand in for V1's output.
+What V2 writes must conform to the same contracts — the merge and change
+blocks of §13.1, the assessment file of §13.4 — and the canned assessment
+fixture lets the full sitrep render build and test model-free. The live
+model step is exercised behind the gate exactly as specified in §13.4.
+
 ## Build plan
 
 1. ReliefWeb RSS adapter behind a `ReliefWebSource` interface (HTML-escaped
