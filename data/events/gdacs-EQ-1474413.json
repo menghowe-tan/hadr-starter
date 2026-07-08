@@ -1,0 +1,61 @@
+{
+ "alert_level": "green",
+ "alert_score": 1,
+ "country": null,
+ "depth_km": 10,
+ "episode_alert_level": "green",
+ "episode_id": 1630476,
+ "event_id": "gdacs-EQ-1474413",
+ "feed_source": "NEIC",
+ "fingerprint": "314b5a1bc9e0fb24d274131675a7b92c3a8eb1d058dbfdadf5ffd0265b11d7fe",
+ "first_seen": "2026-07-08T18:55:46+00:00",
+ "gate_reason": "M 6.1 at 10 km depth",
+ "glide": null,
+ "hazard": "EQ",
+ "ids": [
+  "1474413",
+  "us7000pn7g",
+  "usauto7000pn7g",
+  "pt25087000",
+  "at00stt5lc"
+ ],
+ "is_temporary": false,
+ "last_seen": "2026-07-08T18:55:46+00:00",
+ "lat": 0.7055,
+ "lon": -29.665,
+ "magnitude": 6.1,
+ "members": [
+  "gdacs-EQ-1474413",
+  "usgs-us7000pn7g"
+ ],
+ "merge": {
+  "confidence": "high",
+  "evidence": {
+   "dd_km": 3.7,
+   "dt_seconds": 1
+  }
+ },
+ "occurred_at": "2025-03-28T00:34:21+00:00",
+ "pager": "green",
+ "possible_related": [],
+ "severity_text": "Magnitude 6.1M, Depth:10km",
+ "sig": 572,
+ "source": "gdacs",
+ "source_titles": {
+  "gdacs": "Earthquake in ",
+  "usgs": "M 6.1 - central Mid-Atlantic Ridge"
+ },
+ "sources": [
+  "gdacs",
+  "usgs"
+ ],
+ "status": "active",
+ "title": "Earthquake in ",
+ "umbrellas": [],
+ "updated_at": "2025-06-06T21:12:25.040000+00:00",
+ "urls": {
+  "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474413",
+  "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474413&episodeid=1630476",
+  "report": "https://www.gdacs.org/report.aspx?eventid=1474413&episodeid=1630476&eventtype=EQ"
+ }
+}

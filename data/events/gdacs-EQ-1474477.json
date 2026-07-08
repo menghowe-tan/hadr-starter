@@ -1,0 +1,71 @@
+{
+ "alert_level": "red",
+ "alert_score": 3,
+ "country": "Myanmar",
+ "depth_km": 10,
+ "episode_alert_level": "red",
+ "episode_id": 1630564,
+ "event_id": "gdacs-EQ-1474477",
+ "feed_source": "NEIC",
+ "fingerprint": "778267813889ad7baf276823fc19d5562667581db02eb6c606802264dece349a",
+ "first_seen": "2026-07-08T18:55:46+00:00",
+ "gate_reason": "GDACS alert red",
+ "glide": null,
+ "hazard": "EQ",
+ "ids": [
+  "1474477",
+  "us7000pn9s",
+  "usauto7000pn9s",
+  "pt25087002",
+  "at00sttln4"
+ ],
+ "is_temporary": false,
+ "last_seen": "2026-07-08T18:55:46+00:00",
+ "lat": 22.011,
+ "lon": 95.9363,
+ "magnitude": 7.7,
+ "members": [
+  "gdacs-EQ-1474477",
+  "usgs-us7000pn9s"
+ ],
+ "merge": {
+  "confidence": "high",
+  "evidence": {
+   "dd_km": 1.5,
+   "dt_seconds": 1
+  }
+ },
+ "occurred_at": "2025-03-28T06:20:52.715000+00:00",
+ "pager": "red",
+ "possible_related": [
+  "gdacs-EQ-1474479"
+ ],
+ "severity_text": "Magnitude 7.7M, Depth:10km",
+ "sig": 2910,
+ "source": "gdacs",
+ "source_titles": {
+  "gdacs": "Earthquake in Myanmar",
+  "usgs": "M 7.7 - 2025 Mandalay, Burma (Myanmar) Earthquake"
+ },
+ "sources": [
+  "gdacs",
+  "usgs"
+ ],
+ "status": "active",
+ "title": "Earthquake in Myanmar",
+ "umbrellas": [
+  {
+   "confidence": "possible",
+   "glide": "EQ-2025-000043-MMR",
+   "title": "Myanmar: Earthquakes - Mar 2025",
+   "umbrella_id": "eq-2025-000043-mmr",
+   "url": "https://reliefweb.int/disaster/eq-2025-000043-mmr"
+  }
+ ],
+ "updated_at": "2026-06-25T16:33:20.369000+00:00",
+ "urls": {
+  "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1474477",
+  "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=EQ&eventid=1474477&episodeid=1630564",
+  "report": "https://www.gdacs.org/report.aspx?eventid=1474477&episodeid=1630564&eventtype=EQ"
+ }
+}
