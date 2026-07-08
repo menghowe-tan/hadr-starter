@@ -1,0 +1,507 @@
+<!doctype html>
+<!-- GENERATED from docs/PRD.md — edit that file and regenerate; do not edit this HTML directly. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRD — HADR Morning Sitrep Agent</title>
+</head>
+<body>
+<style>
+  :root {
+    --ground: #F7F9FB;
+    --surface: #FFFFFF;
+    --ink: #1B2733;
+    --muted: #5B6B7A;
+    --line: #D7DEE6;
+    --accent: #0E5FA8;
+    --accent-ink: #FFFFFF;
+    --wash: #EDF3F9;
+    --green: #2E7D32;
+    --green-wash: #E7F2E8;
+    --orange: #B85B08;
+    --orange-wash: #FBEEDF;
+    --red: #C0392B;
+    --red-wash: #F9E9E7;
+    --sans: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans", sans-serif;
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0F151C;
+      --surface: #161E27;
+      --ink: #D9E2EB;
+      --muted: #8FA0B0;
+      --line: #2B3846;
+      --accent: #7FB3E3;
+      --accent-ink: #0F151C;
+      --wash: #1B2836;
+      --green: #7CC47F;
+      --green-wash: #182B1A;
+      --orange: #EDA75B;
+      --orange-wash: #33230F;
+      --red: #E08578;
+      --red-wash: #331B17;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #F7F9FB;
+    --surface: #FFFFFF;
+    --ink: #1B2733;
+    --muted: #5B6B7A;
+    --line: #D7DEE6;
+    --accent: #0E5FA8;
+    --accent-ink: #FFFFFF;
+    --wash: #EDF3F9;
+    --green: #2E7D32;
+    --green-wash: #E7F2E8;
+    --orange: #B85B08;
+    --orange-wash: #FBEEDF;
+    --red: #C0392B;
+    --red-wash: #F9E9E7;
+  }
+  :root[data-theme="dark"] {
+    --ground: #0F151C;
+    --surface: #161E27;
+    --ink: #D9E2EB;
+    --muted: #8FA0B0;
+    --line: #2B3846;
+    --accent: #7FB3E3;
+    --accent-ink: #0F151C;
+    --wash: #1B2836;
+    --green: #7CC47F;
+    --green-wash: #182B1A;
+    --orange: #EDA75B;
+    --orange-wash: #33230F;
+    --red: #E08578;
+    --red-wash: #331B17;
+  }
+
+  html { background: var(--ground); }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .doc {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  /* ---- dispatch header ---- */
+  .dispatch {
+    border-top: 3px solid var(--accent);
+    padding-top: 0.9rem;
+    margin-bottom: 3rem;
+  }
+  .dispatch-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+  }
+  .dispatch-meta strong { color: var(--ink); font-weight: 600; }
+  .dispatch h1 {
+    font-family: var(--sans);
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 0.7rem;
+  }
+  .dispatch p.standfirst {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 40rem;
+    margin: 0;
+  }
+
+  /* ---- section scaffolding ---- */
+  section { margin-bottom: 2.8rem; }
+  h2 {
+    font-family: var(--sans);
+    font-size: 1.28rem;
+    font-weight: 650;
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+  h2 .no {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 1.02rem;
+    font-weight: 650;
+    margin: 1.6rem 0 0.5rem;
+  }
+  p { margin: 0 0 0.9rem; }
+  ul, ol { margin: 0 0 0.9rem; padding-left: 1.3rem; }
+  li { margin-bottom: 0.35rem; }
+  strong { font-weight: 650; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--wash);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+
+  /* ---- tables ---- */
+  .table-scroll { overflow-x: auto; margin: 0 0 1rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  th {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.45rem 0.9rem 0.45rem 0;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.55rem 0.9rem 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  td.num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  td .why {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ---- alert chips ---- */
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .chip.green  { color: var(--green);  background: var(--green-wash); }
+  .chip.orange { color: var(--orange); background: var(--orange-wash); }
+  .chip.red    { color: var(--red);    background: var(--red-wash); }
+  .chip.plain  { color: var(--muted);  background: var(--wash); }
+
+  /* ---- pipeline diagram ---- */
+  .pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: stretch;
+    margin: 1.2rem 0 0.4rem;
+  }
+  .zone {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: 0.8rem 0.9rem 0.9rem;
+    flex: 1 1 16rem;
+  }
+  .zone-label {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+  .zone.model { border-color: var(--accent); }
+  .zone.model .zone-label { color: var(--accent); }
+  .stages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+  .stage {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: var(--wash);
+    border-radius: 4px;
+    padding: 0.22rem 0.55rem;
+    white-space: nowrap;
+  }
+  .stage-arrow { color: var(--muted); font-size: 0.78rem; }
+  .gate-note {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.55rem;
+  }
+
+  /* ---- callout ---- */
+  .callout {
+    background: var(--wash);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.94rem;
+    margin: 0 0 1rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---- Q&A list (dossier answers) ---- */
+  .qa dt {
+    font-family: var(--sans);
+    font-weight: 650;
+    font-size: 0.97rem;
+    margin-top: 1.1rem;
+  }
+  .qa dd { margin: 0.25rem 0 0; padding: 0; }
+  .qa { margin: 0 0 1rem; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a { transition: color 120ms ease; }
+  }
+</style>
+
+<div class="doc">
+  <header class="dispatch">
+    <div class="dispatch-meta">
+      <span>REF <strong>HADR-PRD-001</strong></span>
+      <span>DATE <strong>2026-07-08</strong></span>
+      <span>OWNER <strong>MENGHOWE</strong></span>
+      <span>STATUS <strong>DRAFT FOR REVIEW</strong></span>
+    </div>
+    <h1>HADR Morning Sitrep Agent</h1>
+    <p class="standfirst">Product requirements for an unattended agent that reads GDACS, USGS and ReliefWeb overnight and publishes a layered situation report at 08:30 Singapore time — including the mornings when the honest report is “all quiet”.</p>
+  </header>
+
+  <section>
+    <h2><span class="no">§1</span>Problem</h2>
+    <p>Disaster information on day zero is fragmented, noisy, and constantly revised. GDACS, USGS and ReliefWeb each tell a partial story at a different latency — raw physics in minutes, modeled impact in hours, human confirmation in days — and none of them is a morning briefing. People who need to know <em>what happened overnight, how bad is it, and what changed since yesterday</em> currently have to read three feeds, mentally dedupe them, and remember what was already known.</p>
+    <p>This product is an agent that does that reading: every morning it filters the noise, merges the feeds into single events, distinguishes estimates from confirmed reports, and says explicitly what changed.</p>
+  </section>
+
+  <section>
+    <h2><span class="no">§2</span>Audience &amp; user stories</h2>
+    <p>The sitrep is layered for three readers at once (interview #1):</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Reader</th><th>Story</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lay reader</strong></td><td>“I read the top of the report and understand in plain language what happened in the world overnight, without knowing what GDACS is.”</td></tr>
+          <tr><td><strong>Analyst</strong></td><td>“Below the summary I get severity-ranked events with sources, alert levels, estimated-vs-reported impact labels, merge confidence, and links to the raw records — enough to act on or verify.”</td></tr>
+          <tr><td><strong>Leadership</strong></td><td>“I glance at the map or summary and know whether anything needs attention today — and I can trust silence: a quiet report means the pipeline ran and found nothing, not that it broke.”</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">§3</span>Solution overview</h2>
+    <p>A daily pipeline — deterministic first, generative second (the repo’s one architectural rule). The model never decides whether to wake up.</p>
+    <div class="pipeline">
+      <div class="zone">
+        <div class="zone-label">Deterministic — scripts/, pure Python</div>
+        <div class="stages">
+          <span class="stage">fetch</span><span class="stage-arrow">→</span>
+          <span class="stage">normalise</span><span class="stage-arrow">→</span>
+          <span class="stage">merge</span><span class="stage-arrow">→</span>
+          <span class="stage">diff</span><span class="stage-arrow">→</span>
+          <span class="stage">gate</span>
+        </div>
+        <div class="gate-note">decides whether anything changed</div>
+      </div>
+      <div class="zone model">
+        <div class="zone-label">Generative — headless model, runs only if gated in</div>
+        <div class="stages">
+          <span class="stage">assess</span><span class="stage-arrow">→</span>
+          <span class="stage">render</span>
+        </div>
+        <div class="gate-note">summary, ranking, changed-since notes</div>
+      </div>
+    </div>
+    <p>Rendering produces two artefacts from the same event store:</p>
+    <ul>
+      <li>A <strong>self-contained HTML sitrep document</strong> — inline styles, no external requests, mailable; doubles as the course’s <code>dashboard.html</code> artefact.</li>
+      <li>An <strong>interactive Leaflet map page</strong> — markers coloured by alert level, click for event detail, OSM tiles (external dependency at view time accepted).</li>
+    </ul>
+    <div class="callout">
+      <p><strong>System of record:</strong> committed JSON in the repo (<code>data/</code>) — one file per canonical merged event plus a run manifest. Documents and the map are generated <em>views</em> over it, never committed; they deploy to an external host (Netlify/Vercel class) via a token in Actions secrets.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">§4</span>Decisions</h2>
+    <p>Each row is a PRD-interview answer; <em>Blindspot</em> traces it to the briefing in <code>PLAN.md</code> where one forced the call.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>#</th><th>Decision</th><th>Detail</th><th>Blindspot</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Audience: all three layers</td><td>Plain-language summary up top; severity-ranked sourced detail beneath</td><td>—</td></tr>
+          <tr><td class="num">2</td><td>Geography: global</td><td>No regional weighting</td><td>—</td></tr>
+          <tr><td class="num">3</td><td>Hazards: all six GDACS types</td><td>EQ, TC, FL, VO, DR, WF — accepts per-hazard diff semantics work</td><td>Hazard types break “event”</td></tr>
+          <tr><td class="num">4</td><td>Severity bar: Orange+ always, editorial Greens</td><td>See §5 gate table</td><td>Noise economics</td></tr>
+          <tr><td class="num">5</td><td>Supersession: changelog + prominence</td><td>Every reported event carries a “changed since last report” note; escalations lead; downgrades/withdrawals noted quietly. <strong>Interpretation of “options 1+3” — confirm in review.</strong></td><td>Severity is a forecast; rolling windows; time</td></tr>
+          <tr><td class="num">6</td><td>Quiet morning: explicit “all quiet” sitrep</td><td>Includes feed-health banner</td><td>Replay makes quiet demoable</td></tr>
+          <tr><td class="num">7</td><td>Feed down: fail loudly</td><td>No sitrep; alert instead. Degraded-vs-abort threshold in §7</td><td>Coverage limits</td></tr>
+          <tr><td class="num">8</td><td>Identity: tiered deterministic merge</td><td>GLIDE when present, else hazard + time window + distance; confidence tag surfaced in report</td><td>Many-to-many identity</td></tr>
+          <tr><td class="num">9</td><td>Stack: Python + uv</td><td>Gates everything; recorded in <code>CLAUDE.md</code></td><td>—</td></tr>
+          <tr><td class="num">10</td><td>State: committed JSON</td><td>In-repo store under <code>data/</code></td><td>No backfill on realtime feeds</td></tr>
+          <tr><td class="num">11</td><td>ReliefWeb: RSS-first behind an adapter</td><td>appname requested Day 1; API drops in on approval</td><td>RSS = last ~20 items only</td></tr>
+          <tr><td class="num">12</td><td>Publishing: no committed dashboard</td><td>Generated views deploy externally; event data is the committed artefact <span class="why">Deviation from README assumption — recorded in implementation-notes.md</span></td><td>—</td></tr>
+          <tr><td class="num">13</td><td>Committed JSON <em>is</em> the database</td><td>Git history is the audit trail; views are derived</td><td>—</td></tr>
+          <tr><td class="num">14</td><td>Sendable document: self-contained HTML</td><td>Inline styles, no external requests, mailable</td><td>—</td></tr>
+          <tr><td class="num">15</td><td>Hosting: external (Netlify/Vercel/S3 class)</td><td>Nothing generated committed to main; host + deploy token = Day-1 task</td><td>—</td></tr>
+          <tr><td class="num">16</td><td>Map: interactive Leaflet</td><td>Alert-level colours, click-through detail, OSM tiles</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">§5</span>Severity gate, per hazard</h2>
+    <p>The gate is deterministic and runs in <code>scripts/</code>. The model may <em>add</em> — promote a notable <span class="chip green">Green</span> with an explicit “editorial” label — but never remove. <span class="chip orange">Orange</span> and <span class="chip red">Red</span> always make the report.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Hazard</th><th>Always in</th><th>Never in (deterministically)</th></tr></thead>
+        <tbody>
+          <tr><td>All six GDACS types</td><td><code>alertlevel</code> <strong>or</strong> <code>episodealertlevel</code> ≥ Orange</td><td><code>istemporary == "true"</code> events</td></tr>
+          <tr><td>Earthquake (USGS lane)</td><td>PAGER <code>alert</code> ≥ yellow, or <code>sig</code> ≥ 600, or M ≥ 5.5 with depth &lt; 70 km</td><td>Below M 4.5 — poll <code>4.5_day</code>, not <code>all_day</code>; the filter is the feed choice</td></tr>
+          <tr><td>Tropical cyclone</td><td>Orange+ <strong>episode</strong> on an already-reported storm re-enters the report</td><td>—</td></tr>
+          <tr><td>Drought / flood</td><td>Orange+; diff on <code>episodeid</code>/<code>datemodified</code>, <strong>not</strong> <code>fromdate</code></td><td>Re-reporting an unchanged long-running event</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p>Severity fields are <strong>model outputs, not observations</strong> — GDACS <code>alertscore</code> and USGS PAGER both forecast impact. The sitrep labels every impact number <span class="chip plain">Estimated</span> or <span class="chip plain">Reported</span> — never bare.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">§6</span>Identity &amp; merge rule</h2>
+    <p>Two records merge into one canonical event by the first tier that matches:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Tier</th><th>Rule</th><th>Confidence tag</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>GLIDE numbers equal (non-empty)</td><td><code>confirmed</code></td></tr>
+          <tr><td class="num">2</td><td>Same hazard type, origin times within 30 min, epicentres within 100 km</td><td><code>high</code></td></tr>
+          <tr><td class="num">3</td><td>Same hazard type + country, within 24 h</td><td><code>possible</code> — shown, not merged silently</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>The mapping is <strong>many-to-many</strong>: one ReliefWeb “disaster” is a country-level umbrella that may cover several physical events. The store models event↔umbrella links, not a foreign key.</li>
+      <li>USGS identity is the <strong>union of <code>ids</code></strong> — the network prefix can flip. Dedup runs against the union, never the single <code>id</code>.</li>
+      <li>A script decides merges; the model only <em>explains</em> them.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">§7</span>Run semantics: quiet, degraded, down</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Condition</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>All feeds fetched, gate says no change</td><td>Publish explicit <strong>“all quiet”</strong> sitrep with feed-health banner (last-success timestamps)</td></tr>
+          <tr><td>One feed stale or unreachable, others fresh</td><td><strong>Degraded publish</strong>: sitrep goes out with a prominent per-feed warning — “GDACS unreachable since …; earthquake coverage continues via USGS”</td></tr>
+          <tr><td>GDACS <strong>and</strong> USGS both unreachable, or the event store unreadable</td><td><strong>Abort loudly</strong>: no sitrep; the workflow fails and alerts. ReliefWeb alone cannot see today.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Threshold rationale: ReliefWeb is days-latency by design, so its absence never blocks a morning report; losing both real-time feeds means the report would be blind, which decision #7 treats as worse than no report.</p>
+    <p>Vanished events: an event missing from a rolling window is <strong>aged-out until proven deleted</strong> — the per-event detail endpoint disambiguates before the sitrep says “withdrawn”.</p>
+  </section>
+
+  <section>
+    <h2><span class="no">§8</span>Time handling</h2>
+    <ul>
+      <li>Normalise everything to <strong>UTC internally</strong> at fetch time: GDACS naive strings are declared UTC, USGS is epoch-ms, RSS is RFC-822. SGT appears only at the view layer.</li>
+      <li>“Since last report” diffs against <strong>our own stored state</strong>, never against yesterday’s fetch — rolling windows double-count or gap at boundaries.</li>
+      <li>Schedule the workflow at <strong>00:00 UTC</strong> targeting an 08:30 SGT (00:30 UTC) publish. GitHub cron fires late; the margin is the point.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">§9</span>Answers to the dossier open questions</h2>
+    <dl class="qa">
+      <dt>GDACS 1 — which alert level, and can it change?</dt>
+      <dd>Report the event-level <code>alertlevel</code>; the gate also watches <code>episodealertlevel</code> so an escalating episode re-triggers. Colours do change after publication — that is exactly what the supersession policy (§4, #5) handles.</dd>
+      <dt>GDACS 2 / ReliefWeb 2 — what ties feeds together?</dt>
+      <dd>GLIDE when present (reliable only in ReliefWeb, days later); otherwise the spatiotemporal tiers in §6. <code>source: "NEIC"</code> in GDACS means the earthquake lane is USGS-derived — agreement between them is an echo, not confirmation, and the sitrep must not present it as corroboration.</dd>
+      <dt>GDACS 3 / ReliefWeb 3 — polite polling and limits?</dt>
+      <dd>One fetch per feed per run (daily), plus per-event detail fetches only for gated-in events; conditional requests where honoured; exponential backoff on 4xx/5xx, at most one retry burst per run. Feed-down behaviour is §7.</dd>
+      <dt>USGS 1 — which id do we store?</dt>
+      <dd>The union of <code>ids</code> as the identity set (§6).</dd>
+      <dt>USGS 2 — revisions under a published report?</dt>
+      <dd>Supersession policy: the next sitrep carries a changed-since note; escalations lead, downgrades and deletions are noted quietly; deletion is asserted only after the detail endpoint confirms it (§7).</dd>
+      <dt>USGS 3 — PAGER values, and their relation to GDACS colours?</dt>
+      <dd><code>green / yellow / orange / red</code> — a modeled fatality-and-loss forecast that arrives late and gets revised. It feeds the gate (§5) and is always labelled <em>Estimated</em>. It is a different model from GDACS’s score, so disagreement is expected and shown, not resolved.</dd>
+      <dt>ReliefWeb 1 — build against what in the meantime?</dt>
+      <dd>RSS-first behind a <code>ReliefWebSource</code> adapter interface; the API implementation drops in when the appname is approved. RSS lacks structured fields, queryability and history beyond ~20 items — an accepted interim cost.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2><span class="no">§10</span>Out of scope</h2>
+    <ul>
+      <li>Tsunami <strong>warnings</strong> — USGS <code>tsunami: 1</code> only means a message exists; real warnings live with NOAA, a fourth source we don’t have. The sitrep states this blindness.</li>
+      <li>Conflict, epidemic and displacement coverage beyond ReliefWeb’s curated lag.</li>
+      <li>Push notifications and paging; historical backfill beyond replay fixtures.</li>
+      <li>Multi-run intraday updates — the design allows it later; Days 1–3 ship one morning run.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">§11</span>Day-1 deliverables carried by this PRD</h2>
+    <ol>
+      <li><strong>Replay fixtures</strong> — a real historical Orange/Red event captured from the query APIs (<code>fdsnws-event</code>, GDACS search) plus a genuinely quiet morning; the pipeline runs against fixtures before it runs live.</li>
+      <li><strong>ReliefWeb appname request</strong> submitted today — the form-and-email confirmation has a clock we don’t control.</li>
+      <li><strong>Host choice + deploy token</strong> in Actions secrets.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="no">§12</span>Open items for review</h2>
+    <ul>
+      <li><strong>#5 interpretation</strong> — “options 1+3 combined” was read as changelog-on-every-event <em>plus</em> prominence-for-escalations. Confirm.</li>
+      <li><strong>#6/#7 tension</strong> — the degraded-vs-abort threshold in §7 (ReliefWeb never blocks; both real-time feeds down aborts) is proposed, not yet user-confirmed.</li>
+      <li><strong>External host</strong> — Netlify vs Vercel vs S3; recommend Netlify or Vercel with a deploy token. Decide before wiring the workflow.</li>
+      <li><strong>Verify live during Day-1 slicing</strong> — ReliefWeb current rate-limit guidance, GDACS <code>If-Modified-Since</code> support, exact window of <code>EVENTS4APP</code>.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
