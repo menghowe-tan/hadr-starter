@@ -1,0 +1,81 @@
+# Monitor loop — deterministic, model-free (PRD decisions #17–18).
+# Fetch → normalise → merge → diff; on change, commit data/ and redeploy the
+# live dashboard. A failed cycle skips silently (the next cycle retries);
+# ≥1h without a real-time-feed success fails loudly (PRD §7).
+#
+# Cadence decided in slice V3 (PRD §12): every 15 minutes — a 5-min cron
+# jitters badly and burns the free-tier minutes quota. The cron stays
+# commented until the real V1 pipeline replaces the stage stub below;
+# scheduling fixture replays would publish fake data and waste minutes.
+
+name: Monitor loop
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Stage-stub scenario (real V1 stages replace this at integration)
+        type: choice
+        default: eventful
+        options: [eventful, quiet, gdacs-down, both-down]
+  # schedule:
+  #   - cron: "*/15 * * * *"   # uncomment at integration (real stages + secrets)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor-loop
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      # The deterministic pipeline. At integration this becomes the real
+      # V1 stages; the workflow only depends on the §13 contract — the
+      # manifest, the step outputs, and the exit code.
+      - id: pipeline
+        continue-on-error: true # a failed cycle skips silently (§7)
+        run: uv run scripts/stub_pipeline.py --scenario "${{ inputs.scenario || 'eventful' }}"
+
+      - name: Commit store on change
+        id: store
+        if: steps.pipeline.outcome == 'success'
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git config user.name "hadr-monitor[bot]"
+            git config user.email "hadr-monitor[bot]@users.noreply.github.com"
+            git add data/
+            git commit -m "monitor: store update ($(jq -r .run_utc data/manifest.json))"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "no store change — deploying nothing"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Render dashboard
+        if: steps.store.outputs.changed == 'true'
+        run: uv run scripts/render_dashboard.py
+
+      - name: Deploy
+        if: steps.store.outputs.changed == 'true'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: uv run scripts/deploy.py
+
+      # Persistent blindness alerts without waiting for the morning run:
+      # abort-health (both real-time feeds ≥1h silent) fails this workflow.
+      - name: Alert on persistent feed failure
+        if: always() && steps.pipeline.outputs.health == 'abort'
+        run: |
+          echo "::error::Both real-time feeds have been silent for ≥1h — the monitor is blind (PRD §7)."
+          exit 1

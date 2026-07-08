@@ -2,6 +2,9 @@
 reports/
 *.sitrep.html
 
+# Generated views deploy to the external host; never committed (PRD decision #12).
+out/
+
 # dashboard.html is the exception: it is the product, and it is committed.
 !dashboard.html
 

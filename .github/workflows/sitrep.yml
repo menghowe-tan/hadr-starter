@@ -1,0 +1,87 @@
+# Morning sitrep — the shape the repo's one architectural rule prescribes:
+#   1. a deterministic script decides whether anything changed;
+#   2. a headless model call runs only if it did.
+# The model never decides whether to wake up.
+#
+# Scheduled at 00:00 UTC targeting an 08:30 SGT publish — GitHub cron fires
+# late; the margin is the point (PRD §8). The cron stays commented until the
+# real V1 gate and V2 sitrep replace the stage stub / canned renderer below
+# (integration is a merge-and-flip: uncomment, and swap the stage command).
+#
+# Run semantics (PRD §7): one real-time feed down → degraded publish with a
+# banner; GDACS and USGS both down, or the store unreadable → the gate exits
+# 3, this job fails loudly, nothing deploys, the previous sitrep stays live.
+
+name: Morning sitrep
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Stage-stub scenario (real V1 stages replace this at integration)
+        type: choice
+        default: eventful
+        options: [eventful, quiet, gdacs-down, both-down]
+  # schedule:
+  #   - cron: "0 0 * * *"   # uncomment at integration (real stages + secrets)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sitrep
+  cancel-in-progress: false
+
+jobs:
+  sitrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      # 1 — the deterministic check. Exit 3 = abort-blind: the job fails
+      # here, the model never wakes, nothing is deployed.
+      - id: gate
+        run: uv run scripts/stub_pipeline.py --scenario "${{ inputs.scenario || 'eventful' }}"
+
+      - name: Commit store on change
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git config user.name "hadr-monitor[bot]"
+            git config user.email "hadr-monitor[bot]@users.noreply.github.com"
+            git add data/
+            git commit -m "sitrep: store update ($(jq -r .run_utc data/manifest.json))"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      # 2 — the report, only on change. Headless model step via the harness;
+      # without an API key, the canned assessment (PRD §13.6) stands in so
+      # the pipeline stays demonstrable end to end.
+      - name: Write sitrep (model, gated)
+        if: steps.gate.outputs.verdict == 'CHANGED'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            PROMPT="Carry out your standing orders: fetch the feeds, assess the current situation, and write the dashboard. Current feed health: $(jq -c .feeds data/manifest.json)"
+            uv run python -m agent.main --once "$PROMPT"
+          else
+            echo "::notice::ANTHROPIC_API_KEY not set — rendering the canned assessment instead of waking the model."
+            uv run scripts/render_canned_sitrep.py --mode canned
+          fi
+
+      - name: Write all-quiet sitrep (no model)
+        if: steps.gate.outputs.verdict == 'QUIET'
+        run: uv run scripts/render_canned_sitrep.py --mode quiet
+
+      - name: Render dashboard
+        run: uv run scripts/render_dashboard.py
+
+      - name: Deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: uv run scripts/deploy.py
