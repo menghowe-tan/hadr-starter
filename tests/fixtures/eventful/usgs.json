@@ -1,0 +1,781 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "generated": 1783488699000,
+  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2025-03-28T00%3A00%3A00&endtime=2025-03-28T12%3A00%3A00&minmagnitude=4.5&orderby=time",
+  "title": "USGS Earthquakes",
+  "status": 200,
+  "api": "2.7.0",
+  "count": 19
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.7,
+    "place": "66 km ENE of Pototano, Indonesia",
+    "time": 1743163139857,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnc2",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnc2&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 340,
+    "net": "us",
+    "code": "7000pnc2",
+    "ids": ",us7000pnc2,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 44,
+    "dmin": 0.753,
+    "rms": 0.89,
+    "gap": 67,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.7 - 66 km ENE of Pototano, Indonesia"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     117.9935,
+     -8.1011,
+     10
+    ]
+   },
+   "id": "us7000pnc2"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.9,
+    "place": "northwest of the Kuril Islands",
+    "time": 1743163031603,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnc1",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnc1&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 369,
+    "net": "us",
+    "code": "7000pnc1",
+    "ids": ",ak025402wigt,us7000pnc1,",
+    "sources": ",ak,us,",
+    "types": ",origin,phase-data,",
+    "nst": 160,
+    "dmin": 3.162,
+    "rms": 0.91,
+    "gap": 34,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.9 - northwest of the Kuril Islands"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     147.2037,
+     47.9507,
+     425.346
+    ]
+   },
+   "id": "us7000pnc1"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "24 km SW of Merke, Kazakhstan",
+    "time": 1743159404173,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnbm",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnbm&format=geojson",
+    "felt": 6,
+    "cdi": 7.1,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 316,
+    "net": "us",
+    "code": "7000pnbm",
+    "ids": ",us7000pnbm,",
+    "sources": ",us,",
+    "types": ",dyfi,moment-tensor,origin,phase-data,",
+    "nst": 153,
+    "dmin": 1.131,
+    "rms": 0.53,
+    "gap": 33,
+    "magType": "mwr",
+    "type": "earthquake",
+    "title": "M 4.5 - 24 km SW of Merke, Kazakhstan"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9645,
+     42.7263,
+     24
+    ]
+   },
+   "id": "us7000pnbm"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.8,
+    "place": "northern East Pacific Rise",
+    "time": 1743158110562,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnbl",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnbl&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 354,
+    "net": "us",
+    "code": "7000pnbl",
+    "ids": ",us7000pnbl,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 177,
+    "dmin": 8.975,
+    "rms": 0.36,
+    "gap": 182,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.8 - northern East Pacific Rise"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -103.7043,
+     10.0563,
+     10
+    ]
+   },
+   "id": "us7000pnbl"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "41 km S of Pyinmana, Burma (Myanmar)",
+    "time": 1743155732962,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnfz",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnfz&format=geojson",
+    "felt": 2,
+    "cdi": 3.8,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "7000pnfz",
+    "ids": ",us7000pnfz,",
+    "sources": ",us,",
+    "types": ",dyfi,origin,phase-data,",
+    "nst": 68,
+    "dmin": 2.742,
+    "rms": 0.37,
+    "gap": 74,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 41 km S of Pyinmana, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.207,
+     19.3628,
+     10
+    ]
+   },
+   "id": "us7000pnfz"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "Burma",
+    "time": 1743148620138,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnbe",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnbe&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "7000pnbe",
+    "ids": ",us7000pnbe,",
+    "sources": ",us,",
+    "types": ",earthquake-name,origin,phase-data,",
+    "nst": 34,
+    "dmin": 4.764,
+    "rms": 0.84,
+    "gap": 163,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - Burma"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.838,
+     22.4361,
+     10
+    ]
+   },
+   "id": "us7000pnbe"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.6,
+    "place": "Burma",
+    "time": 1743147418799,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnba",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnba&format=geojson",
+    "felt": 3,
+    "cdi": 3.9,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 327,
+    "net": "us",
+    "code": "7000pnba",
+    "ids": ",us7000pnba,",
+    "sources": ",us,",
+    "types": ",dyfi,earthquake-name,origin,phase-data,",
+    "nst": 81,
+    "dmin": 4.908,
+    "rms": 0.62,
+    "gap": 68,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.6 - Burma"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8531,
+     22.7673,
+     10
+    ]
+   },
+   "id": "us7000pnba"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.6,
+    "place": "27 km NE of Shwebo, Burma (Myanmar)",
+    "time": 1743146867907,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnb8",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnb8&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 326,
+    "net": "us",
+    "code": "7000pnb8",
+    "ids": ",us7000pnb8,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 41,
+    "dmin": 4.865,
+    "rms": 0.72,
+    "gap": 153,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.6 - 27 km NE of Shwebo, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8927,
+     22.7436,
+     10
+    ]
+   },
+   "id": "us7000pnb8"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "135 km W of Lata, Solomon Islands",
+    "time": 1743146172801,
+    "updated": 1749244341040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4jk",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4jk&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000q4jk",
+    "ids": ",us6000q4jk,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 23,
+    "dmin": 4.734,
+    "rms": 0.74,
+    "gap": 129,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 135 km W of Lata, Solomon Islands"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     164.5632,
+     -10.7712,
+     10
+    ]
+   },
+   "id": "us6000q4jk"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "13 km N of Mandalay, Burma (Myanmar)",
+    "time": 1743145073711,
+    "updated": 1749244341040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000q4ji",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000q4ji&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000q4ji",
+    "ids": ",us6000q4ji,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 31,
+    "dmin": 4.428,
+    "rms": 0.87,
+    "gap": 134,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 13 km N of Mandalay, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.0667,
+     22.0976,
+     10
+    ]
+   },
+   "id": "us6000q4ji"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.9,
+    "place": "Burma (Myanmar)",
+    "time": 1743144344906,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pnb6",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pnb6&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 369,
+    "net": "us",
+    "code": "7000pnb6",
+    "ids": ",us7000pnb6,",
+    "sources": ",us,",
+    "types": ",earthquake-name,origin,phase-data,",
+    "nst": 51,
+    "dmin": 2.676,
+    "rms": 0.65,
+    "gap": 101,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.9 - Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     96.2075,
+     19.1284,
+     10
+    ]
+   },
+   "id": "us7000pnb6"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.9,
+    "place": "11 km WSW of Sagaing, Burma (Myanmar)",
+    "time": 1743144144760,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pncv",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pncv&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 369,
+    "net": "us",
+    "code": "7000pncv",
+    "ids": ",us7000pncv,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 90,
+    "dmin": 4.429,
+    "rms": 0.8,
+    "gap": 79,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.9 - 11 km WSW of Sagaing, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8747,
+     21.8377,
+     10
+    ]
+   },
+   "id": "us7000pncv"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.8,
+    "place": "29 km ESE of Taungdwingyi, Burma (Myanmar)",
+    "time": 1743143954645,
+    "updated": 1749244346040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pncy",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pncy&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 354,
+    "net": "us",
+    "code": "7000pncy",
+    "ids": ",us7000pncy,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 33,
+    "dmin": 3.296,
+    "rms": 0.77,
+    "gap": 93,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.8 - 29 km ESE of Taungdwingyi, Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.8026,
+     19.8979,
+     10
+    ]
+   },
+   "id": "us7000pncy"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 6.7,
+    "place": "Burma (Myanmar)",
+    "time": 1743143524777,
+    "updated": 1752679090885,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn9z",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn9z&format=geojson",
+    "felt": 115,
+    "cdi": 9.1,
+    "mmi": 8.978,
+    "alert": "red",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 2105,
+    "net": "us",
+    "code": "7000pn9z",
+    "ids": ",us7000pn9z,",
+    "sources": ",us,",
+    "types": ",dyfi,earthquake-name,ground-failure,impact-text,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 106,
+    "dmin": 4.266,
+    "rms": 0.75,
+    "gap": 41,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 6.7 - Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.969,
+     21.6975,
+     10
+    ]
+   },
+   "id": "us7000pn9z"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 7.7,
+    "place": "2025 Mandalay, Burma (Myanmar) Earthquake",
+    "time": 1743142852715,
+    "updated": 1782405200369,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn9s",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn9s&format=geojson",
+    "felt": 2545,
+    "cdi": 9.1,
+    "mmi": 9.953,
+    "alert": "red",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 2910,
+    "net": "us",
+    "code": "7000pn9s",
+    "ids": ",us7000pn9s,usauto7000pn9s,pt25087002,at00sttln4,",
+    "sources": ",us,usauto,pt,at,",
+    "types": ",dyfi,earthquake-name,finite-fault,general-text,ground-failure,impact-text,internal-moment-tensor,internal-origin,losspager,moment-tensor,oaf,origin,phase-data,shakemap,",
+    "nst": 246,
+    "dmin": 3.474,
+    "rms": 0.89,
+    "gap": 24,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 7.7 - 2025 Mandalay, Burma (Myanmar) Earthquake"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.9363,
+     22.011,
+     10
+    ]
+   },
+   "id": "us7000pn9s"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.7,
+    "place": "Pacific-Antarctic Ridge",
+    "time": 1743139636431,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn9g",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn9g&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 340,
+    "net": "us",
+    "code": "7000pn9g",
+    "ids": ",us7000pn9g,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 26,
+    "dmin": 18.219,
+    "rms": 0.54,
+    "gap": 163,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.7 - Pacific-Antarctic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -160.1694,
+     -62.8554,
+     10
+    ]
+   },
+   "id": "us7000pn9g"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5,
+    "place": "79 km ENE of Lakatoro, Vanuatu",
+    "time": 1743126835681,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn8t",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn8t&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 385,
+    "net": "us",
+    "code": "7000pn8t",
+    "ids": ",us7000pn8t,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 63,
+    "dmin": 1.031,
+    "rms": 0.89,
+    "gap": 143,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 5.0 - 79 km ENE of Lakatoro, Vanuatu"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     168.139,
+     -15.9497,
+     167.556
+    ]
+   },
+   "id": "us7000pn8t"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5.7,
+    "place": "61 km NW of Isangel, Vanuatu",
+    "time": 1743124804771,
+    "updated": 1749244339040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn8m",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn8m&format=geojson",
+    "felt": 2,
+    "cdi": 2.7,
+    "mmi": 4.208,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 500,
+    "net": "us",
+    "code": "7000pn8m",
+    "ids": ",us7000pn8m,usauto7000pn8m,pt25087001,",
+    "sources": ",us,usauto,pt,",
+    "types": ",dyfi,internal-moment-tensor,internal-origin,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 95,
+    "dmin": 3.621,
+    "rms": 0.92,
+    "gap": 41,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 5.7 - 61 km NW of Isangel, Vanuatu"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     168.8176,
+     -19.2093,
+     37
+    ]
+   },
+   "id": "us7000pn8m"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 6.1,
+    "place": "central Mid-Atlantic Ridge",
+    "time": 1743122061875,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn7g",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn7g&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": 5.147,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 572,
+    "net": "us",
+    "code": "7000pn7g",
+    "ids": ",us7000pn7g,usauto7000pn7g,pt25087000,at00stt5lc,",
+    "sources": ",us,usauto,pt,at,",
+    "types": ",ground-failure,internal-moment-tensor,internal-origin,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 103,
+    "dmin": 8.993,
+    "rms": 0.57,
+    "gap": 42,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 6.1 - central Mid-Atlantic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -29.665,
+     0.7055,
+     10
+    ]
+   },
+   "id": "us7000pn7g"
+  }
+ ],
+ "bbox": [
+  -160.1694,
+  -62.8554,
+  10,
+  168.8176,
+  47.9507,
+  425.346
+ ]
+}

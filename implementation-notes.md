@@ -27,12 +27,45 @@ Kept by the agent, reviewed by you. One entry per working block.
   repo's own slice template (the skill's step I writes issue files instead;
   the user asked for GitHub issues).
 
+- **2026-07-08 — V1 fixtures captured from the query APIs (slice V1).**
+  Eventful = 2025-03-28 (Mandalay M 7.7, GDACS Red / PAGER red); quiet =
+  2025-04-09. Captured by `tests/fixtures/capture_fixtures.py` from GDACS
+  `SEARCH` and USGS `fdsnws-event`, both of which return the same feature
+  shapes as the live feeds (`EVENTS4APP`, summary GeoJSON), so the fixtures
+  replay through the production parsers unmodified. Two curation choices:
+  (1) GDACS `SEARCH` returns only Orange/Red by default, so the same day's
+  Greens were fetched with `alertlevel=Green` and merged in — the gate needs
+  real records to reject; (2) USGS windows are 00:00–12:00 UTC ("the
+  morning") at M ≥ 4.5, matching the `4.5_day` feed's floor.
+
+- **2026-07-08 — V1 change detection = fingerprint over updatable fields.**
+  The diff (scripts/pipeline/diff.py) hashes alert level, episode
+  level/id, magnitude, location, depth, title, gate reason and
+  `datemodified`/`updated` — per PRD §5 "diff on episodeid/datemodified,
+  not fromdate". The alias union is excluded: a USGS preferred-id flip is
+  identity housekeeping, not news. Full change-note classification
+  (▲△▽✕) is V2; V1 records only new / updated / aged-out.
+
 ## Open questions
 
 ## Deviations
 
 <!-- Anything built that departs from the PRD or CLAUDE.md is recorded here,
      with the reason. An undocumented deviation is a bug. -->
+
+- **2026-07-08 — the quiet fixture excludes that day's long-running Orange
+  situations.** SLICE-V1 asks for "a genuinely quiet morning", but on any
+  real morning GDACS carries months-old Orange situations (on 2025-04-09:
+  the Kanlaon eruption and DRC floods). Against V1's *fresh* store those
+  would be "new" and the demo could never print `QUIET` — the PRD's answer
+  ("never re-report an unchanged long-running event", §5) is a property of
+  the *diff against stored state*, not of the gate, and only V2/V3's
+  continuously-carried store exhibits it. So `tests/fixtures/quiet/` is the
+  real 2025-04-09 capture filtered to its Green events. Reason: V1's
+  quiet-morning demo must demonstrate the gate + diff verdict from a fresh
+  state; the unfiltered morning is still exercised via the eventful fixture
+  re-run, which proves the same "quiet = nothing changed" behaviour with
+  Oranges in store.
 
 - **2026-07-08 — `dashboard.html` is not committed to the repo.** The README
   assumes the agent "publishes a morning situation report to
