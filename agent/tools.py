@@ -1,17 +1,22 @@
 """HADR tools plugged into the reusable harness.
 
-Level 3 adds fetch_feed. Everything here is project-specific; the harness
-knows nothing about disaster feeds.
+Level 3 added fetch_feed; level 5 adds write_dashboard. Everything here is
+project-specific; the harness knows nothing about disaster feeds.
 """
 
 from __future__ import annotations
 
+import html
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import httpx
 
 from harness import Tool
+
+SGT = timezone(timedelta(hours=8))
+OUT_DIR = Path(__file__).resolve().parent.parent / "out"
 
 FEED_URLS = {
     "gdacs": "https://www.gdacs.org/gdacsapi/api/events/geteventlist/EVENTS4APP",
@@ -121,4 +126,140 @@ FETCH_FEED = Tool(
     fn=fetch_feed,
 )
 
-TOOLS = [FETCH_FEED]
+ALERT_COLOURS = {"Red": "#C0392B", "Orange": "#B85B08", "Green": "#2E7D32"}
+
+
+def _event_card(i: int, ev: dict) -> str:
+    level = ev.get("alert_level", "Green")
+    colour = ALERT_COLOURS.get(level, "#5B6B7A")
+    anchor = html.escape(str(ev.get("anchor") or f"event-{i}"))
+    chips = (
+        f'<span style="color:{colour};border:1px solid {colour};border-radius:999px;'
+        f'padding:1px 8px;font-size:12px;font-weight:600">{html.escape(level)}</span> '
+        f'<span style="color:#5B6B7A;font-size:12px">{html.escape(ev.get("hazard", ""))}</span>'
+    )
+    rows = []
+    for label, key in (
+        ("Where", "location"),
+        ("When (UTC)", "time_utc"),
+        ("Impact", "impact"),
+        ("Changed", "change_note"),
+        ("Sources", "sources"),
+        ("Merge", "merge_confidence"),
+    ):
+        if ev.get(key):
+            rows.append(
+                f'<div style="font-size:13px;margin:2px 0"><strong>{label}:</strong> '
+                f"{html.escape(str(ev[key]))}</div>"
+            )
+    return (
+        f'<article id="{anchor}" style="border:1px solid #D7DEE6;border-radius:8px;'
+        f'padding:12px 14px;margin:10px 0">'
+        f"<div>{chips}</div>"
+        f'<h3 style="margin:6px 0 4px;font-size:16px">{html.escape(ev.get("name", "Unnamed event"))}</h3>'
+        f"{''.join(rows)}</article>"
+    )
+
+
+def write_dashboard(
+    title: str,
+    summary: str,
+    events: list | None = None,
+    blindspots: str | None = None,
+    report_date: str | None = None,
+) -> str:
+    """Save the assessed events as a self-contained HTML page under out/."""
+    date = report_date or datetime.now(SGT).date().isoformat()
+    generated = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    cards = "".join(_event_card(i, ev) for i, ev in enumerate(events or []))
+    if not cards:
+        cards = '<p style="color:#2E7D32;font-weight:600">All quiet — no events cleared the gate.</p>'
+    blind = (
+        f'<footer style="border-top:1px solid #D7DEE6;margin-top:24px;padding-top:10px;'
+        f'color:#5B6B7A;font-size:13px"><strong>What this report cannot see:</strong> '
+        f"{html.escape(blindspots)}</footer>"
+        if blindspots
+        else ""
+    )
+    page = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title></head>
+<body style="margin:0;background:#F7F9FB;color:#1B2733;font-family:Georgia,serif">
+<div style="max-width:680px;margin:0 auto;padding:32px 20px">
+<header style="border-top:3px solid #0E5FA8;padding-top:10px">
+<div style="font-family:ui-monospace,monospace;font-size:12px;color:#5B6B7A">
+HADR SITREP · {html.escape(date)} SGT · generated {html.escape(generated)}</div>
+<h1 style="font-family:system-ui,sans-serif;font-size:24px;margin:8px 0">{html.escape(title)}</h1>
+</header>
+<section><p style="font-size:17px;line-height:1.6">{html.escape(summary)}</p></section>
+<section>{cards}</section>
+{blind}
+</div></body></html>
+"""
+    sitrep_dir = OUT_DIR / "sitrep"
+    sitrep_dir.mkdir(parents=True, exist_ok=True)
+    path = sitrep_dir / f"{date}.html"
+    path.write_text(page)
+    (sitrep_dir / "index.html").write_text(page)
+    return f"wrote {path} ({len(events or [])} events) and sitrep/index.html"
+
+
+WRITE_DASHBOARD = Tool(
+    name="write_dashboard",
+    description=(
+        "Save your finished assessment as a self-contained HTML page (the "
+        "sitrep). Call this exactly once, after fetching and assessing the "
+        "feeds. `summary` is the plain-language layer: no acronyms, no feed "
+        "names. Order `events` by severity, escalations first. Label every "
+        "impact figure Estimated or Reported inside the `impact` text. Put "
+        "coverage limits (tsunami warnings, ReliefWeb lag) in `blindspots`."
+    ),
+    input_schema={
+        "type": "object",
+        "properties": {
+            "title": {"type": "string"},
+            "summary": {
+                "type": "string",
+                "description": "Plain-language summary, ~5 sentences.",
+            },
+            "events": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {"type": "string"},
+                        "hazard": {"type": "string"},
+                        "alert_level": {
+                            "type": "string",
+                            "enum": ["Red", "Orange", "Green"],
+                        },
+                        "location": {"type": "string"},
+                        "time_utc": {"type": "string"},
+                        "impact": {
+                            "type": "string",
+                            "description": "Figures labelled Estimated or Reported.",
+                        },
+                        "change_note": {"type": "string"},
+                        "sources": {"type": "string"},
+                        "merge_confidence": {"type": "string"},
+                        "anchor": {
+                            "type": "string",
+                            "description": "Stable id for deep links, e.g. the GDACS event id or USGS id.",
+                        },
+                    },
+                    "required": ["name", "hazard", "alert_level"],
+                },
+            },
+            "blindspots": {"type": "string"},
+            "report_date": {
+                "type": "string",
+                "description": "YYYY-MM-DD (SGT). Defaults to today.",
+            },
+        },
+        "required": ["title", "summary"],
+    },
+    fn=write_dashboard,
+)
+
+TOOLS = [FETCH_FEED, WRITE_DASHBOARD]
