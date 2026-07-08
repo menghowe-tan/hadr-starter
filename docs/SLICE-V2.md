@@ -5,7 +5,8 @@
 Records from all three feeds merge into single canonical events with visible
 confidence; changes since the last run become ▲△▽✕ notes; the gated model
 writes the plain-language layer; the render is the real, mailable sitrep
-document from `docs/product-design.md`.
+document from `docs/product-design.md` — the daily summary of the previous
+day's events (PRD decision #19).
 
 ## Why this cut
 

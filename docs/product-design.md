@@ -25,11 +25,16 @@ Each principle is a PRD decision restated as a design obligation.
 
 ## 2. Surfaces
 
-| Surface | Medium | Constraints |
-|---|---|---|
-| **Morning sitrep** | Self-contained HTML document, deployed to the external host and mailable | Inline styles only; zero external requests; must read in email clients — single column under 720 px, no JS required for content |
-| **Map page** | Leaflet + OSM tiles on the external host | External tiles accepted at view time; degrades to the marker list if tiles fail |
-| **Failure alert** | GitHub Actions failure → notification | Not a page. Plain text: what broke, since when, what the last good run was |
+| Surface | Medium | Cadence | Constraints |
+|---|---|---|---|
+| **Live dashboard** | Leaflet map + current event list on the external host | Redeployed by the monitor loop on every store change (~5 min polling target) | Per-feed freshness stamp always visible; a feed older than 3× the cadence is marked **stale**; external tiles accepted; degrades to the marker list if tiles fail |
+| **Daily sitrep** | Self-contained HTML document, deployed to the external host and mailable | Once daily, 08:30 SGT — summarises the previous day (since the previous sitrep) | Inline styles only; zero external requests; must read in email clients — single column under 720 px, no JS required for content |
+| **Failure alert** | GitHub Actions failure → notification | On sitrep abort, or ≥1 h without a monitor-loop success on a real-time feed | Not a page. Plain text: what broke, since when, what the last good run was |
+
+*(Revised 2026-07-08: the dashboard is the live surface, updated
+continuously and deterministically; the sitrep is the daily model-written
+summary. The four morning states in §3 apply to the sitrep; the dashboard's
+equivalent vocabulary is fresh / stale / down per feed.)*
 
 The committed JSON store is not a surface — it is the single source both
 pages render from, so they can never disagree.
@@ -134,11 +139,13 @@ last *success*, not the last attempt.
 
 Field order is invariant so analysts can scan down a column of cards.
 
-## 6. Map page
+## 6. Live dashboard (map page)
 
 Full-bleed Leaflet map with the same top bar as the sitrep, so the two
-surfaces are visibly one product. Markers use the alert palette; everything
-else stays quiet.
+surfaces are visibly one product — plus the current event list and per-feed
+freshness stamps ("GDACS 2 min ago"), since this is the surface that tracks
+the feeds in near-real-time. Markers use the alert palette; everything else
+stays quiet.
 
 - **Interactions:** click marker → popup (title, chips, headline figure, link
   into the sitrep's event card anchor).

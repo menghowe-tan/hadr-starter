@@ -4,8 +4,10 @@
 
 A deterministic pipeline that fetches GDACS + USGS (live or replayed from
 fixtures), normalises to canonical events, applies the severity gate, diffs
-against stored state, and renders a minimal sitrep skeleton — proving the
-quiet-vs-eventful decision end to end.
+against stored state, and renders a minimal current-events page (the
+dashboard skeleton, with last-fetch stamps) — proving the changed-vs-quiet
+decision end to end. One invocation = one fetch cycle; V3 puts it on the
+~5-minute schedule.
 
 ## Why this cut
 
