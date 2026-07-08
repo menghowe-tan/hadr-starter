@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ReliefWeb - Disasters</title>
+    <link>https://reliefweb.int/disasters</link>
+    <description>ReliefWeb - Disasters</description>
+    <item>
+      <title>DR Congo: Floods and Landslides - Mar 2025</title>
+      <link>https://reliefweb.int/disaster/fl-2025-000050-cod</link>
+      <pubDate>Fri, 28 Mar 2025 04:00:00 +0000</pubDate>
+      <description>
+        &lt;div class="tag country"&gt;Affected country: Democratic Republic of the Congo&lt;/div&gt;
+        &lt;div class="tag glide"&gt;Glide: FL-2025-000050-COD&lt;/div&gt;
+        &lt;p&gt;Heavy seasonal rains have caused rivers to overflow in eastern
+        provinces of the Democratic Republic of the Congo, flooding homes and
+        displacing thousands of people. Authorities report several deaths and
+        damage to roads and bridges.&lt;/p&gt;
+      </description>
+    </item>
+    <item>
+      <title>Argentina: Floods - Mar 2025</title>
+      <link>https://reliefweb.int/disaster/fl-2025-000040-arg</link>
+      <pubDate>Mon, 10 Mar 2025 00:00:00 +0000</pubDate>
+      <description>
+        &lt;div class="tag country"&gt;Affected country: Argentina&lt;/div&gt;
+        &lt;div class="tag glide"&gt;Glide: FL-2025-000040-ARG&lt;/div&gt;
+        &lt;p&gt;Torrential rains hit the city of Bahía Blanca in Buenos Aires
+        province, causing widespread flooding.&lt;/p&gt;
+      </description>
+    </item>
+  </channel>
+</rss>

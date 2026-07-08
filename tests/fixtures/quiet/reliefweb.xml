@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ReliefWeb - Disasters</title>
+    <link>https://reliefweb.int/disasters</link>
+    <description>ReliefWeb - Disasters</description>
+    <item>
+      <title>Argentina: Floods - Mar 2025</title>
+      <link>https://reliefweb.int/disaster/fl-2025-000040-arg</link>
+      <pubDate>Mon, 10 Mar 2025 00:00:00 +0000</pubDate>
+      <description>
+        &lt;div class="tag country"&gt;Affected country: Argentina&lt;/div&gt;
+        &lt;div class="tag glide"&gt;Glide: FL-2025-000040-ARG&lt;/div&gt;
+        &lt;p&gt;Torrential rains hit the city of Bahía Blanca in Buenos Aires
+        province, causing widespread flooding.&lt;/p&gt;
+      </description>
+    </item>
+    <item>
+      <title>Ecuador: Floods - Mar 2025</title>
+      <link>https://reliefweb.int/disaster/fl-2025-000032-ecu</link>
+      <pubDate>Sun, 02 Mar 2025 00:00:00 +0000</pubDate>
+      <description>
+        &lt;div class="tag country"&gt;Affected country: Ecuador&lt;/div&gt;
+        &lt;div class="tag glide"&gt;Glide: FL-2025-000032-ECU&lt;/div&gt;
+        &lt;p&gt;Heavy rains associated with the rainy season have caused floods
+        across coastal provinces of Ecuador, affecting thousands of
+        families.&lt;/p&gt;
+      </description>
+    </item>
+  </channel>
+</rss>

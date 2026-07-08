@@ -33,7 +33,10 @@ def test_revised_event_is_changed():
     revised = _event(magnitude=6.0, updated_at="2025-03-28T09:00:00+00:00")
     verdict, changes, _ = diff_and_update(store, [revised], LATER)
     assert verdict == "CHANGED"
-    assert changes == [{"event_id": "usgs-test1", "change": "updated"}]
+    # V2 classifies the movement: a magnitude change is a revision (△).
+    assert changes == [
+        {"event_id": "usgs-test1", "change": "revised", "detail": "magnitude 5.0 → 6.0"}
+    ]
 
 
 def test_vanished_event_ages_out_once_never_withdrawn():
@@ -54,7 +57,9 @@ def test_reappearing_aged_out_event_is_an_update():
     _, _, store = diff_and_update(store, [], LATER)
     verdict, changes, store = diff_and_update(store, [_event()], "2026-07-08T00:10:00+00:00")
     assert verdict == "CHANGED"
-    assert changes == [{"event_id": "usgs-test1", "change": "updated"}]
+    assert changes == [
+        {"event_id": "usgs-test1", "change": "updated", "detail": "re-entered the feed window"}
+    ]
     assert store["usgs-test1"]["status"] == "active"
 
 

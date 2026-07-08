@@ -16,10 +16,13 @@ def test_eventful_replay_changes_then_stays_quiet(tmp_path, eventful_dir):
 
     manifest = run_once(eventful_dir, data_dir, page)
     assert manifest["verdict"] == "CHANGED"
-    assert len(manifest["active_events"]) == 7
-    # data/ written: one file per event + the run manifest.
+    # V2 merges cross-feed pairs: the two Myanmar quakes each carry a
+    # GDACS+USGS pair, and the Vanuatu/mid-Atlantic quakes merged with
+    # their GDACS Green counterparts — 5 canonical events, not 7 records.
+    assert len(manifest["active_events"]) == 5
+    # data/ written: one file per canonical event + the run manifest.
     assert (data_dir / "manifest.json").is_file()
-    assert len(list((data_dir / "events").glob("*.json"))) == 7
+    assert len(list((data_dir / "events").glob("*.json"))) == 5
 
     html = page.read_text()
     assert "Mandalay" in html

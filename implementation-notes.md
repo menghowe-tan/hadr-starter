@@ -46,6 +46,46 @@ Kept by the agent, reviewed by you. One entry per working block.
   identity housekeeping, not news. Full change-note classification
   (▲△▽✕) is V2; V1 records only new / updated / aged-out.
 
+- **2026-07-08 — V2 merge tiers: two rules the PRD table leaves implicit.**
+  (1) Only records from *different* feeds merge — the Mandalay M 7.7
+  mainshock and M 6.7 aftershock are 11 min / ~35 km apart, inside the
+  tier-2 thresholds, and must not collapse; a feed's own event ids are
+  trusted as distinct physical events. (2) Cross-feed ambiguity resolves
+  greedily by closest origin time then distance, one partner per feed per
+  event, so the USGS mainshock (Δt 2 s) claims the GDACS mainshock before
+  the aftershock can. Both forced by the real fixture; documented in
+  `scripts/pipeline/merge.py`.
+
+- **2026-07-08 — V2 model layer lives in `agent/`, injected as a callable.**
+  CLAUDE.md keeps `scripts/` model-free, so the daily orchestration
+  (`agent/daily.py`) sits outside it: deterministic cycle → abort check
+  (both real-time feeds down, PRD §7) → model assessment *only if the gate
+  said CHANGED* → deterministic render. Assessors are plain callables:
+  `ClaudeAssessor` (live, official `anthropic` SDK, `claude-opus-4-8`,
+  structured outputs against a fixed JSON schema), `RecordedAssessor`
+  (replays committed `assessment.json` fixtures) and test spies — so
+  `uv run pytest` is deterministic and offline. `validate_assessment`
+  enforces PRD §5 deterministically: the model may add an editorial Green
+  (from the gate's own candidate list, reason mandatory) but never invent
+  events or notes for unknown ids.
+
+- **2026-07-08 — V2 supersession semantics beyond the design table.**
+  Escalated/downgraded read the GDACS alert levels (event or episode,
+  whichever is higher); PAGER movement is a *revision*, per design §5
+  ("REVISED (magnitude, PAGER, location)"). An event that falls below the
+  gate but is still in the feed is a downgrade reported once (status
+  `below-gate`), then dropped — distinct from aged-out (vanished) and
+  withdrawn (vanished + detail endpoint confirms deletion; USGS only, since
+  GDACS has no reliable deletion signal). When a feed was not fetched, its
+  stored events are not aged out: blindness is not absence.
+
+- **2026-07-08 — V2 sitrep window = the run's diff.** PRD §8 defines the
+  sitrep window as "since the previous sitrep". With one `agent/daily.py`
+  run per morning against the carried store, the diff *is* that window; a
+  separate since-last-sitrep bookmark becomes necessary only in V3 when
+  the monitor loop also writes the store between sitreps. Flagged for V3
+  rather than built speculatively here.
+
 ## Open questions
 
 ## Deviations
@@ -77,3 +117,39 @@ Kept by the agent, reviewed by you. One entry per working block.
   the course's `dashboard.html` artefact — it just lives at the host, not in
   main. Reason: daily generated-file commits add noise without audit value;
   the data commits already provide the history.
+
+- **2026-07-08 — the morning-1 fixture is derived, not captured.** SLICE-V2
+  asks for "two consecutive mornings where an event escalates Orange→Red",
+  but the GDACS/USGS query APIs return current state only — a historical
+  episode-level snapshot cannot be re-captured. `tests/fixtures/morning-2/`
+  is the real 2025-03-28 capture verbatim; `tests/fixtures/morning-1/` is
+  derived from it by `derive_mornings.py`: cut at 06:30 UTC (after the
+  M 7.7, before the M 6.7 aftershock) with three explicit rollbacks —
+  Mandalay to Orange with PAGER pending (its real early state was lower
+  than the final Red), and the DRC flood raised to Red so the real
+  capture's Orange exercises ▽ DOWNGRADED. Reason: the escalation path
+  must be replayable offline; every edit is explicit in the derivation
+  script and the final morning stays fully real.
+
+- **2026-07-08 — the ReliefWeb fixtures are hand-assembled, not captured.**
+  The RSS feed carries only the ~20 latest disasters, so the 2025-03-28
+  items cannot be re-fetched. `reliefweb.xml` files follow the live RSS
+  shape recorded in `feeds/reliefweb.md` and use the real disaster records
+  (titles, links, GLIDEs `EQ-2025-000043-MMR` / `FL-2025-000050-COD`,
+  country tags). Reason: fixture parity with the production parser matters
+  more than capture provenance the API cannot provide; noted in
+  `tests/fixtures/README.md`.
+
+- **2026-07-08 — recorded model assessments are committed fixtures.** The
+  `assessment.json` files replayed by tests were authored with the fixtures
+  (in the exact structured-output shape the live lane requests) rather than
+  recorded from a paid live call. Reason: CLAUDE.md requires `uv run
+  pytest` to be deterministic and offline; the live lane
+  (`agent/daily.py --assess live`) regenerates them at any time.
+
+- **2026-07-08 — the sitrep's map zone is a placeholder note in V2.** The
+  design's zone 4 calls for a static map image linking to the live map
+  page; both the map page and pre-rendered imagery are V3 scope (issue #4
+  "out of scope: the map page"). The zone renders a bordered note saying
+  so, keeping the six-zone anatomy and the no-network guarantee. Reason:
+  honest placeholder over a broken link or an external tile request.
