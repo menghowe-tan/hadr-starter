@@ -5,6 +5,6 @@ prompt and tools in from outside. Built in five working checkpoints; see
 the git history ("harness level N" commits).
 """
 
-from .agent import DEFAULT_MODEL, Agent
+from .agent import DEFAULT_MODEL, Agent, Tool
 
-__all__ = ["Agent", "DEFAULT_MODEL"]
+__all__ = ["Agent", "DEFAULT_MODEL", "Tool"]
