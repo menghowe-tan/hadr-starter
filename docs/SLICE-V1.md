@@ -16,6 +16,16 @@ wake up) and "stays quiet when nothing changed" is a headline feature that is
 only demoable via replay (PLAN.md blindspot 7). This slice makes both real on
 Day 2 morning, with the test suite the repo currently lacks.
 
+## Independence (PRD §13)
+
+Head of the pipeline: consumes only the raw feed fixtures (§13.6), depends
+on no other slice. Its obligation runs the other way — everything it writes
+(`data/` events, the run manifest, the skeleton pages in the `out/` layout)
+must validate against the frozen contracts (§13.1–13.3, §13.5), because the
+store fixtures the other slices build from are hand-authored to those same
+contracts. The integration check is §13.6: real V1 output replayed over a
+fixture scenario must match the hand-authored store fixture.
+
 ## Build plan
 
 1. Capture replay fixtures: one real historical Orange/Red morning (USGS
@@ -40,6 +50,8 @@ Day 2 morning, with the test suite the repo currently lacks.
 Verifiable in two minutes:
 
 - `uv run pytest` is green.
+- Everything written under `data/` validates against `schemas/`
+  (PRD §13.1–13.2).
 - `uv run scripts/run.py --replay tests/fixtures/eventful` → prints
   `CHANGED`, writes `data/`, emits a page listing the gated events.
 - Re-running the same command → prints `QUIET` (state diff works).

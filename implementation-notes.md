@@ -4,6 +4,20 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Decisions
 
+- **2026-07-08 — PRD revised: contract-first slices (user request).** The
+  user asked that the three vertical slices be implementable independently
+  by establishing the schema and the interfaces up front. Added PRD §13
+  (canonical event schema, run manifest, stage CLI interfaces, model
+  assessment file, render/deploy layout, contract fixtures, per-slice
+  consumes/produces table) and decision #20; Day-1 deliverables gain a
+  contract freeze (`schemas/` + fixtures, §11 #4). `docs/SLICES.md` and the
+  three `SLICE-V*.md` now state their contract dependencies instead of
+  depending on each other: V2 builds from hand-authored store fixtures, V3
+  from stage stubs; the V1→V2→V3 order is demo/integration order only. The
+  one integration point kept: `sitrep.yml` ships `.disabled` and flips on
+  only when the real gate (V1) and model step (V2) are wired in.
+  `prd.html` regenerated.
+
 - **2026-07-08 — PRD revised: two cadences (user clarification).** The user
   clarified that fetching should be regular ("maybe every 5 minutes") with
   the dashboard reflecting it, and that the sitrep is only the daily summary

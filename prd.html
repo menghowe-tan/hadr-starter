@@ -360,6 +360,7 @@
     <div class="callout">
       <p><strong>System of record:</strong> committed JSON in the repo (<code>data/</code>) — one file per canonical merged event plus a run manifest. Documents and the map are generated <em>views</em> over it, never committed; they deploy to an external host (Netlify/Vercel class) via a token in Actions secrets.</p>
     </div>
+    <p>Every seam in the diagram above — the event schema, the run manifest, the stage CLIs, the assessment file, the <code>out/</code> layout — is frozen as a contract in §13 so the three implementation slices can be built independently.</p>
   </section>
 
   <section>
@@ -388,6 +389,7 @@
           <tr><td class="num">17</td><td>Fetch cadence: regular, ~5 min target <span class="why">2026-07-08 clarification</span></td><td>GDACS + USGS polled by the monitor loop; ReliefWeb hourly. Final cadence decided in slice V3 against Actions cron jitter and minutes quota (§12)</td><td>Noise economics</td></tr>
           <tr><td class="num">18</td><td>Dashboard is the live surface <span class="why">2026-07-08 clarification</span></td><td>Deterministic render redeployed on every store change with per-feed freshness stamps; no model in the monitor loop</td><td>—</td></tr>
           <tr><td class="num">19</td><td>Sitrep is the daily summary <span class="why">2026-07-08 clarification</span></td><td>One report at 08:30 SGT covering events and changes since the previous sitrep (the previous day); the only place the model writes</td><td>—</td></tr>
+          <tr><td class="num">20</td><td>Contract-first slices <span class="why">added 2026-07-08</span></td><td>Schemas + stage interfaces frozen in §13; slices V1–V3 build against contracts and shared fixtures, not against each other; the scheduled sitrep is enabled only at integration</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -496,6 +498,7 @@
       <li><strong>Replay fixtures</strong> — a real historical Orange/Red event captured from the query APIs (<code>fdsnws-event</code>, GDACS search) plus a genuinely quiet morning; the pipeline runs against fixtures before it runs live.</li>
       <li><strong>ReliefWeb appname request</strong> submitted today — the form-and-email confirmation has a clock we don’t control.</li>
       <li><strong>Host choice + deploy token</strong> in Actions secrets.</li>
+      <li><strong>Contract freeze</strong> <em>(added 2026-07-08)</em> — JSON Schema files under <code>schemas/</code> and the contract fixtures of §13.6; slice work starts only after these exist, because they are what makes V1–V3 independent (§13).</li>
     </ol>
   </section>
 
@@ -508,6 +511,111 @@
       <li><strong>Verify live during Day-1 slicing</strong> — ReliefWeb current rate-limit guidance, GDACS <code>If-Modified-Since</code> support, exact window of <code>EVENTS4APP</code>.</li>
       <li><strong>Monitor-loop cadence vs GitHub Actions</strong> <em>(added 2026-07-08)</em> — a 5-min cron is Actions’ minimum, jitters badly at busy hours, and ~288 runs/day consumes the free-tier minutes quota within days. Options at V3: accept paid minutes, relax to 15 min, or move the loop off Actions. The PRD commits to “regular, with visible freshness”, not to a number.</li>
     </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">§13</span>Contracts: schemas &amp; interfaces <em style="font-weight:400">(added 2026-07-08 — slice decoupling)</em></h2>
+    <p>The three slices (<code>docs/SLICES.md</code>, issues #3–#5) are implemented <strong>independently, against contracts, not against each other</strong>. Everything one slice consumes from another is frozen here as a schema or an interface, and shared fixtures stand in for the producing slice until integration. The contracts carry a version field (<code>"schema": 1</code>) and are enforced as JSON Schema files under <code>schemas/</code> plus contract fixtures under <code>tests/fixtures/</code> — both are Day-1 artefacts (§11, #4). Changing a contract afterwards touches all three slice issues and is recorded in <code>implementation-notes.md</code>.</p>
+
+    <h3>13.1 Canonical event — <code>data/events/&lt;event-id&gt;.json</code></h3>
+    <p>One committed file per canonical merged event (decisions #10, #13). The <code>id</code> is minted once from the first-seen record (<code>&lt;hazard&gt;-&lt;origin-date&gt;-&lt;seq&gt;</code>) and never changes; identity <em>matching</em> always uses the <code>identity</code> block (§6), never the <code>id</code>.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Block</th><th>Fields</th></tr></thead>
+        <tbody>
+          <tr><td>root</td><td><code>schema</code> (1) · <code>id</code> · <code>hazard</code> (<code>EQ TC FL VO DR WF</code>)</td></tr>
+          <tr><td><code>identity</code></td><td><code>glide</code> · <code>usgs_ids</code> (the <strong>union</strong>, §6) · <code>gdacs_event_id</code> · <code>gdacs_episode_id</code> · <code>reliefweb_ids</code></td></tr>
+          <tr><td><code>times</code></td><td><code>origin_utc</code> · <code>first_seen_utc</code> · <code>last_changed_utc</code> — ISO-8601 UTC (<code>…Z</code>), §8</td></tr>
+          <tr><td><code>geo</code></td><td><code>lat</code> · <code>lon</code> · <code>country_iso3</code> · <code>place_name</code></td></tr>
+          <tr><td><code>severity</code></td><td><code>gdacs_alertlevel</code> · <code>gdacs_episode_alertlevel</code> · <code>pager_alert</code> · <code>usgs_sig</code> · <code>magnitude</code> · <code>depth_km</code> — nullable by lane</td></tr>
+          <tr><td><code>impact[]</code></td><td><code>{metric, value, label, source}</code> — <code>label</code> is <strong>required</strong>, <code>estimated</code> or <code>reported</code> (§5); a bare figure is schema-invalid</td></tr>
+          <tr><td><code>merge</code></td><td><code>tier</code> (1/2/3/null) · <code>confidence</code> (<code>confirmed</code> / <code>high</code> / <code>possible</code> / <code>single-source</code>) · <code>delta_t_min</code> · <code>delta_km</code></td></tr>
+          <tr><td><code>links</code></td><td><code>reliefweb_umbrellas[]</code> — many-to-many event↔umbrella (§6)</td></tr>
+          <tr><td><code>change</code></td><td><code>status</code> (<code>NEW ESCALATED REVISED UPDATED DOWNGRADED WITHDRAWN AGED_OUT UNCHANGED</code>) · <code>summary</code> (deterministic, e.g. “alertlevel Orange→Red”) · <code>since_utc</code> (§4 #5, §7)</td></tr>
+          <tr><td><code>sources[]</code></td><td><code>{feed, fetched_utc, record}</code> — trimmed raw records, the audit trail</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><code>change.summary</code> is written by the deterministic classifier; model prose about a change lives only in the assessment (13.4).</p>
+
+    <h3>13.2 Run manifest — <code>data/manifest.json</code></h3>
+    <p>The gate’s machine-readable output. Workflows and renders condition on this file, never on parsing logs.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>schema</code></td><td>1</td></tr>
+          <tr><td><code>run_utc</code></td><td>when this cycle ran</td></tr>
+          <tr><td><code>verdict</code></td><td><code>CHANGED</code> / <code>QUIET</code></td></tr>
+          <tr><td><code>changed_event_ids[]</code></td><td>the model step’s entire input scope</td></tr>
+          <tr><td><code>feeds.&lt;name&gt;</code></td><td><code>{last_success_utc, status: ok/stale/down}</code> — dashboard freshness stamps; degraded/abort input (§7)</td></tr>
+          <tr><td><code>previous_sitrep_utc</code></td><td>the sitrep diff anchor (§8)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>13.3 Pipeline stage interfaces</h3>
+    <p>Every stage is separately invocable, JSON in / JSON out, with <code>--replay &lt;dir&gt;</code> supported wherever a feed would otherwise be touched:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Stage</th><th>Reads</th><th>Writes</th></tr></thead>
+        <tbody>
+          <tr><td><code>fetch --feed gdacs|usgs|reliefweb</code></td><td>live feed or fixture</td><td>raw snapshot JSON (feed-shaped)</td></tr>
+          <tr><td><code>normalise</code></td><td>raw snapshots</td><td>normalised records JSON</td></tr>
+          <tr><td><code>merge</code></td><td>normalised records + <code>data/</code></td><td>canonical events (13.1)</td></tr>
+          <tr><td><code>diff</code> (gate)</td><td>canonical events + prior <code>data/</code></td><td>updated <code>data/</code> + manifest (13.2)</td></tr>
+          <tr><td>assess (model)</td><td>manifest + store, read-only</td><td><code>assessment.json</code> (13.4)</td></tr>
+          <tr><td><code>render --view sitrep|dashboard</code></td><td><code>data/</code> + <code>assessment.json</code></td><td><code>out/</code> (13.5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Composed-run exit codes: <code>0</code> published or quiet (including degraded), <code>3</code> deliberate abort-blind per §7, any other non-zero an unexpected failure. Manifest verdict + exit code are the whole workflow-facing surface — both testable with stubs.</p>
+
+    <h3>13.4 Model assessment — <code>assessment.json</code></h3>
+    <p>The model reads the store and manifest, writes one uncommitted run artefact, and never touches <code>data/</code>:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>schema</code> · <code>generated_utc</code></td><td>1 · ISO-8601 UTC</td></tr>
+          <tr><td><code>summary_md</code></td><td>the plain-language layer</td></tr>
+          <tr><td><code>events.&lt;event-id&gt;.note_md</code></td><td>change-note prose per event</td></tr>
+          <tr><td><code>editorial_promotions[]</code></td><td><code>{event_id, reason_md}</code> — may only <em>add</em> (§5); render stamps the mandatory <span class="chip plain">editorial</span> label</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A canned assessment fixture lets every render build and run model-free.</p>
+
+    <h3>13.5 Render &amp; deploy interface</h3>
+    <p>Render writes <code>out/sitrep/&lt;date&gt;.html</code> (self-contained, mailable) and <code>out/dashboard/</code> (map + event list). Deploy publishes <code>out/</code> idempotently. Nothing under <code>out/</code> is ever committed (decision #12).</p>
+
+    <h3>13.6 Fixtures as stand-ins</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Fixture</th><th>Conforms to</th><th>Stands in for</th></tr></thead>
+        <tbody>
+          <tr><td><code>tests/fixtures/&lt;scenario&gt;/raw/</code></td><td>the feed shapes</td><td>the live feeds (V1’s input; captured Day-1, §11 #1)</td></tr>
+          <tr><td><code>tests/fixtures/&lt;scenario&gt;/store/</code></td><td>13.1 + 13.2</td><td><strong>V1’s output</strong> — hand-authored Day-1, so V2/V3 never wait on V1</td></tr>
+          <tr><td><code>tests/fixtures/assessment/</code></td><td>13.4</td><td>the model step</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Scenarios: eventful, quiet, escalation pair (morning-1/2), GDACS+USGS merge pair, ReliefWeb umbrella. When real V1 output later diverges from a store fixture, that is a contract bug to resolve, not a silent fixture update.</p>
+
+    <h3>13.7 What each slice consumes and produces</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Slice</th><th>Consumes (frozen)</th><th>Produces (must validate)</th><th>Stand-ins until integration</th></tr></thead>
+        <tbody>
+          <tr><td class="num">V1</td><td>raw fixtures (13.6)</td><td><code>data/</code> per 13.1–13.2; skeleton pages in the 13.5 layout</td><td>none — head of the pipeline</td></tr>
+          <tr><td class="num">V2</td><td>store fixtures (13.6) · assessment interface (13.4)</td><td>merge + classifier writing 13.1 blocks; model step; the real sitrep render</td><td>store fixtures replace V1; canned assessment replaces the live model</td></tr>
+          <tr><td class="num">V3</td><td>manifest verdict + exit codes (13.2–13.3) · <code>out/</code> layout (13.5)</td><td>both workflows, deploy, the dashboard</td><td>stage stubs honouring 13.3 replace V1 + V2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p>Independence covers implementation and each slice’s demo. <strong>Enabling</strong> the scheduled sitrep still requires the real gate (V1) and the real model step (V2) wired in — the repo’s architectural rule — so <code>sitrep.yml</code> ships <code>.disabled</code> and integration becomes a merge-and-flip step, not a build dependency.</p>
+    </div>
   </section>
 </div>
 </body>

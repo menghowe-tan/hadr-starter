@@ -9,7 +9,9 @@ dashboard with per-feed freshness; a **daily sitrep workflow** (cron 00:00
 UTC → 08:30 SGT publish) gates on what changed since the previous sitrep,
 wakes the model only then, and deploys the previous-day summary. Fails
 loudly when it would be blind. V1 builds the fetching machinery and V2 the
-sitrep itself — both human-triggered until this slice adds the schedules.
+sitrep itself — both human-triggered until this slice adds the schedules;
+this slice is built and demoed against stage stubs honouring the PRD §13
+contracts, so it does not wait for either.
 
 ## Why this cut
 
@@ -17,6 +19,17 @@ Everything before this is a tool someone runs; this slice makes it an agent.
 It carries the PRD's run semantics (§7 degraded/abort), the publishing
 deviation (external host, nothing generated committed), and the map — the
 one remaining reader surface.
+
+## Independence (PRD §13)
+
+The workflows condition only on the frozen surface of §13.2–13.3 — the
+manifest verdict, per-feed status, and the composed-run exit codes — and
+deploy only the `out/` layout of §13.5. Stage stubs honouring those
+contracts (emitting the store fixtures, including forced-failure variants)
+replace V1 and V2 for the whole build and the definition of done. The one
+integration point: `sitrep.yml` ships `.disabled` and flips on only when
+the real gate (V1) and model step (V2) are wired in (§13.7) — re-running
+this slice's DoD against the real stages is the integration test.
 
 ## Build plan
 
