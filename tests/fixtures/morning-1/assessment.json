@@ -1,0 +1,14 @@
+{
+ "summary": "A powerful earthquake struck central Myanmar this morning, near Mandalay (magnitude 7.7), shallow enough that severe shaking will have reached towns and cities across the region. It is early: impact models suggest serious damage is possible, but no ground reports have been confirmed yet, and the picture will change through the day. Separately, heavy rains in the eastern Democratic Republic of the Congo have pushed rivers over their banks, and aid workers there report homes flooded and thousands of people displaced. Two other offshore earthquakes overnight, near Vanuatu and in the middle of the Atlantic, were strong but far from people. The Myanmar earthquake is the situation to watch this morning.",
+ "change_notes": [
+  {
+   "event_id": "gdacs-EQ-1474477",
+   "note": "First report of this earthquake; impact estimates are still being calculated and no ground reports are confirmed yet."
+  },
+  {
+   "event_id": "gdacs-FL-1103210",
+   "note": "First report of this flood; humanitarian reporting from the affected provinces is already linked."
+  }
+ ],
+ "editorial_greens": []
+}

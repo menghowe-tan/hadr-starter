@@ -1,0 +1,221 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "generated": 1783488699000,
+  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2025-03-28T00%3A00%3A00&endtime=2025-03-28T12%3A00%3A00&minmagnitude=4.5&orderby=time",
+  "title": "USGS Earthquakes",
+  "status": 200,
+  "api": "2.7.0",
+  "count": 5
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 7.7,
+    "place": "Burma (Myanmar)",
+    "time": 1743142852715,
+    "updated": 1743143100000,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn9s",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn9s&format=geojson",
+    "felt": 2545,
+    "cdi": 9.1,
+    "mmi": 9.953,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 910,
+    "net": "us",
+    "code": "7000pn9s",
+    "ids": ",us7000pn9s,usauto7000pn9s,",
+    "sources": ",us,usauto,pt,at,",
+    "types": ",dyfi,earthquake-name,finite-fault,general-text,ground-failure,impact-text,internal-moment-tensor,internal-origin,losspager,moment-tensor,oaf,origin,phase-data,shakemap,",
+    "nst": 246,
+    "dmin": 3.474,
+    "rms": 0.89,
+    "gap": 24,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 7.7 - Burma (Myanmar)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     95.9363,
+     22.011,
+     10
+    ]
+   },
+   "id": "us7000pn9s"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.7,
+    "place": "Pacific-Antarctic Ridge",
+    "time": 1743139636431,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn9g",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn9g&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 340,
+    "net": "us",
+    "code": "7000pn9g",
+    "ids": ",us7000pn9g,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 26,
+    "dmin": 18.219,
+    "rms": 0.54,
+    "gap": 163,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.7 - Pacific-Antarctic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -160.1694,
+     -62.8554,
+     10
+    ]
+   },
+   "id": "us7000pn9g"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5,
+    "place": "79 km ENE of Lakatoro, Vanuatu",
+    "time": 1743126835681,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn8t",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn8t&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 385,
+    "net": "us",
+    "code": "7000pn8t",
+    "ids": ",us7000pn8t,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 63,
+    "dmin": 1.031,
+    "rms": 0.89,
+    "gap": 143,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 5.0 - 79 km ENE of Lakatoro, Vanuatu"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     168.139,
+     -15.9497,
+     167.556
+    ]
+   },
+   "id": "us7000pn8t"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 5.7,
+    "place": "61 km NW of Isangel, Vanuatu",
+    "time": 1743124804771,
+    "updated": 1749244339040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn8m",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn8m&format=geojson",
+    "felt": 2,
+    "cdi": 2.7,
+    "mmi": 4.208,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 500,
+    "net": "us",
+    "code": "7000pn8m",
+    "ids": ",us7000pn8m,usauto7000pn8m,pt25087001,",
+    "sources": ",us,usauto,pt,",
+    "types": ",dyfi,internal-moment-tensor,internal-origin,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 95,
+    "dmin": 3.621,
+    "rms": 0.92,
+    "gap": 41,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 5.7 - 61 km NW of Isangel, Vanuatu"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     168.8176,
+     -19.2093,
+     37
+    ]
+   },
+   "id": "us7000pn8m"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 6.1,
+    "place": "central Mid-Atlantic Ridge",
+    "time": 1743122061875,
+    "updated": 1749244345040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pn7g",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000pn7g&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": 5.147,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 572,
+    "net": "us",
+    "code": "7000pn7g",
+    "ids": ",us7000pn7g,usauto7000pn7g,pt25087000,at00stt5lc,",
+    "sources": ",us,usauto,pt,at,",
+    "types": ",ground-failure,internal-moment-tensor,internal-origin,losspager,moment-tensor,origin,phase-data,shakemap,",
+    "nst": 103,
+    "dmin": 8.993,
+    "rms": 0.57,
+    "gap": 42,
+    "magType": "mww",
+    "type": "earthquake",
+    "title": "M 6.1 - central Mid-Atlantic Ridge"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -29.665,
+     0.7055,
+     10
+    ]
+   },
+   "id": "us7000pn7g"
+  }
+ ],
+ "bbox": [
+  -160.1694,
+  -62.8554,
+  10,
+  168.8176,
+  47.9507,
+  425.346
+ ]
+}

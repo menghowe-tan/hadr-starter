@@ -1,0 +1,23 @@
+{
+ "summary": "The earthquake that struck near Mandalay in central Myanmar (magnitude 7.7) has been raised to the highest alert level: impact models now point to a major disaster, with heavy casualties possible across Mandalay and Sagaing, and humanitarian reporting has begun to confirm collapsed buildings and deaths. A strong aftershock (magnitude 6.7) hit the same area minutes after the main shock and is tracked separately. In the eastern Democratic Republic of the Congo, the flood situation has eased a step, though rivers remain high and thousands of people are still displaced. Two further earthquakes overnight, near Vanuatu and in the mid-Atlantic, were strong but remote and are not expected to have caused harm. Myanmar is this morning's story: the estimates are grave, and confirmed reports are only beginning to catch up with them.",
+ "change_notes": [
+  {
+   "event_id": "gdacs-EQ-1474477",
+   "note": "Raised from the middle to the highest alert level overnight as impact models caught up with the earthquake's size and shallowness; ground reports of collapsed buildings are now linked."
+  },
+  {
+   "event_id": "gdacs-EQ-1474479",
+   "note": "A large aftershock in the same area, minutes after the main shock — tracked as its own event because it shook the same damaged buildings again."
+  },
+  {
+   "event_id": "gdacs-FL-1103210",
+   "note": "Stepped down one alert level as river levels ease, but the displacement reported earlier still stands."
+  }
+ ],
+ "editorial_greens": [
+  {
+   "event_id": "gdacs-VO-1000110",
+   "reason": "Poás volcano in Costa Rica is actively erupting near visited and populated areas; below the alert bar, but worth a line for readers in the region."
+  }
+ ]
+}
