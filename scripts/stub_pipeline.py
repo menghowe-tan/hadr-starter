@@ -67,9 +67,16 @@ def run(scenario: str, data_dir: Path, fixtures_dir: Path, now: datetime) -> int
     verdict = health.evaluate(manifest, now)
     events = sorted((store / "events").glob("*.json")) if (store / "events").exists() else []
 
+    def emit() -> None:
+        print(json.dumps({"verdict": manifest["verdict"], "health": verdict}))
+        if output := os.environ.get("GITHUB_OUTPUT"):
+            with open(output, "a") as fh:
+                fh.write(f"verdict={manifest['verdict']}\n")
+                fh.write(f"health={verdict['status']}\n")
+
     if verdict["status"] == "abort":
         # Blind morning: touch nothing; the previous store and sitrep stay live.
-        print(json.dumps({"verdict": manifest["verdict"], "health": verdict}))
+        emit()
         return health.ABORT_EXIT_CODE
 
     # The stub honours the contract it stands in for: validate before writing.
@@ -85,11 +92,7 @@ def run(scenario: str, data_dir: Path, fixtures_dir: Path, now: datetime) -> int
         shutil.copy(path, events_dir / path.name)
     (data_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
-    print(json.dumps({"verdict": manifest["verdict"], "health": verdict}))
-    if output := os.environ.get("GITHUB_OUTPUT"):
-        with open(output, "a") as fh:
-            fh.write(f"verdict={manifest['verdict']}\n")
-            fh.write(f"health={verdict['status']}\n")
+    emit()
     return 0
 
 

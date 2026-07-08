@@ -17,7 +17,29 @@ import subprocess
 import sys
 from pathlib import Path
 
+import httpx
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def preserve_live_sitrep(out_dir: Path) -> None:
+    """A Netlify deploy replaces the whole site. When the monitor loop deploys
+    a dashboard-only out/, mirror the currently-live sitrep in first so the
+    previous sitrep stays live (PRD §7). Best-effort: first deploys have none."""
+    site_url = os.environ.get("NETLIFY_SITE_URL")
+    if not site_url or (out_dir / "sitrep" / "index.html").exists():
+        return
+    try:
+        response = httpx.get(
+            f"{site_url.rstrip('/')}/sitrep/index.html", timeout=15, follow_redirects=True
+        )
+        response.raise_for_status()
+    except httpx.HTTPError as exc:
+        print(f"no live sitrep to preserve ({exc})", file=sys.stderr)
+        return
+    (out_dir / "sitrep").mkdir(parents=True, exist_ok=True)
+    (out_dir / "sitrep" / "index.html").write_text(response.text)
+    print("preserved live sitrep into out/sitrep/")
 
 
 def tree_hash(root: Path) -> str:
@@ -42,6 +64,8 @@ def main(argv: list[str] | None = None) -> int:
         print("nothing to deploy: out/ is empty", file=sys.stderr)
         return 1
 
+    if not args.dry_run:
+        preserve_live_sitrep(args.out)
     current = tree_hash(args.out)
     manifest_path = args.data / "manifest.json"
     manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
