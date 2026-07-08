@@ -3,15 +3,18 @@
 ## Language & tooling
 
 Python, managed with **uv** (`uv run`, `uv add`). Deterministic pipeline code
-lives in `scripts/` and never calls a model.
+lives in `scripts/` and never calls a model. The model lives behind
+`harness/` — a **reusable, project-agnostic agent harness** (chat loop,
+standing orders, tool registry, agent loop; zero repo imports — copy the
+package into any project) — wired to this project in `agent/` (HADR tools +
+`goal.md`). Keep that boundary: nothing HADR-specific goes in `harness/`,
+no model calls go in `scripts/`.
 
 ## Test command
 
 ```
 uv run pytest
 ```
-
-(No tests exist yet; the first slice adds them alongside the replay fixtures.)
 
 ## Conventions
 

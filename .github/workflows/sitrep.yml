@@ -1,0 +1,85 @@
+# Morning sitrep — the shape the repo's one architectural rule prescribes:
+#   1. a deterministic script decides whether anything changed;
+#   2. a headless model call runs only if it did.
+# The model never decides whether to wake up. `agent/daily.py` does both
+# steps in one process: pipeline.runner.run_cycle() (deterministic) first,
+# then agent.assess (the model) only when the gate says CHANGED.
+#
+# Scheduled at 00:00 UTC targeting an 08:30 SGT publish — GitHub cron fires
+# late; the margin is the point (PRD §8).
+#
+# Run semantics (PRD §7): one real-time feed down → degraded publish with a
+# banner; GDACS and USGS both down, or the store unreadable → the run
+# exits 3, this job fails loudly, nothing deploys, the previous sitrep
+# stays live.
+
+name: Morning sitrep
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Replay fixture under tests/fixtures/ (omit for a live fetch)
+        type: choice
+        default: eventful
+        options: [eventful, quiet, morning-1, morning-2, gdacs-down, both-down, live]
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sitrep
+  cancel-in-progress: false
+
+jobs:
+  sitrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      # Deterministic cycle + gated model assessment + deterministic render,
+      # in one call. Exit 3 = abort-blind: the job fails here, nothing is
+      # deployed, the previous sitrep stays live. Without an API key the
+      # model step is skipped (`--assess off`); the pipeline stays
+      # demonstrable end to end with a deterministic fallback summary.
+      - id: sitrep
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          scenario="${{ inputs.scenario || 'eventful' }}"
+          mode="off"
+          [ -n "$ANTHROPIC_API_KEY" ] && mode="live"
+          if [ "$scenario" = "live" ]; then
+            uv run agent/daily.py --out out/sitrep/index.html --assess "$mode"
+          else
+            uv run agent/daily.py --replay "tests/fixtures/$scenario" \
+              --out out/sitrep/index.html --assess "$mode"
+          fi
+
+      - name: Commit store on change
+        if: steps.sitrep.outcome == 'success'
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git config user.name "hadr-monitor[bot]"
+            git config user.email "hadr-monitor[bot]@users.noreply.github.com"
+            git add data/
+            git commit -m "sitrep: store update ($(jq -r .run_at data/manifest.json))"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Render dashboard
+        if: steps.sitrep.outcome == 'success'
+        run: uv run scripts/render_dashboard.py
+
+      - name: Deploy
+        if: steps.sitrep.outcome == 'success'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: uv run scripts/deploy.py

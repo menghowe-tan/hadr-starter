@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "generated_utc": "2025-07-30T00:31:12+00:00",
+  "summary_md": "A very powerful earthquake struck off the Pacific coast of Russia's Kamchatka peninsula late yesterday evening, sending tsunami waves of three to four metres into nearby coastal towns; the alert has been raised to the highest level as the picture worsens. Further south, a strengthening storm in the sea north of the Philippines is tracking west and is expected to pass south of Taiwan. Around one hundred and thirty thousand people are thought to have felt strong shaking from the earthquake, though confirmed reports of damage are still arriving. No other significant events cleared the reporting bar overnight.",
+  "events": {
+    "EQ-2025-07-29-001": {
+      "note_md": "▲ ESCALATED overnight: the alert rose from Orange to Red at 23:47 UTC as the magnitude was revised from 8.0 to 8.8 and tsunami waves were confirmed ashore."
+    },
+    "TC-2025-07-27-001": {
+      "note_md": "△ UPDATED: a new forecast episode shifted the storm's track west; exposure estimates unchanged in category."
+    }
+  },
+  "editorial_promotions": []
+}
