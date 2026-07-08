@@ -61,6 +61,10 @@ def normalise_gdacs(payload: dict) -> list[dict]:
                 "severity_text": severity.get("severitytext") or None,
                 "alert_level": _lower_or_none(properties.get("alertlevel")),
                 "alert_score": properties.get("alertscore"),
+                # Who computed the GDACS record: "NEIC" means the earthquake
+                # lane is USGS-derived — agreement is an echo, not
+                # corroboration (PRD §9), and the render says so.
+                "feed_source": properties.get("source") or None,
                 "episode_id": properties.get("episodeid"),
                 "episode_alert_level": _lower_or_none(properties.get("episodealertlevel")),
                 "pager": None,
