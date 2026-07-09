@@ -13,6 +13,7 @@ from pathlib import Path
 
 MANIFEST_NAME = "manifest.json"
 EVENTS_DIR = "events"
+NEWS_NAME = "news.json"
 
 
 def load_events(data_dir: Path) -> dict[str, dict]:
@@ -46,3 +47,27 @@ def save(data_dir: Path, events: dict[str, dict], manifest: dict) -> None:
     for event_id, record in events.items():
         (events_dir / f"{event_id}.json").write_text(_dump(record))
     (data_dir / MANIFEST_NAME).write_text(_dump(manifest))
+
+
+def load_news(data_dir: Path) -> dict | None:
+    """The last committed news-summary search (skills/news-summary/SKILL.md),
+    or ``None`` if the skill has never run. Absence is not "checked, found
+    nothing" — callers must tell the two apart."""
+    path = Path(data_dir) / NEWS_NAME
+    if not path.is_file():
+        return None
+    return json.loads(path.read_text())
+
+
+def save_news(
+    data_dir: Path, checked_at: str, items: list[dict], searched: bool | None = None
+) -> None:
+    """Persist the day's news search so the model-free dashboard renderer
+    can display it without ever calling a model itself. ``searched`` is
+    ``None`` for a replayed/recorded assessment (unknown whether a live
+    search happened), ``True``/``False`` for a live run — distinct from
+    ``items`` being empty because nothing was worth surfacing."""
+    data_dir = Path(data_dir)
+    data_dir.mkdir(parents=True, exist_ok=True)
+    payload = {"checked_at": checked_at, "searched": searched, "items": items}
+    (data_dir / NEWS_NAME).write_text(_dump(payload))

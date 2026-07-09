@@ -130,7 +130,73 @@ Kept by the agent, reviewed by you. One entry per working block.
   the monitor loop also writes the store between sitreps. Flagged for V3
   rather than built speculatively here.
 
+- **2026-07-09 — Day-2 skill: news-summary (user request).** Added
+  `skills/news-summary/SKILL.md` and wired it into the existing
+  `agent/assess.py` call rather than a separate model step: the
+  `ClaudeAssessor` request now carries the `web_search_20250305` server
+  tool, and the structured-output schema gained a fourth field,
+  `news_items` (headline, source, url, published_at, event_id, note),
+  alongside `summary`/`change_notes`/`editorial_greens`. `validate_assessment`
+  extends the same invention guard — a news item's `event_id`, if set, must
+  already be a known event — and adds a hard attribution gate: no source
+  name + URL, no item. Persisted to a new committed file, `data/news.json`
+  (`pipeline.store.load_news`/`save_news`), written only on a run that woke
+  the model and carried forward otherwise (same convention as the
+  manifest's `deploy_state`), so `scripts/render_dashboard.py` — which must
+  stay model-free per CLAUDE.md — can display the last search without
+  calling anything live. `pipeline.render.render_sitrep` gained a "News
+  mentions" zone (after Events, before "Noted, quieter") reading straight
+  from the assessment; `render_dashboard.py` gained a matching aside panel
+  reading straight from `data/news.json`. Neither render script talks to a
+  model; only `agent/assess.py`'s single call does.
+
+- **2026-07-09 — the News mentions zone is never silently omitted (user
+  correction).** The first cut only rendered the zone when
+  `data/news.json` existed, so a store that had never run the skill (true
+  in this repo — no live `ANTHROPIC_API_KEY` here yet, `--assess off`/
+  `recorded` never call `web_search`) showed nothing at all: indistinguishable
+  from "checked, found nothing." Changed both `render_sitrep` and
+  `render_dashboard.news_panel` to always render the zone, in one of three
+  explicit states — never run, run but nothing worth surfacing, or run
+  with items — matching `goal.md`'s own "all quiet is a statement, not an
+  absence" principle. Also added a `searched` flag (`ClaudeAssessor`
+  detects `server_tool_use`/`web_search_tool_result` blocks across the
+  `pause_turn` loop) so "the model didn't call web_search this run" and
+  "it searched and found nothing" render as different sentences —
+  `RecordedAssessor`/`--assess off` leave `searched` absent (`None`,
+  unknown), since no live call happened to check.
+
+- **2026-07-09 — news-summary decoupled from the sitrep gate (user
+  request).** Until now, `news_items` only ran as part of the one
+  CHANGED-gated `ClaudeAssessor` call — meaning "nothing crossed GDACS/
+  USGS/ReliefWeb's own alert thresholds" also meant "no news check", which
+  defeats the skill's own point (`goal.md`'s blindness: tsunami warnings,
+  ReliefWeb's days-long lag — a quiet morning by *those* thresholds can
+  still be the morning a story breaks that none of them have caught). Split
+  the news call out of `ASSESSMENT_SCHEMA`'s consumer path into its own
+  standalone one: `agent/assess.py` gained `NEWS_SYSTEM_PROMPT`/
+  `NEWS_SCHEMA`/`ClaudeAssessor.search_news`/`RecordedAssessor.search_news`
+  (the shared `_call_structured` helper, factored out of the old
+  `ClaudeAssessor.__call__`, backs both); `agent/daily.py` now calls
+  `assessor.search_news(...)` on *every* run when the gated call didn't
+  already produce `news_items` for the day — never both, so a `CHANGED`
+  morning still makes exactly one model call. This is now the second,
+  narrower exception to "the model never decides whether to wake up"
+  (the first was `web_search` itself, recorded above) — flagged
+  explicitly here rather than silently generalized, since the gate
+  covering the *sitrep-writing* call (summary/change_notes/
+  editorial_greens) is unchanged and still tested by
+  `test_model_wakes_only_when_the_gate_says_changed`.
+
 ## Open questions
+
+- The live `web_search_20250305` server tool + `output_config` json_schema
+  combination in `agent/assess.py` is implemented against documented API
+  shape but has not been exercised against a real `ANTHROPIC_API_KEY` (no
+  key in this environment). Regenerate a live recording
+  (`uv run agent/daily.py --replay <dir> --assess live`) at the first
+  opportunity and diff it against expectations before trusting the sitrep
+  scheduler's next `live` dispatch.
 
 ## Deviations
 
@@ -282,3 +348,25 @@ Kept by the agent, reviewed by you. One entry per working block.
     replay file as `down`) without a purpose-built stub scenario.
   - Both crons (`*/15 * * * *` monitor, `0 0 * * *` sitrep) are uncommented:
     the real V1/V2 stages they were waiting on are now in `main`.
+
+- **2026-07-09 — the news-summary skill's input is generative, not
+  deterministic.** CLAUDE.md: "deterministic before generative... no model
+  calls in scripts/". Every other feed (GDACS, USGS, ReliefWeb) is a
+  fetch-then-parse call with a stable schema; `web_search` results are
+  chosen by the model, at generation time, and cannot be replayed byte-for-
+  byte — `agent/assess.py`'s own docstring used to say the model writes
+  "three things and only three things", which this breaks. Reason the user
+  asked for it anyway: none of the deterministic feeds can go looking for a
+  fast-breaking story (`goal.md`'s stated blindness — tsunami warnings,
+  ReliefWeb's days-long lag), and only a live search closes that gap.
+  Mitigations, so the rest of the pipeline's guarantees still hold: (1) a
+  news item is never a `Reported`/`Estimated` impact figure — it renders in
+  its own "News mentions" zone, never mixed with `render.VALID_IMPACT_LABELS`;
+  (2) `validate_assessment` still forbids inventing or reclassifying an
+  event, and additionally requires a real source + URL per item; (3) the
+  search only ever runs inside the one already-gated model call
+  (`agent/daily.py`, only on `CHANGED`) — it does not add a second place the
+  model can wake itself; (4) the result is written to committed JSON
+  (`data/news.json`) immediately, so `scripts/render_dashboard.py` stays
+  model-free and every other render step stays exactly as deterministic as
+  it was before this skill existed.

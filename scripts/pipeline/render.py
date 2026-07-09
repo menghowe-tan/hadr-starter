@@ -395,6 +395,34 @@ def _tiles(active: list[dict], editorial_count: int, changed_count: int) -> str:
     return f'<div style="margin:14px 0 4px;">{cells}</div>'
 
 
+def _news_items(items: list[dict]) -> list[str]:
+    """skills/news-summary/SKILL.md items — attributed, never a bare claim,
+    and never mixed with the Estimated/Reported impact lines."""
+    rendered = []
+    for item in items:
+        head = (
+            f'<a href="{_esc(item["url"])}" style="color:{ACCENT};font-weight:600;'
+            f'text-decoration:none;">{_esc(item["headline"] or item["url"])}</a>'
+        )
+        meta_bits = [item["source"]]
+        if item.get("published_at"):
+            meta_bits.append(item["published_at"])
+        meta = f'<span style="{MONO_STYLE};font-size:11px;color:{MUTED};"> — {_esc(" · ".join(meta_bits))}</span>'
+        related = ""
+        if item.get("event_id"):
+            related = (
+                f' <a href="#{_esc(item["event_id"])}" style="font-size:11px;'
+                f'color:{MUTED};">↳ related event</a>'
+            )
+        note = (
+            f'<p style="margin:2px 0 0;font-size:13px;">{_esc(item["note"])}</p>'
+            if item.get("note")
+            else ""
+        )
+        rendered.append(f"<li style=\"margin:0 0 10px;\">{head}{meta}{related}{note}</li>")
+    return rendered
+
+
 def _quieter_items(manifest: dict, store: dict[str, dict]) -> list[str]:
     items = []
     for change in manifest["changes"]:
@@ -438,6 +466,7 @@ def render_sitrep(
     manifest: dict,
     assessment: dict | None = None,
     candidates: list[dict] | None = None,
+    news: dict | None = None,
 ) -> str:
     changes_by_id = {c["event_id"]: c for c in manifest["changes"]}
     active = [r for r in store.values() if r.get("status") == "active"]
@@ -552,6 +581,41 @@ def render_sitrep(
             "silence.</p>"
         )
 
+    # -- Zone 5b: news mentions (skills/news-summary/SKILL.md) ----------------
+    # Always rendered, never silently omitted — a search that hasn't run,
+    # or ran and found nothing, is a statement, not an absence (goal.md's
+    # "all quiet" principle, applied to this skill too).
+    parts.append(f"<h2 {h2}>News mentions</h2>")
+    if news is None:
+        parts.append(
+            f'<p style="margin:0;font-size:13px;color:{MUTED};">The news-summary skill '
+            "has not run yet — no web search has been recorded for this store.</p>"
+        )
+    else:
+        checked = stamp(news["checked_at"]) if news.get("checked_at") else "unknown time"
+        parts.append(
+            f'<p style="margin:0 0 8px;font-size:12px;color:{MUTED};">Web search checked '
+            f"{_esc(checked)} — unverified external reporting, not confirmed by this "
+            "pipeline.</p>"
+        )
+        news_rows = _news_items(news.get("items") or [])
+        if news_rows:
+            parts.append(
+                '<ul data-news="1" style="list-style:none;margin:0;padding:0;">'
+                + "".join(news_rows)
+                + "</ul>"
+            )
+        elif news.get("searched") is False:
+            parts.append(
+                f'<p style="font-size:13px;color:{MUTED};">The model did not search this '
+                "run — nothing prompted it to look.</p>"
+            )
+        else:
+            parts.append(
+                f'<p style="font-size:13px;color:{MUTED};">No relevant coverage found in '
+                "this search.</p>"
+            )
+
     # -- Zone 6: quieter + blindness ------------------------------------------
     quieter = _quieter_items(manifest, store)
     parts.append(f"<h2 {h2}>Noted, quieter</h2>")
@@ -623,8 +687,9 @@ def write_sitrep(
     out_path: Path,
     assessment: dict | None = None,
     candidates: list[dict] | None = None,
+    news: dict | None = None,
 ) -> Path:
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(render_sitrep(store, manifest, assessment, candidates))
+    out_path.write_text(render_sitrep(store, manifest, assessment, candidates, news))
     return out_path

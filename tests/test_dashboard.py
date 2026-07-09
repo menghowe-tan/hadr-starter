@@ -81,3 +81,36 @@ def test_degraded_run_shows_banner_and_red_chip(tmp_path):
 
 def test_unreadable_store_aborts_with_exit_3(tmp_path, capsys):
     assert render_dashboard.main(["--data", str(tmp_path / "nowhere")]) == 3
+
+
+def test_news_panel_states_it_has_never_run(tmp_path):
+    page, _ = build(tmp_path)
+    assert "News mentions" in page
+    assert "has not run yet" in page
+
+
+def test_news_panel_shows_the_last_committed_search(tmp_path):
+    runner.run_cycle(FIXTURES / "eventful", tmp_path)
+    from pipeline import store as pipeline_store
+
+    pipeline_store.save_news(
+        tmp_path,
+        "2025-03-28T00:35:00+00:00",
+        [
+            {
+                "headline": "Strong quake shakes central region",
+                "source": "Reuters",
+                "url": "https://reuters.example/a",
+                "published_at": "2025-03-28",
+                "event_id": RED_EVENT,
+                "note": "Wire coverage matches the reported epicentre.",
+            }
+        ],
+    )
+    manifest, events = render_dashboard.load_store(tmp_path)
+    news = pipeline_store.load_news(tmp_path)
+    page = render_dashboard.render(manifest, events, datetime.now(timezone.utc), news)
+    assert "News mentions" in page
+    assert "Strong quake shakes central region" in page
+    assert 'href="https://reuters.example/a"' in page
+    assert "unverified web search" in page

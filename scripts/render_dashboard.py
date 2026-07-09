@@ -18,6 +18,7 @@ from pathlib import Path
 
 import health
 from pipeline import diff as pipeline_diff
+from pipeline import store as pipeline_store
 from pipeline.render import display_title
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -68,7 +69,41 @@ def marker_payload(event: dict, changes_by_id: dict) -> dict:
     }
 
 
-def render(manifest: dict, events: list[dict], now: datetime) -> str:
+def news_panel(news: dict | None) -> str:
+    """skills/news-summary/SKILL.md, read straight off the committed store —
+    this script never calls a model; it only displays what the last daily
+    sitrep run already found and wrote to ``data/news.json``. Always shown,
+    never silently omitted: whether the skill has run at all is itself
+    something this dashboard should state, not leave the reader to guess."""
+    if news is None:
+        return (
+            "<h2>News mentions</h2>"
+            '<p class="news-meta">The news-summary skill has not run yet.</p>'
+        )
+    items = news.get("items") or []
+    checked = html.escape(news.get("checked_at") or "unknown time")
+    if items:
+        rows = "".join(
+            f'<li class="news-item"><a href="{html.escape(i["url"])}" target="_blank" '
+            f'rel="noopener">{html.escape(i["headline"] or i["url"])}</a>'
+            f'<div class="news-meta">{html.escape(i.get("source") or "")}'
+            + (f' · {html.escape(i["published_at"])}' if i.get("published_at") else "")
+            + "</div></li>"
+            for i in items
+        )
+    elif news.get("searched") is False:
+        rows = '<li class="news-meta">The model did not search last run.</li>'
+    else:
+        rows = '<li class="news-meta">No relevant coverage found in the last check.</li>'
+    return (
+        '<h2>News mentions</h2>'
+        f'<p class="news-meta">Checked {checked} — unverified web search, not '
+        "confirmed by this pipeline.</p>"
+        f'<ul class="news-list">{rows}</ul>'
+    )
+
+
+def render(manifest: dict, events: list[dict], now: datetime, news: dict | None = None) -> str:
     verdict = health.evaluate(manifest, now)
     changes_by_id = {c["event_id"]: c for c in manifest.get("changes", [])}
     markers = [marker_payload(e, changes_by_id) for e in events]
@@ -127,6 +162,10 @@ aside h2 {{ font-size:13px; text-transform:uppercase; letter-spacing:.06em;
   color:inherit; font:inherit; cursor:pointer }}
 .event:focus {{ outline:2px solid var(--accent) }}
 .event .lvl {{ font-family:ui-monospace,monospace; font-size:11px; font-weight:700 }}
+.news-list {{ list-style:none; margin:0 0 4px; padding:0 }}
+.news-item {{ margin:0 0 8px; font-size:13px }}
+.news-item a {{ color:var(--accent); text-decoration:none; font-weight:600 }}
+.news-meta {{ font-family:ui-monospace,monospace; font-size:11px; color:var(--muted); margin:2px 0 0 }}
 .tile-notice {{ position:absolute; z-index:1000; top:10px; left:50px;
   background:var(--surface); border:1px solid var(--line); border-radius:6px;
   padding:6px 10px; font-size:12px; color:var(--muted); display:none }}
@@ -146,6 +185,7 @@ aside h2 {{ font-size:13px; text-transform:uppercase; letter-spacing:.06em;
   <aside aria-label="Current events, mirroring the map markers">
     <h2>Current events</h2>
     <div id="event-list"></div>
+    {news_panel(news)}
   </aside>
 </main>
 <script id="store" type="application/json">{payload}</script>
@@ -226,7 +266,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"store unreadable: {args.data}/manifest.json missing", file=sys.stderr)
         return health.ABORT_EXIT_CODE
     manifest, events = load_store(args.data)
-    page = render(manifest, events, args.now or datetime.now(timezone.utc))
+    news = pipeline_store.load_news(args.data)
+    page = render(manifest, events, args.now or datetime.now(timezone.utc), news)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "index.html").write_text(page)
     print(f"wrote {args.out / 'index.html'} ({len(events)} events)")

@@ -6,7 +6,9 @@ Red on both feeds — the sitrep must lead with the ▲ ESCALATED card — and
 the flood at Orange, landing in "Noted, quieter".
 """
 
+import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -14,6 +16,7 @@ from pathlib import Path
 import pytest
 from agent import daily
 from agent.assess import RecordedAssessor
+from pipeline import store
 from pipeline.render import validate_sitrep
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,6 +35,21 @@ class SpyAssessor:
     def __call__(self, context):
         self.calls += 1
         return self.recorded(context)
+
+
+class NewsSpy:
+    """A minimal assessor stand-in exposing only ``search_news`` — for
+    testing the always-runs news path in isolation from the sitrep gate
+    (``SpyAssessor`` above deliberately has no ``search_news``, so the
+    quiet-morning test doesn't accidentally start exercising it)."""
+
+    def __init__(self, path):
+        self.calls = 0
+        self.recorded = RecordedAssessor(path)
+
+    def search_news(self, context):
+        self.calls += 1
+        return self.recorded.search_news(context)
 
 
 def _run_morning(fixture_dir, data_dir, out_path):
@@ -95,6 +113,62 @@ def test_model_wakes_only_when_the_gate_says_changed(tmp_path):
         assert f"<strong>{feed}</strong> ok" in page
 
 
+def test_news_summary_runs_on_a_quiet_morning_too(tmp_path):
+    """The one exception to "the model never decides whether to wake up"
+    (agent/daily.py's docstring, by request): news search runs every day,
+    independent of the sitrep gate — a quiet morning by the feeds' own
+    thresholds can still be the morning a story breaks that none of them
+    have caught."""
+    fixture = tmp_path / "quiet-with-news"
+    shutil.copytree(FIXTURES / "quiet", fixture)
+    (fixture / "assessment.json").write_text(
+        json.dumps(
+            {
+                "news_items": [
+                    {
+                        "headline": "Volcano activity increasing nearby",
+                        "source": "Reuters",
+                        "url": "https://reuters.example/volcano",
+                        "published_at": "2025-04-09",
+                        "event_id": "",
+                        "note": "A standalone development the feeds haven't caught.",
+                    }
+                ]
+            }
+        )
+    )
+
+    data_dir = tmp_path / "data"
+    spy = NewsSpy(fixture / "assessment.json")
+    manifest = daily.run_daily(fixture, data_dir, tmp_path / "quiet.html", spy)
+    assert manifest["verdict"] == "QUIET"
+    assert spy.calls == 1  # the news check ran even though the model "slept"
+
+    news = store.load_news(data_dir)
+    assert news["items"][0]["headline"] == "Volcano activity increasing nearby"
+
+    page = (tmp_path / "quiet.html").read_text()
+    assert "Volcano activity increasing nearby" in page
+
+
+def test_news_summary_does_not_double_call_on_a_changed_morning(tmp_path):
+    """When the gate already woke the model, its own news_items cover the
+    day — search_news must not also fire (no duplicate model call)."""
+
+    class TrackedRecordedAssessor(RecordedAssessor):
+        def __init__(self, path):
+            super().__init__(path)
+            self.news_calls = 0
+
+        def search_news(self, context):
+            self.news_calls += 1
+            return super().search_news(context)
+
+    assessor = TrackedRecordedAssessor(MORNING_1 / "assessment.json")
+    daily.run_daily(MORNING_1, tmp_path / "data", tmp_path / "sitrep.html", assessor)
+    assert assessor.news_calls == 0
+
+
 def test_identical_rerun_is_quiet_and_model_free(tmp_path):
     data_dir = tmp_path / "data"
     _run_morning(MORNING_2, data_dir, tmp_path / "sitrep.html")
@@ -102,6 +176,39 @@ def test_identical_rerun_is_quiet_and_model_free(tmp_path):
     manifest = daily.run_daily(MORNING_2, data_dir, tmp_path / "sitrep.html", spy)
     assert manifest["verdict"] == "QUIET"
     assert spy.calls == 0
+
+
+def test_daily_run_writes_a_timestamped_backup(tmp_path):
+    data_dir = tmp_path / "data"
+    out_path = tmp_path / "sitrep.html"
+    manifest, _ = _run_morning(MORNING_1, data_dir, out_path)
+
+    from datetime import datetime, timezone
+
+    tag = datetime.fromisoformat(manifest["run_at"]).astimezone(timezone.utc).strftime(
+        "%Y%m%dT%H%M%SZ"
+    )
+    backup_path = out_path.parent / "history" / f"sitrep-{tag}-run{manifest['run_number']}.html"
+    assert backup_path.is_file()
+    assert backup_path.read_text() == out_path.read_text()
+
+
+def test_backups_accumulate_and_survive_a_later_overwrite(tmp_path):
+    data_dir = tmp_path / "data"
+    out_path = tmp_path / "sitrep.html"
+    _run_morning(MORNING_1, data_dir, out_path)
+    history_dir = out_path.parent / "history"
+    first_backups = list(history_dir.glob("*.html"))
+    assert len(first_backups) == 1
+    first_content = first_backups[0].read_text()
+
+    _run_morning(MORNING_2, data_dir, out_path)
+    backups = sorted(history_dir.glob("*.html"))
+    assert len(backups) == 2
+    # The first run's backup is untouched even though out_path itself
+    # (the "live" sitrep) was overwritten by the second run.
+    assert first_backups[0].read_text() == first_content
+    assert first_backups[0].read_text() != out_path.read_text()
 
 
 def test_both_realtime_feeds_down_aborts_loudly(tmp_path):
@@ -113,6 +220,49 @@ def test_both_realtime_feeds_down_aborts_loudly(tmp_path):
     with pytest.raises(daily.Abort, match="both unreachable"):
         daily.run_daily(blind, tmp_path / "data", out_path, SpyAssessor())
     assert not out_path.exists()  # the previous sitrep stays live instead
+
+
+def test_news_summary_persists_and_carries_forward(tmp_path):
+    """skills/news-summary/SKILL.md end to end: a run that wakes the model
+    with news_items writes data/news.json and renders it; a later quiet run
+    (the model asleep) still shows the carried-forward search."""
+    fixture = tmp_path / "morning-1-with-news"
+    shutil.copytree(MORNING_1, fixture)
+    assessment = json.loads((fixture / "assessment.json").read_text())
+    assessment["news_items"] = [
+        {
+            "headline": "Strong quake shakes central Myanmar",
+            "source": "Reuters",
+            "url": "https://reuters.example/mandalay-quake",
+            "published_at": "2025-03-28",
+            "event_id": "gdacs-EQ-1474477",
+            "note": "Wire coverage matches the reported epicentre.",
+        }
+    ]
+    (fixture / "assessment.json").write_text(json.dumps(assessment))
+
+    data_dir = tmp_path / "data"
+    manifest, spy = _run_morning(fixture, data_dir, tmp_path / "sitrep-news.html")
+    assert manifest["verdict"] == "CHANGED"
+
+    news = store.load_news(data_dir)
+    assert news["items"][0]["headline"] == "Strong quake shakes central Myanmar"
+
+    page = (tmp_path / "sitrep-news.html").read_text()
+    assert "News mentions" in page
+    assert "Strong quake shakes central Myanmar" in page
+    validate_sitrep(page)
+
+    # A later identical re-run is QUIET (model asleep) but the news search
+    # still shows up — carried forward, not erased by a quiet morning.
+    quiet_spy = SpyAssessor()
+    quiet_manifest = daily.run_daily(
+        fixture, data_dir, tmp_path / "sitrep-news-2.html", quiet_spy
+    )
+    assert quiet_manifest["verdict"] == "QUIET"
+    assert quiet_spy.calls == 0
+    quiet_page = (tmp_path / "sitrep-news-2.html").read_text()
+    assert "Strong quake shakes central Myanmar" in quiet_page
 
 
 def test_daily_cli_prints_the_verdict(tmp_path):

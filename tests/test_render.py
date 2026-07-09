@@ -121,3 +121,53 @@ def test_downgrade_lands_in_noted_quieter():
     quieter = page.split('data-quieter="1"')[1]
     assert "▽ DOWNGRADED" in quieter
     assert "orange → green" in quieter
+
+
+def test_news_zone_states_it_has_never_run():
+    # Absence would read as "nothing to see"; the zone must say so instead
+    # (goal.md's "all quiet is a statement, not an absence" principle).
+    page = render_sitrep({}, _manifest())
+    assert "News mentions" in page
+    assert "has not run yet" in page
+
+
+def test_news_zone_says_so_when_nothing_was_found():
+    page = render_sitrep(
+        {}, _manifest(), news={"checked_at": RUN_AT, "searched": True, "items": []}
+    )
+    assert "News mentions" in page
+    assert "No relevant coverage found" in page
+
+
+def test_news_zone_distinguishes_not_searched_from_searched_and_empty():
+    # searched=False (the model never called web_search this run) must not
+    # be confused with searched=True and nothing worth surfacing turned up.
+    page = render_sitrep(
+        {}, _manifest(), news={"checked_at": RUN_AT, "searched": False, "items": []}
+    )
+    assert "did not search this run" in page
+
+
+def test_news_item_is_attributed_and_links_its_related_event():
+    record = _record()
+    news = {
+        "checked_at": RUN_AT,
+        "items": [
+            {
+                "headline": "Strong quake shakes central region",
+                "source": "Reuters",
+                "url": "https://reuters.example/a",
+                "published_at": "2025-03-28",
+                "event_id": record["event_id"],
+                "note": "Wire coverage matches the reported epicentre.",
+            }
+        ],
+    }
+    page = render_sitrep({record["event_id"]: record}, _manifest(), news=news)
+    news_zone = page.split('data-news="1"')[1]
+    assert "Strong quake shakes central region" in news_zone
+    assert 'href="https://reuters.example/a"' in news_zone
+    assert "Reuters" in news_zone and "2025-03-28" in news_zone
+    assert f'href="#{record["event_id"]}"' in news_zone
+    assert "unverified external reporting" in page
+    validate_sitrep(page)  # attribution links don't trip the no-network rule

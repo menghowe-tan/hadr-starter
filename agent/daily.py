@@ -8,7 +8,11 @@ Flow: deterministic cycle (``pipeline.runner.run_cycle``) → abort check
 (PRD §7: both real-time feeds down means the report would be blind — worse
 than no report) → gate verdict → model assessment **only if CHANGED** →
 deterministic render. The all-quiet morning renders without waking the
-model; a degraded morning publishes with the banner.
+model; a degraded morning publishes with the banner. One exception:
+skills/news-summary/SKILL.md runs every day regardless of verdict, via a
+second, narrower model call (``assessor.search_news``) — a quiet morning
+by the feeds' own thresholds can still be the morning a story breaks that
+none of them have caught.
 """
 
 from __future__ import annotations
@@ -16,6 +20,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -23,13 +28,29 @@ sys.path.insert(0, str(_ROOT / "scripts"))
 sys.path.insert(0, str(_ROOT))
 
 import health  # noqa: E402
-from pipeline import render, runner  # noqa: E402
+from pipeline import render, runner, store  # noqa: E402
 
 from agent import assess  # noqa: E402
 
 
 class Abort(RuntimeError):
     """No sitrep exists this morning — this is an alert, not a page."""
+
+
+def _write_backup(sitrep_path: Path, run_at: str, run_number: int) -> Path:
+    """A timestamped copy alongside the live sitrep. ``out/``/``reports/``
+    are gitignored and rebuilt every run (CLAUDE.md) — this isn't an audit
+    trail (``data/`` already is one); it just keeps a specific run's page
+    from being overwritten in place by the next one. ``run_at`` only has
+    second precision (``pipeline.runner``), so two cycles inside the same
+    second are possible (fast replays, the 15-min loop catching up after a
+    gap) — ``run_number`` keeps their backups from colliding."""
+    tag = datetime.fromisoformat(run_at).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup_dir = sitrep_path.parent / "history"
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    backup_path = backup_dir / f"{sitrep_path.stem}-{tag}-run{run_number}{sitrep_path.suffix}"
+    backup_path.write_bytes(sitrep_path.read_bytes())
+    return backup_path
 
 
 def run_daily(replay_dir, data_dir, out_path, assessor) -> dict:
@@ -54,9 +75,29 @@ def run_daily(replay_dir, data_dir, out_path, assessor) -> dict:
         context = assess.build_context(cycle)
         assessment = assess.validate_assessment(assessor(context), context)
 
-    render.write_sitrep(
-        cycle["store"], manifest, out_path, assessment, cycle["candidates"]
+    # skills/news-summary/SKILL.md runs every day, independent of the
+    # sitrep gate above: a quiet morning by GDACS/USGS/ReliefWeb's own
+    # thresholds can still be the morning a fast-moving story breaks that
+    # none of those feeds have caught. When the gate above already woke
+    # the model, its own news_items cover the day — no second call.
+    if assessment is not None:
+        store.save_news(
+            data_dir,
+            manifest["run_at"],
+            assessment["news_items"],
+            searched=assessment.get("searched"),
+        )
+    elif assessor is not None and hasattr(assessor, "search_news"):
+        news_context = assess.build_context(cycle)
+        result = assessor.search_news(news_context)
+        items = assess.validate_news_items(result.get("items") or [], news_context)
+        store.save_news(data_dir, manifest["run_at"], items, searched=result.get("searched"))
+    news = store.load_news(data_dir)
+
+    sitrep_path = render.write_sitrep(
+        cycle["store"], manifest, out_path, assessment, cycle["candidates"], news
     )
+    _write_backup(sitrep_path, manifest["run_at"], manifest["run_number"])
     return manifest
 
 
