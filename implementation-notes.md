@@ -306,6 +306,36 @@ Kept by the agent, reviewed by you. One entry per working block.
   workflow to publish (done via `gh api` at ship time / one-click in repo
   Settings → Pages otherwise).
 
+- **2026-07-09 — the live dashboard now ships on that same GitHub Pages site
+  (user request, follow-up).** After the static pages went live the user asked
+  for "a live page for my dashboard". The PRD's dashboard host (Netlify,
+  `scripts/deploy.py`) was never wired up — no `NETLIFY_*` secrets exist, so
+  that deploy has always been a no-op — and the `data/` gitignore deviation
+  above additionally broke the monitor loop's `git status data/` change-detect
+  that gated it. Rather than stand up Netlify (needs an external account +
+  three secrets the repo owner would have to create), the dashboard now
+  publishes to the *same* GitHub Pages site at `/dashboard/`. `pages.yml` was
+  extended from a static-file copy into a build that, every ~30 min (cron) and
+  on `workflow_dispatch`, does a live `uv run scripts/run.py` fetch → renders
+  with `scripts/render_dashboard.py --out _site/dashboard` → publishes the
+  whole site (static pages + dashboard) as one Pages artifact. One workflow
+  owns the Pages deployment because Pages serves one site per repo. Choices &
+  scope: (1) the fetch step is `continue-on-error` and the render falls back to
+  a small placeholder page when no store is produced (abort-blind / first run),
+  so the site always publishes; (2) 30-min cron, not 5/15, to stay clear of the
+  free-tier minutes concern in PRD §12; (3) this fetch is independent of
+  `monitor.yml`, which stays as-is but is presently inert (its Netlify deploy
+  has no secrets and its `data/` commit step is a no-op); it is *not* disabled
+  here — that is a separate decision. Known rough edges left unfixed: the
+  dashboard's per-event "Open in sitrep" links point at `../sitrep/index.html`,
+  which this site does not host (the sitrep is the daily/Netlify artefact), so
+  those links 404; and the dashboard reflects only the current fetch, not a
+  carried-forward store (`data/` is not persisted between runs — see the
+  gitignore deviation), so "since last report" history is not available on this
+  surface. `marketing.html` gained a link from its dashboard screenshot + a
+  caption CTA to `dashboard/`, and its mock URL bar now shows the real Pages
+  path instead of the illustrative `hadr-monitor.netlify.app/dashboard`.
+
 - **2026-07-08 — the quiet fixture excludes that day's long-running Orange
   situations.** SLICE-V1 asks for "a genuinely quiet morning", but on any
   real morning GDACS carries months-old Orange situations (on 2025-04-09:

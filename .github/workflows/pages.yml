@@ -1,11 +1,18 @@
-# Publish the committed static pages (marketing, PRD, quiz, system briefing)
-# to GitHub Pages. The marketing page is served as the site root (index.html).
+# Publish the whole static surface to GitHub Pages as one site:
+#   /                 → the marketing page (index.html)
+#   /marketing.html   /prd.html  /quiz.html  /system-view.html
+#   /dashboard/       → the LIVE dashboard, refreshed on a schedule
 #
-# This is a SEPARATE hosting surface from the operational Netlify site
-# (scripts/deploy.py), which publishes the generated dashboard + sitrep views
-# (PRD §15). GitHub Pages needs no secrets and only ever serves committed
-# files, so it fits the hand-written pages. See implementation-notes.md for
-# the deviation record.
+# The marketing/docs pages are committed and only ever change on push. The
+# dashboard is a generated view (PRD §3): this workflow does a live fetch,
+# renders it, and republishes the whole site every ~30 min so the map always
+# reflects current events. Because GitHub Pages serves one site per repo, a
+# single workflow owns the deployment — both surfaces ship in one artifact.
+#
+# This is a SEPARATE hosting surface from the operational Netlify path in
+# scripts/deploy.py (PRD §15), which was never wired up (no Netlify secrets).
+# GitHub Pages needs no secrets and serves only what this build produces. See
+# implementation-notes.md for the deviation record.
 name: pages
 
 on:
@@ -17,7 +24,14 @@ on:
       - quiz.html
       - system-view.html
       - assets/**
+      - scripts/**
+      - agent/**
+      - harness/**
       - .github/workflows/pages.yml
+  # Refresh the live dashboard. 30 min keeps the map current without burning
+  # the free-tier minutes quota (cf. PRD §12 on 5-min cron cost).
+  schedule:
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -25,7 +39,8 @@ permissions:
   pages: write
   id-token: write
 
-# One live deployment at a time; let an in-flight run finish.
+# One live deployment at a time; let an in-flight run finish so a scheduled
+# refresh never races a push-triggered build.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -36,16 +51,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: astral-sh/setup-uv@v5
+
+      # One polite fetch per feed → data/ + manifest (PRD §3). continue-on-error
+      # so a feed hiccup or an abort-blind cycle (both real-time feeds down,
+      # exit 3) still lets the site publish; the render step below degrades
+      # gracefully when there is no store to render.
+      - name: Fetch live feeds
+        continue-on-error: true
+        run: uv run scripts/run.py
+
       - name: Assemble site
         run: |
           set -euo pipefail
-          mkdir -p _site
+          mkdir -p _site/dashboard
           # The hand-written pages, kept at their own URLs …
           cp marketing.html prd.html quiz.html system-view.html _site/
           cp README.md _site/ 2>/dev/null || true
           cp -r assets _site/assets
           # … and the marketing page doubles as the site root.
           cp marketing.html _site/index.html
+          # The live dashboard, or a placeholder if the fetch produced no store.
+          if [ -f data/manifest.json ]; then
+            uv run scripts/render_dashboard.py --out _site/dashboard
+          else
+            echo "no store — publishing a placeholder dashboard"
+            printf '%s\n' \
+              '<!doctype html><meta charset="utf-8">' \
+              '<title>HADR dashboard — refreshing</title>' \
+              '<body style="font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;color:#1B2733">' \
+              '<h1>Dashboard is refreshing</h1>' \
+              '<p>The last feed poll returned no readable store. The dashboard republishes on the next cycle (≈30 min).</p>' \
+              '<p><a href="../">← Back to HADR Monitor</a></p>' \
+              > _site/dashboard/index.html
+          fi
 
       - uses: actions/configure-pages@v5
 
