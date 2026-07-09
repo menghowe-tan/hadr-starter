@@ -11,11 +11,13 @@ tools: web_search
 reach, including a keyless relay behind `ANTHROPIC_BASE_URL`).
 
 **Search:** a **keyless** local `web_search` tool (`agent/tools.py`), which
-queries DuckDuckGo over plain HTTP and needs no API key — so this skill runs
-through the harness's ordinary tool loop with no `ANTHROPIC_API_KEY`
-required. (The daily production lane in `agent/assess.py` still uses
-Anthropic's native `web_search_20250305` server tool with structured output,
-which does need a key — see the note at the end.)
+queries DuckDuckGo over plain HTTP and needs no API key. Both lanes use it:
+the interactive harness runs it in its ordinary tool loop, and the daily
+production lane (`agent/assess.py`) requests it as a client tool inside the
+structured-output call — `_call_structured` runs it locally and feeds the
+result back, then the model emits the schema-constrained JSON. So neither
+lane needs an `ANTHROPIC_API_KEY` for search (the model call itself can run
+against any backend, including a keyless relay behind `ANTHROPIC_BASE_URL`).
 
 ## Why this skill exists
 

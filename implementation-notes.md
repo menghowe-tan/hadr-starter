@@ -19,12 +19,28 @@ Kept by the agent, reviewed by you. One entry per working block.
   a key can still register the server tool there); the server-tool plumbing
   in `Agent` stays and is still tested. Trade-off: we now depend on an
   unversioned HTML shape instead of a documented API — `_parse_ddg` is
-  deliberately forgiving. New tests: `tests/test_web_search.py`. Scope note:
-  the **daily production lane** (`agent/assess.py`) still uses the Anthropic
-  server tool + structured output and still needs a key — switching it too
-  would mean reworking the tested `_call_structured` path (it relies on the
-  API executing the tool, not the harness loop), so it's left as-is and
-  flagged here; can follow up if the daily lane must also go keyless.
+  deliberately forgiving. New tests: `tests/test_web_search.py`.
+
+- **2026-07-09 — the daily production lane switched to keyless search too
+  (user follow-up: "the daily production lane should be switched as well").**
+  `agent/assess.py`'s `_call_structured` used to hand the Anthropic API the
+  server `web_search_20250305` tool and let the API execute it — which needs a
+  live key + billing. Reworked it into a client-side tool loop: it now
+  advertises the local `web_search` `Tool` (agent/tools.py) as a client tool,
+  and when the model returns `stop_reason == "tool_use"` it runs the tool with
+  `_run_search` (mirroring `harness/agent.py`'s runner), feeds the
+  `tool_result` back, and loops — the model's final, non-tool turn is still
+  the `output_config` schema-constrained JSON, so `_normalise`/
+  `validate_assessment`/`validate_news_items` and the `searched` flag are all
+  unchanged. Both `ClaudeAssessor.__call__` (gated sitrep call) and
+  `search_news` (always-runs news call) pass `WEB_SEARCH` instead of the
+  server-tool dict; the `pause_turn` branch is kept so a server tool still
+  works if a keyed project ever passes one. Net effect: the daily lane needs
+  no `ANTHROPIC_API_KEY` for search — only a reachable model backend, which
+  can be a keyless relay behind `ANTHROPIC_BASE_URL` (the repo already
+  supports that). New offline tests in `tests/test_assess.py` drive the loop
+  with a scripted fake client (tool_use round → local run → schema JSON;
+  and the not-searched case).
 
 - **2026-07-09 — Skills are a generic harness capability (user request:
   "the harness should be running any skills... design it such that new skills
@@ -243,13 +259,23 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Open questions
 
-- The live `web_search_20250305` server tool + `output_config` json_schema
-  combination in `agent/assess.py` is implemented against documented API
-  shape but has not been exercised against a real `ANTHROPIC_API_KEY` (no
-  key in this environment). Regenerate a live recording
-  (`uv run agent/daily.py --replay <dir> --assess live`) at the first
-  opportunity and diff it against expectations before trusting the sitrep
-  scheduler's next `live` dispatch.
+- `agent/assess.py`'s daily lane now uses a client-side tool loop (local
+  `web_search` + `output_config` json_schema) instead of the server
+  `web_search_20250305`. The loop is unit-tested offline with a scripted
+  fake client, but the *combination* of `output_config` and client `tool_use`
+  rounds has not been exercised against a real model backend from this
+  environment (no key/relay here). It follows the same request shape the old
+  server-tool path assumed (tools + output_config in one call), and the
+  `_json_only_instruction` fallback still covers a relay that ignores
+  `output_config`. Run `uv run agent/daily.py --replay <dir> --assess live`
+  against the real backend at the first opportunity and diff the result
+  before trusting the sitrep scheduler's next `live` dispatch — in
+  particular confirm the model actually emits the schema JSON on the turn
+  *after* the tool result (not alongside the tool call).
+- The keyless `web_search` scrapes DuckDuckGo's unversioned HTML
+  (`agent/tools._parse_ddg`); a markup change or rate-limit would need a
+  parser tweak. Verified returning real results live during development, but
+  it has no contract guarantee the way a JSON API would.
 
 ## Deviations
 
