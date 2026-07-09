@@ -282,6 +282,30 @@ Kept by the agent, reviewed by you. One entry per working block.
 <!-- Anything built that departs from the PRD or CLAUDE.md is recorded here,
      with the reason. An undocumented deviation is a bug. -->
 
+- **2026-07-09 — a second hosting surface: GitHub Pages for the committed
+  static pages (user request).** PRD §12/§15 named exactly one host —
+  Netlify, driven by `scripts/deploy.py`, for the *generated* views
+  (`out/dashboard/`, `out/sitrep/`), and decision #12 keeps nothing generated
+  in the repo. That covers the operational product but says nothing about the
+  hand-written pages that *are* committed — `marketing.html`, `prd.html`,
+  `quiz.html`, `system-view.html`. The user asked to "host all the html pages
+  online, main page = marketing page", so `.github/workflows/pages.yml`
+  publishes those four committed files to GitHub Pages, copying
+  `marketing.html` to `index.html` so it serves at the site root. Reason for a
+  second host rather than folding them into the Netlify site: the Netlify
+  deploy replaces the whole site on every monitor/sitrep run (see
+  `preserve_live_sitrep` in `scripts/deploy.py`), so mixing static docs into
+  `out/` would couple them to the operational deploy cadence and its
+  whole-site-replace semantics. GitHub Pages needs no secrets, serves only
+  committed files, and stays completely independent of the pipeline. Scope
+  kept minimal: no page content changed and navigation was not restructured
+  (nothing links to `quiz.html`/`system-view.html`; they are reachable by URL
+  only). `marketing.html`'s existing `href="README.md"` link now resolves to
+  the raw markdown file (copied into the site as-is) — pre-existing, not
+  fixed here. Pages must be enabled with build source "GitHub Actions" for the
+  workflow to publish (done via `gh api` at ship time / one-click in repo
+  Settings → Pages otherwise).
+
 - **2026-07-08 — the quiet fixture excludes that day's long-running Orange
   situations.** SLICE-V1 asks for "a genuinely quiet morning", but on any
   real morning GDACS carries months-old Orange situations (on 2025-04-09:

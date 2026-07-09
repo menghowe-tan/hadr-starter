@@ -1,0 +1,64 @@
+# Publish the committed static pages (marketing, PRD, quiz, system briefing)
+# to GitHub Pages. The marketing page is served as the site root (index.html).
+#
+# This is a SEPARATE hosting surface from the operational Netlify site
+# (scripts/deploy.py), which publishes the generated dashboard + sitrep views
+# (PRD §15). GitHub Pages needs no secrets and only ever serves committed
+# files, so it fits the hand-written pages. See implementation-notes.md for
+# the deviation record.
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - marketing.html
+      - prd.html
+      - quiz.html
+      - system-view.html
+      - assets/**
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live deployment at a time; let an in-flight run finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble site
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          # The hand-written pages, kept at their own URLs …
+          cp marketing.html prd.html quiz.html system-view.html _site/
+          cp README.md _site/ 2>/dev/null || true
+          cp -r assets _site/assets
+          # … and the marketing page doubles as the site root.
+          cp marketing.html _site/index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
