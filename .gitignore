@@ -18,6 +18,12 @@ __pycache__/
 node_modules/
 .DS_Store
 
+# The committed-JSON-is-the-database convention (CLAUDE.md) is reversed
+# here by explicit user request — see implementation-notes.md for the
+# deviation record. The hadr-monitor bot's store-update commits stop
+# having any effect once these paths are untracked.
+data/
+
 # Claude Code local state — personal settings, agent worktrees, cached
 # skill installs. Never shared between machines or committed.
 .claude/

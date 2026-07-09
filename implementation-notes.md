@@ -370,3 +370,27 @@ Kept by the agent, reviewed by you. One entry per working block.
   (`data/news.json`) immediately, so `scripts/render_dashboard.py` stays
   model-free and every other render step stays exactly as deterministic as
   it was before this skill existed.
+
+- **2026-07-09 — `data/` untracked and gitignored (user request, reverses
+  "committed JSON is the database").** CLAUDE.md states plainly: "Committed
+  JSON is the database. Canonical merged events live under `data/`... git
+  history is the audit trail." Until now that was true in practice too —
+  `hadr-monitor[bot]` was pushing `monitor: store update` commits to
+  `data/manifest.json`/`data/events/*.json` roughly every 15 minutes. At
+  the user's explicit request, `data/` was added to `.gitignore` and the
+  six then-tracked files were removed from the index with
+  `git rm --cached` (left on disk, only untracked from git). I flagged the
+  contradiction with CLAUDE.md and the live bot before making the change;
+  the user chose to proceed anyway. Practical effect: the audit-trail
+  property of `data/` is gone going forward — `hadr-monitor[bot]`'s
+  scheduled commits will now find nothing to add (the paths are ignored)
+  and the store's history from this point on lives only on whatever
+  machine runs the pipeline, not in git. Nothing in `agent/`, `scripts/`,
+  or the test suite changed; `pipeline.store` still reads/writes the same
+  paths on disk, so the pipeline itself is unaffected — only its
+  version-control visibility is. If this needs to be reversed later, the
+  fix is: revert this commit, then let the next monitor/daily run
+  re-populate and re-commit `data/` from a live fetch (do not hand-restore
+  the untracked snapshot from this session — see the note above about
+  `data/news.json` being unexercised test/replay content, not real
+  output).
