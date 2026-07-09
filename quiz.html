@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HADR Agent — Certification Quiz</title>
+<style>
+  :root {
+    --ground: #0e1116;
+    --surface: #161b22;
+    --surface-2: #1b222c;
+    --line: #29323d;
+    --line-soft: #202832;
+    --ink: #e6edf3;
+    --ink-dim: #9aa7b4;
+    --ink-faint: #6b7785;
+    --accent: #f0a340;
+    --accent-soft: rgba(240, 163, 64, 0.14);
+    --accent-line: rgba(240, 163, 64, 0.42);
+    --green: #3fb950;
+    --orange: #f0883e;
+    --red: #f85149;
+    --green-soft: rgba(63, 185, 80, 0.15);
+    --orange-soft: rgba(240, 136, 62, 0.16);
+    --red-soft: rgba(248, 81, 73, 0.15);
+    --shadow: 0 1px 0 rgba(255,255,255,0.02), 0 8px 30px rgba(0,0,0,0.35);
+
+    --font-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+
+    --col: 760px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground: #f2f4f2; --surface: #ffffff; --surface-2: #f6f8f6;
+      --line: #dbe0e0; --line-soft: #e6eae8;
+      --ink: #182028; --ink-dim: #55606b; --ink-faint: #8b95a0;
+      --accent: #b76a12; --accent-soft: rgba(183,106,18,0.10); --accent-line: rgba(183,106,18,0.38);
+      --green: #1a7f37; --orange: #bc4c00; --red: #cf222e;
+      --green-soft: rgba(26,127,55,0.10); --orange-soft: rgba(188,76,0,0.10); --red-soft: rgba(207,34,46,0.10);
+      --shadow: 0 1px 2px rgba(16,24,32,0.06), 0 10px 30px rgba(16,24,32,0.08);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1116; --surface: #161b22; --surface-2: #1b222c;
+    --line: #29323d; --line-soft: #202832;
+    --ink: #e6edf3; --ink-dim: #9aa7b4; --ink-faint: #6b7785;
+    --accent: #f0a340; --accent-soft: rgba(240,163,64,0.14); --accent-line: rgba(240,163,64,0.42);
+    --green: #3fb950; --orange: #f0883e; --red: #f85149;
+    --green-soft: rgba(63,185,80,0.15); --orange-soft: rgba(240,136,62,0.16); --red-soft: rgba(248,81,73,0.15);
+    --shadow: 0 1px 0 rgba(255,255,255,0.02), 0 8px 30px rgba(0,0,0,0.35);
+  }
+  :root[data-theme="light"] {
+    --ground: #f2f4f2; --surface: #ffffff; --surface-2: #f6f8f6;
+    --line: #dbe0e0; --line-soft: #e6eae8;
+    --ink: #182028; --ink-dim: #55606b; --ink-faint: #8b95a0;
+    --accent: #b76a12; --accent-soft: rgba(183,106,18,0.10); --accent-line: rgba(183,106,18,0.38);
+    --green: #1a7f37; --orange: #bc4c00; --red: #cf222e;
+    --green-soft: rgba(26,127,55,0.10); --orange-soft: rgba(188,76,0,0.10); --red-soft: rgba(207,34,46,0.10);
+    --shadow: 0 1px 2px rgba(16,24,32,0.06), 0 10px 30px rgba(16,24,32,0.08);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: var(--col); margin: 0 auto; padding: 0 24px 120px; }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.06; letter-spacing: -0.02em;
+    font-weight: 700; text-wrap: balance; margin: 0.3em 0 0;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  code {
+    font-family: var(--font-mono); font-size: 0.86em; background: var(--surface-2);
+    border: 1px solid var(--line-soft); border-radius: 5px; padding: 0.08em 0.38em; color: var(--ink);
+  }
+
+  header.hero { padding: 64px 0 34px; border-bottom: 1px solid var(--line); }
+  .lede { font-size: 1.14rem; line-height: 1.5; color: var(--ink-dim); max-width: 60ch; margin: 20px 0 0; }
+  .lede strong { color: var(--ink); font-weight: 650; }
+  .lede .hl { color: var(--accent); font-weight: 650; }
+  .byline { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); margin-top: 20px; letter-spacing: 0.04em; }
+  .byline a { color: var(--ink-faint); }
+
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+  .quiz-shell {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 26px 24px; box-shadow: var(--shadow); margin-top: 34px;
+  }
+  .quiz-status {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-dim);
+    border-bottom: 1px dashed var(--line); padding-bottom: 14px; margin-bottom: 20px;
+  }
+  .quiz-status .attempts { letter-spacing: 0.06em; }
+  .scorepips { display: inline-flex; gap: 5px; }
+  .pip { width: 12px; height: 12px; border-radius: 3px; background: var(--surface-2); border: 1px solid var(--line); }
+  .pip.right { background: var(--green); border-color: var(--green); }
+  .pip.wrong { background: var(--red); border-color: var(--red); }
+
+  .q { margin-bottom: 22px; }
+  .q .qtext { font-weight: 600; margin-bottom: 12px; line-height: 1.4; }
+  .q .qnum { font-family: var(--font-mono); color: var(--accent); font-size: 0.82rem; margin-right: 8px; }
+  .opts { display: grid; gap: 8px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 11px;
+    border: 1px solid var(--line); border-radius: 9px; padding: 11px 14px;
+    cursor: pointer; transition: border-color 0.12s, background 0.12s;
+    font-size: 0.95rem; line-height: 1.4; background: var(--surface-2);
+  }
+  .opt:hover { border-color: var(--accent-line); }
+  .opt input { margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+  .opt.sel { border-color: var(--accent-line); background: var(--accent-soft); }
+  .opt.correct { border-color: var(--green); background: var(--green-soft); }
+  .opt.incorrect { border-color: var(--red); background: var(--red-soft); }
+  .opt .mark { margin-left: auto; font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; }
+  .opt.correct .mark { color: var(--green); }
+  .opt.incorrect .mark { color: var(--red); }
+  .opt.locked { cursor: default; }
+  .opt.locked:hover { border-color: var(--line); }
+  .opt.locked.correct:hover { border-color: var(--green); }
+  .opt.locked.incorrect:hover { border-color: var(--red); }
+
+  .explain {
+    font-size: 0.85rem; color: var(--ink-dim); margin-top: 9px;
+    border-left: 2px solid var(--accent-line); padding: 2px 0 2px 12px; display: none;
+  }
+  .explain.show { display: block; }
+  .explain b { color: var(--ink); font-weight: 600; }
+
+  .quiz-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+  .btn {
+    font-family: var(--font-sans); font-weight: 650; font-size: 0.95rem;
+    padding: 11px 22px; border-radius: 9px; cursor: pointer; border: 1px solid transparent;
+    transition: transform 0.08s, filter 0.15s, background 0.15s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn.primary { background: var(--accent); color: #0e1116; }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn.ghost:hover { border-color: var(--accent-line); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn:focus-visible, .opt:focus-within, .name-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .result-line { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; }
+  .result-line.pass { color: var(--green); }
+  .result-line.fail { color: var(--orange); }
+
+  .name-field { margin-bottom: 18px; }
+  .name-field label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); display: block; margin-bottom: 7px; }
+  .name-input {
+    font-family: var(--font-mono); font-size: 0.95rem; background: var(--surface-2); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 9px; padding: 10px 14px; width: 100%; max-width: 360px;
+  }
+
+  #cert { display: none; }
+  .cert-card {
+    position: relative;
+    background: radial-gradient(120% 120% at 100% 0%, var(--accent-soft), transparent 55%), var(--surface);
+    border: 1px solid var(--accent-line); border-radius: 16px; padding: 44px 40px 38px;
+    box-shadow: var(--shadow); overflow: hidden; animation: fadein 0.7s ease both; margin-top: 34px;
+  }
+  .cert-card::before { content: ""; position: absolute; inset: 10px; border: 1px solid var(--line); border-radius: 10px; pointer-events: none; }
+  .cert-inner { position: relative; }
+  .cert-seal { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .cert-title { font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; margin: 10px 0 4px; line-height: 1.05; }
+  .cert-sub { color: var(--ink-dim); font-size: 0.98rem; margin: 0 0 26px; max-width: 52ch; }
+  .cert-name { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.01em; padding-bottom: 8px; border-bottom: 2px solid var(--accent-line); display: inline-block; margin-bottom: 6px; min-width: 260px; }
+  .cert-name-lbl { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+  .cert-meta { display: flex; flex-wrap: wrap; gap: 22px 40px; margin-top: 30px; }
+  .cert-meta .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+  .cert-meta .v { font-family: var(--font-mono); font-size: 0.92rem; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 3px; }
+  .cert-actions { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .footnote { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); margin-top: 26px; letter-spacing: 0.03em; }
+
+  @media print {
+    body { background: #fff; }
+    header.hero, #quiz-section { display: none !important; }
+    #cert { display: block !important; }
+    .cert-card { margin-top: 0; }
+    .cert-actions { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">HADR Morning Sitrep Agent · Certification</p>
+    <h1>Prove you understand the system.</h1>
+    <p class="lede">
+      Five questions, drawn fresh each round from the pipeline's core ideas — the
+      <span class="hl">deterministic-before-generative</span> rule, the three feeds, the
+      severity gate, cross-feed identity, and how the agent tells the truth when nothing
+      happened. Score <strong>5 / 5</strong> to certify; miss any and a new round loads
+      until you sweep.
+    </p>
+    <p class="byline">Standalone build · runs entirely in the browser, no network · pairs with the full <code>system-view</code> briefing</p>
+  </header>
+
+  <section id="quiz-section">
+    <div class="quiz-shell">
+      <div class="name-field">
+        <label for="operator">Certify as</label>
+        <input class="name-input" id="operator" type="text" placeholder="Your name" autocomplete="name" maxlength="48" />
+      </div>
+
+      <div class="quiz-status">
+        <span class="attempts" id="attempts">ATTEMPT 01</span>
+        <span class="scorepips" id="pips" aria-hidden="true"></span>
+      </div>
+
+      <form id="quizForm" novalidate>
+        <div id="questions"></div>
+        <div class="quiz-actions">
+          <button type="submit" class="btn primary" id="submitBtn">Submit answers</button>
+          <button type="button" class="btn ghost" id="retryBtn" style="display:none">New round</button>
+          <span class="result-line" id="resultLine" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div id="cert">
+    <div class="cert-card">
+      <div class="cert-inner">
+        <p class="cert-seal">&#9670; Certified Operator</p>
+        <p class="cert-title">HADR Morning Sitrep Agent</p>
+        <p class="cert-sub">Has demonstrated a working understanding of the deterministic-before-generative pipeline: the feeds, the severity gate, cross-feed identity, the two cadences, and how the system tells the truth when nothing happened.</p>
+        <p class="cert-name-lbl">Awarded to</p>
+        <div class="cert-name" id="certName">Operator</div>
+        <div class="cert-meta">
+          <div class="item"><div class="k">Score</div><div class="v">5 / 5</div></div>
+          <div class="item"><div class="k">Date issued</div><div class="v" id="certDate">&mdash;</div></div>
+          <div class="item"><div class="k">Attempts</div><div class="v" id="certAttempts">&mdash;</div></div>
+          <div class="item"><div class="k">Credential ID</div><div class="v" id="certId">&mdash;</div></div>
+        </div>
+        <div class="cert-actions">
+          <button type="button" class="btn primary" onclick="window.print()">Print / save PDF</button>
+          <button type="button" class="btn ghost" id="againBtn">Take it again</button>
+        </div>
+      </div>
+    </div>
+    <p class="footnote">Verdict: CERTIFIED &middot; issued by the HADR system briefing &middot; deterministic before generative.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var BANK = [
+    {
+      q: "What decides whether the model wakes up on any given run?",
+      why: "The one architectural rule: a deterministic script decides if anything changed; the model runs only if it did.",
+      opts: [
+        { t: "A deterministic gate — the model never decides for itself", correct: true },
+        { t: "The model reads the feeds and chooses when to comment" },
+        { t: "A fixed timer that wakes the model every 5 minutes" },
+        { t: "Whichever feed reports the highest alert level" }
+      ]
+    },
+    {
+      q: "Which part of the system is forbidden from ever calling a model?",
+      why: "Fetch / normalise / merge / diff / gate live in scripts/ and are pure Python — deterministic before generative.",
+      opts: [
+        { t: "The deterministic pipeline in scripts/ (fetch, merge, diff, gate)", correct: true },
+        { t: "The daily sitrep assessment step" },
+        { t: "The editorial promotion of notable Green events" },
+        { t: "The plain-language summary at the top of the report" }
+      ]
+    },
+    {
+      q: "In this system, what is the canonical database of record?",
+      why: "Committed JSON under data/ IS the database; git history is the audit trail. The HTML and map are generated views, never committed.",
+      opts: [
+        { t: "Committed JSON files under data/, with git history as the audit trail", correct: true },
+        { t: "The deployed dashboard HTML on the external host" },
+        { t: "A Postgres instance the workflow writes to" },
+        { t: "The raw feed responses cached by each fetch" }
+      ]
+    },
+    {
+      q: "Which events always clear the severity gate deterministically?",
+      why: "Orange-or-higher alert events (plus significant quakes) always pass; the model may add, never remove.",
+      opts: [
+        { t: "Any event at Orange or Red alert level", correct: true },
+        { t: "Only events the model judges interesting" },
+        { t: "Every event from every feed, then trimmed later" },
+        { t: "Only events ReliefWeb has already confirmed" }
+      ]
+    },
+    {
+      q: "How is a USGS earthquake's identity determined?",
+      why: "USGS identity is the union of its ids, never the single id — the network prefix can flip.",
+      opts: [
+        { t: "The union of its ids list, never the single id", correct: true },
+        { t: "Its single primary id field" },
+        { t: "Its latitude/longitude rounded to 2 decimals" },
+        { t: "The GLIDE number GDACS assigns it" }
+      ]
+    },
+    {
+      q: "What happens when GDACS and USGS are BOTH unreachable at sitrep time?",
+      why: "Abort loudly — no sitrep, exit code 3. A blind morning is worse than no report; ReliefWeb alone can't see today.",
+      opts: [
+        { t: "Abort loudly — publish no sitrep and fail the run", correct: true },
+        { t: "Publish a normal sitrep using cached data silently" },
+        { t: "Fall back to ReliefWeb as the sole source for the day" },
+        { t: "Wake the model to guess what probably happened" }
+      ]
+    },
+    {
+      q: "How does the system handle time zones internally?",
+      why: "Everything is normalised to UTC at fetch time; Singapore time appears only in the rendered view.",
+      opts: [
+        { t: "Normalise everything to UTC at fetch; show SGT only at the view layer", correct: true },
+        { t: "Store everything in Singapore time end to end" },
+        { t: "Keep each feed in its own native time zone" },
+        { t: "Let the model infer the time zone per event" }
+      ]
+    },
+    {
+      q: "Which run is the ONLY place a model writes?",
+      why: "The monitor loop (every few minutes) is model-free; the daily 08:30 SGT sitrep is the one place the model writes.",
+      opts: [
+        { t: "The daily sitrep at 08:30 Singapore time", correct: true },
+        { t: "The ~5-minute monitor loop that updates the dashboard" },
+        { t: "The fetch step, to clean up malformed records" },
+        { t: "The merge step, to resolve ambiguous identities" }
+      ]
+    },
+    {
+      q: "GDACS and USGS report the same earthquake. Why isn't that corroboration?",
+      why: "GDACS's earthquake lane is itself USGS-derived (source: NEIC) — agreement is an echo of one source, not two.",
+      opts: [
+        { t: "GDACS's quake lane is USGS-derived — it's an echo of one source", correct: true },
+        { t: "GDACS is always wrong about earthquakes" },
+        { t: "USGS copies its data from GDACS" },
+        { t: "The two use incompatible magnitude scales" }
+      ]
+    },
+    {
+      q: "How must every impact figure in the sitrep be labelled?",
+      why: "GDACS scores and PAGER are forecasts — each number is labelled Estimated (model) or Reported (human-confirmed). No bare numbers.",
+      opts: [
+        { t: "As Estimated (a model forecast) or Reported (human-confirmed)", correct: true },
+        { t: "As a plain number, for readability" },
+        { t: "Only with the name of the feed it came from" },
+        { t: "Rounded to the nearest thousand, unlabelled" }
+      ]
+    },
+    {
+      q: "What distinguishes harness/ from agent/ in the codebase?",
+      why: "harness/ is a reusable, project-agnostic agent harness with zero repo imports; agent/ wires it to HADR (tools + goal.md).",
+      opts: [
+        { t: "harness/ is project-agnostic and reusable; agent/ wires it to HADR", correct: true },
+        { t: "harness/ holds HADR feed logic; agent/ is generic" },
+        { t: "They are duplicates kept for backward compatibility" },
+        { t: "harness/ runs tests; agent/ runs the pipeline" }
+      ]
+    },
+    {
+      q: "On a quiet morning where nothing cleared the gate, the system…",
+      why: "It publishes an explicit 'all quiet' sitrep with a feed-health banner — a quiet report is a statement, not an absence.",
+      opts: [
+        { t: "Publishes an explicit 'all quiet' report with a health banner", correct: true },
+        { t: "Publishes nothing, so silence means either quiet or broken" },
+        { t: "Wakes the model to write something anyway" },
+        { t: "Re-runs every feed until it finds an event" }
+      ]
+    }
+  ];
+
+  var QUESTIONS_PER_ROUND = 5;
+  var attempt = 0;
+  var current = [];
+
+  var form = document.getElementById("quizForm");
+  var qContainer = document.getElementById("questions");
+  var submitBtn = document.getElementById("submitBtn");
+  var retryBtn = document.getElementById("retryBtn");
+  var resultLine = document.getElementById("resultLine");
+  var attemptsEl = document.getElementById("attempts");
+  var pipsEl = document.getElementById("pips");
+  var quizShell = document.querySelector(".quiz-shell");
+  var certEl = document.getElementById("cert");
+
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function buildRound() {
+    attempt += 1;
+    attemptsEl.textContent = "ATTEMPT " + pad(attempt);
+    current = shuffle(BANK).slice(0, QUESTIONS_PER_ROUND).map(function (item) {
+      return { q: item.q, why: item.why, opts: shuffle(item.opts) };
+    });
+    renderQuestions();
+    renderPips(null);
+    resultLine.textContent = "";
+    resultLine.className = "result-line";
+    submitBtn.style.display = "";
+    submitBtn.disabled = false;
+    retryBtn.style.display = "none";
+    quizShell.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function renderQuestions() {
+    qContainer.innerHTML = "";
+    current.forEach(function (item, qi) {
+      var wrap = document.createElement("div");
+      wrap.className = "q";
+
+      var qt = document.createElement("div");
+      qt.className = "qtext";
+      qt.innerHTML = '<span class="qnum">Q' + (qi + 1) + '</span>' + escapeHtml(item.q);
+      wrap.appendChild(qt);
+
+      var opts = document.createElement("div");
+      opts.className = "opts";
+      item.opts.forEach(function (opt, oi) {
+        var id = "q" + qi + "o" + oi;
+        var label = document.createElement("label");
+        label.className = "opt";
+        label.setAttribute("for", id);
+        label.dataset.correct = opt.correct ? "1" : "0";
+
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "q" + qi;
+        input.id = id;
+        input.value = String(oi);
+        input.addEventListener("change", function () {
+          Array.prototype.forEach.call(opts.querySelectorAll(".opt"), function (l) {
+            l.classList.remove("sel");
+          });
+          label.classList.add("sel");
+        });
+
+        var span = document.createElement("span");
+        span.textContent = opt.t;
+
+        label.appendChild(input);
+        label.appendChild(span);
+        opts.appendChild(label);
+      });
+      wrap.appendChild(opts);
+
+      var ex = document.createElement("div");
+      ex.className = "explain";
+      ex.innerHTML = "<b>Why:</b> " + escapeHtml(item.why);
+      wrap.appendChild(ex);
+
+      qContainer.appendChild(wrap);
+    });
+  }
+
+  function renderPips(results) {
+    pipsEl.innerHTML = "";
+    for (var i = 0; i < QUESTIONS_PER_ROUND; i++) {
+      var pip = document.createElement("span");
+      pip.className = "pip";
+      if (results) { pip.className += results[i] ? " right" : " wrong"; }
+      pipsEl.appendChild(pip);
+    }
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    grade();
+  });
+
+  function grade() {
+    var qBlocks = qContainer.querySelectorAll(".q");
+    var results = [];
+    var unanswered = false;
+
+    qBlocks.forEach(function (block, qi) {
+      var chosen = block.querySelector('input[name="q' + qi + '"]:checked');
+      var labels = block.querySelectorAll(".opt");
+      var got = false;
+
+      labels.forEach(function (label) {
+        label.classList.add("locked");
+        label.querySelector("input").disabled = true;
+        var isCorrect = label.dataset.correct === "1";
+        var isChosen = chosen && label.contains(chosen);
+
+        if (isCorrect) { label.classList.add("correct"); addMark(label, "✓ correct"); }
+        if (isChosen && !isCorrect) { label.classList.add("incorrect"); addMark(label, "✗ your answer"); }
+        if (isChosen && isCorrect) got = true;
+      });
+
+      if (!chosen) unanswered = true;
+      block.querySelector(".explain").classList.add("show");
+      results.push(got);
+    });
+
+    var score = results.filter(Boolean).length;
+    renderPips(results);
+    submitBtn.style.display = "none";
+
+    if (score === QUESTIONS_PER_ROUND) {
+      resultLine.textContent = "5 / 5 — CERTIFIED";
+      resultLine.className = "result-line pass";
+      retryBtn.style.display = "none";
+      setTimeout(issueCertificate, 650);
+    } else {
+      var msg = score + " / 5" + (unanswered ? " — answer all five" : "") + " — review the ✓ answers, then start a new round";
+      resultLine.textContent = msg;
+      resultLine.className = "result-line fail";
+      retryBtn.textContent = "New round →";
+      retryBtn.style.display = "";
+    }
+  }
+
+  function addMark(label, text) {
+    var m = document.createElement("span");
+    m.className = "mark";
+    m.textContent = text;
+    label.appendChild(m);
+  }
+
+  retryBtn.addEventListener("click", buildRound);
+
+  function issueCertificate() {
+    var nameInput = document.getElementById("operator");
+    var name = (nameInput.value || "").trim() || "Operator";
+    document.getElementById("certName").textContent = name;
+
+    var d = new Date();
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    document.getElementById("certDate").textContent =
+      pad(d.getDate()) + " " + months[d.getMonth()] + " " + d.getFullYear();
+    document.getElementById("certAttempts").textContent = attempt + (attempt === 1 ? " (first try)" : "");
+
+    var initials = name.split(/\s+/).map(function (w) { return w[0] || ""; }).join("").slice(0, 3).toUpperCase() || "OPR";
+    var stamp = d.getFullYear().toString().slice(2) + pad(d.getMonth() + 1) + pad(d.getDate());
+    var rand = Math.floor(Math.random() * 46656).toString(36).toUpperCase();
+    while (rand.length < 3) rand = "0" + rand;
+    document.getElementById("certId").textContent = "HADR-" + initials + "-" + stamp + "-" + rand;
+
+    quizShell.style.display = "none";
+    certEl.style.display = "block";
+    certEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  document.getElementById("againBtn").addEventListener("click", function () {
+    certEl.style.display = "none";
+    quizShell.style.display = "";
+    buildRound();
+  });
+
+  buildRound();
+})();
+</script>
+</body>
+</html>
