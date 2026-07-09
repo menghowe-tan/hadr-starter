@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HADR Monitor — the disaster morning briefing that stays quiet when it should</title>
+<meta name="description" content="An unattended agent that reads GDACS, USGS and ReliefWeb so you don't have to — a live map dashboard and a daily 08:30 situation report that filters the noise and says what changed.">
+<style>
+  :root{
+    --ink:#1B2733; --muted:#5B6B7A; --line:#D7DEE6; --paper:#FFFFFF;
+    --wash:#F4F7FA; --tint:#EAF1F7; --blue:#0E5FA8;
+    --red:#C0392B; --orange:#B85B08; --green:#2E7D32;
+    --sans:Seravek,'Gill Sans Nova',Ubuntu,Calibri,'DejaVu Sans',sans-serif;
+    --serif:Charter,'Bitstream Charter','Sitka Text',Cambria,Georgia,serif;
+    --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--wash); color:var(--ink);
+    font-family:var(--sans); line-height:1.5;
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:0 20px}
+  a{color:var(--blue)}
+  .eyebrow{
+    font-size:12px; letter-spacing:.14em; color:var(--blue);
+    font-weight:700; text-transform:uppercase; margin:0;
+  }
+  .mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  /* Hero */
+  header.hero{
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{padding-top:44px; padding-bottom:40px}
+  .hero h1{
+    font-family:var(--sans); font-size:34px; line-height:1.15;
+    margin:10px 0 14px; letter-spacing:-.01em;
+  }
+  .hero p.lede{
+    font-family:var(--serif); font-size:19px; line-height:1.55;
+    color:var(--ink); margin:0 0 22px; max-width:62ch;
+  }
+  .badges span{
+    display:inline-block; border:1px solid var(--line); background:var(--wash);
+    border-radius:999px; padding:4px 12px; margin:0 8px 8px 0;
+    font-size:12px; color:var(--muted);
+  }
+  .badges b{color:var(--ink)}
+  .dot{font-size:10px; vertical-align:1px}
+  .dot.red{color:var(--red)} .dot.orange{color:var(--orange)} .dot.green{color:var(--green)}
+
+  /* Sections */
+  section{padding:40px 0}
+  section + section{border-top:1px solid var(--line)}
+  h2{
+    font-family:var(--sans); font-size:13px; letter-spacing:.08em;
+    color:var(--muted); text-transform:uppercase; margin:0 0 18px;
+  }
+  h3{font-family:var(--sans); font-size:18px; margin:0 0 6px}
+  p{margin:0 0 14px}
+  .kicker{
+    font-family:var(--serif); font-size:18px; line-height:1.55;
+    max-width:64ch; margin:0 0 24px;
+  }
+
+  /* Card grid */
+  .grid{display:grid; gap:16px; grid-template-columns:repeat(3,1fr)}
+  .grid.two{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:720px){.grid,.grid.two{grid-template-columns:1fr}}
+  .card{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:10px; padding:18px 18px 16px; border-top:3px solid var(--blue);
+  }
+  .card p{font-size:14px; color:var(--muted); margin:0}
+  .card .who{
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+    color:var(--blue); text-transform:uppercase; margin:0 0 8px;
+  }
+
+  /* Two-column does / doesn't */
+  .cols{display:grid; gap:20px; grid-template-columns:1fr 1fr}
+  @media(max-width:720px){.cols{grid-template-columns:1fr}}
+  .panel{
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px;
+  }
+  .panel.does{border-top:3px solid var(--green)}
+  .panel.doesnt{border-top:3px solid var(--muted)}
+  .panel h3{display:flex; align-items:center; gap:8px}
+  .panel ul{list-style:none; margin:8px 0 0; padding:0}
+  .panel li{
+    font-size:14px; line-height:1.5; padding:9px 0 9px 26px;
+    border-top:1px solid var(--line); position:relative; color:var(--ink);
+  }
+  .panel li:first-of-type{border-top:none}
+  .panel li::before{
+    position:absolute; left:0; top:9px; font-weight:700;
+    font-family:var(--mono); font-size:13px;
+  }
+  .does li::before{content:"+"; color:var(--green)}
+  .doesnt li::before{content:"—"; color:var(--muted)}
+  .panel li b{font-weight:600}
+  .panel .foot{font-size:12px; color:var(--muted); margin:14px 0 0}
+
+  /* Pipeline strip */
+  .pipe{
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:18px 20px; overflow-x:auto;
+  }
+  .pipe ol{
+    display:flex; gap:10px; margin:0; padding:0; list-style:none;
+    align-items:stretch; min-width:min-content;
+  }
+  .pipe li{
+    flex:1 0 auto; background:var(--wash); border:1px solid var(--line);
+    border-radius:8px; padding:10px 12px; min-width:120px;
+  }
+  .pipe li.gen{background:var(--tint); border-color:#C4D6E7}
+  .pipe .step{font-family:var(--mono); font-size:11px; color:var(--blue); letter-spacing:.04em}
+  .pipe .desc{font-size:12px; color:var(--muted); margin-top:3px; line-height:1.4}
+  .pipe .rule{font-size:13px; color:var(--muted); margin:14px 0 0}
+
+  /* Feeds table */
+  .feeds{width:100%; border-collapse:collapse; font-size:14px; background:var(--paper)}
+  .feeds th,.feeds td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+  .feeds thead th{
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); font-weight:700; border-bottom:2px solid var(--blue);
+  }
+  .feeds td b{font-weight:600}
+  .feeds .char{color:var(--muted)}
+  .feeds-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px}
+
+  /* Trust callout */
+  .callout{
+    background:var(--tint); border:1px solid #C4D6E7; border-left:4px solid var(--blue);
+    border-radius:8px; padding:18px 20px;
+  }
+  .callout p{margin:0; font-family:var(--serif); font-size:17px; line-height:1.55}
+
+  footer{
+    border-top:1px solid var(--line); background:var(--paper);
+    padding:26px 0 34px;
+  }
+  footer .wrap{font-size:12px; color:var(--muted)}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">HADR Monitor</p>
+    <h1>What happened overnight, how bad is it, and what changed since yesterday.</h1>
+    <p class="lede">
+      Disaster information on day zero is fragmented, noisy, and constantly
+      revised. Three feeds each tell a partial story at a different speed, and
+      none of them is a morning briefing. HADR Monitor is an unattended agent
+      that does the reading for you — merging the feeds into single events,
+      filtering the noise, and telling you plainly what needs attention today.
+    </p>
+    <div class="badges">
+      <span><b>Live map dashboard</b>, refreshed every monitor cycle</span>
+      <span><b>Daily situation report</b> at <span class="mono">08:30 SGT</span></span>
+      <span><span class="dot green">●</span> Trustworthy silence when nothing changed</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>The problem</h2>
+    <p class="kicker">
+      GDACS, USGS and ReliefWeb each report at a different latency — raw physics
+      in minutes, modeled impact in hours, human confirmation in days. To know
+      what actually happened overnight you have to read all three, mentally
+      deduplicate them, and remember what you already knew yesterday. It is a
+      chore that has to happen at the same time every morning, whether or not
+      anything occurred.
+    </p>
+    <p class="kicker" style="margin-bottom:0">
+      HADR Monitor turns that chore into two things you can trust: a
+      <b>live dashboard</b> that always reflects the latest fetch with its
+      freshness on display, and a <b>once-a-day report</b> that summarises the
+      previous day, separates estimates from confirmed facts, and states
+      explicitly what changed — including when the honest answer is "nothing".
+    </p>
+  </section>
+
+  <section>
+    <h2>Who it's for</h2>
+    <div class="grid">
+      <div class="card">
+        <p class="who">Lay reader</p>
+        <h3>Plain language, up top</h3>
+        <p>Read the top of the report and understand, in ordinary words, what
+        happened in the world overnight — without knowing what GDACS is or what
+        an "alert level" means.</p>
+      </div>
+      <div class="card">
+        <p class="who">Humanitarian analyst</p>
+        <h3>Sourced, severity-ranked</h3>
+        <p>Below the summary: events ranked by severity with sources, alert
+        levels, estimated-vs-reported impact labels, merge confidence, and links
+        to the raw records — enough to act on or verify.</p>
+      </div>
+      <div class="card">
+        <p class="who">Leadership</p>
+        <h3>A glance, and trust in silence</h3>
+        <p>Glance at the map or the summary and know whether anything needs
+        attention today. A quiet report means the pipeline ran and found
+        nothing — not that it broke.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it does</h2>
+    <p class="kicker">One pipeline, two cadences — deterministic first,
+    generative second. A plain Python pipeline decides <i>whether</i> anything
+    changed; the model wakes up only when it did, and its only job is to
+    assess and write.</p>
+    <div class="pipe">
+      <ol>
+        <li><div class="step">FETCH</div><div class="desc">GDACS, USGS, ReliefWeb — polled on a schedule</div></li>
+        <li><div class="step">NORMALISE</div><div class="desc">everything to UTC, one typed schema</div></li>
+        <li><div class="step">MERGE</div><div class="desc">records for the same physical event become one</div></li>
+        <li><div class="step">DIFF · GATE</div><div class="desc">what changed vs our own stored state?</div></li>
+        <li class="gen"><div class="step">ASSESS ✦</div><div class="desc">the model writes — only if the gate says so</div></li>
+        <li class="gen"><div class="step">RENDER</div><div class="desc">dashboard + mailable sitrep</div></li>
+      </ol>
+      <p class="rule"><b>The one rule:</b> the model never decides whether to
+      wake up. A deterministic script does. Fetching, deduplication and change
+      detection give the same answer twice — so they never live in a prompt.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Two surfaces</h2>
+    <div class="grid two">
+      <div class="card" style="border-top-color:var(--blue)">
+        <h3>The live dashboard</h3>
+        <p style="color:var(--ink)">An interactive map plus the current event
+        list, markers coloured by alert level, click through for detail. It is
+        redeployed whenever the underlying data changes, and always shows the
+        last-fetch time for each feed — so you can see at a glance how fresh it
+        is.</p>
+      </div>
+      <div class="card" style="border-top-color:var(--blue)">
+        <h3>The 08:30 sitrep</h3>
+        <p style="color:var(--ink)">A self-contained HTML report — inline
+        styles, no external requests, safe to mail. Plain-language summary
+        first, then severity-ranked events with sources, every impact figure
+        labelled <i>Estimated</i> or <i>Reported</i>, and a note on what changed
+        since the last report.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it does &amp; does not do</h2>
+    <div class="cols">
+      <div class="panel does">
+        <h3><span class="dot green">●</span> It does</h3>
+        <ul>
+          <li>Watch <b>six GDACS hazard types</b> globally — earthquakes,
+          cyclones, floods, volcanoes, drought, wildfires — plus real-time USGS
+          earthquakes and ReliefWeb's curated record.</li>
+          <li><b>Merge the feeds into single events</b>, and surface how
+          confident that merge is (confirmed, high, or possible).</li>
+          <li><b>Filter to what matters</b>: Orange/Red alerts and significant
+          earthquakes, with rare notable exceptions flagged "editorial".</li>
+          <li><b>Label every impact number</b> as an estimate (a model forecast)
+          or a confirmed report — never a bare figure.</li>
+          <li><b>Say what changed</b> since the last report, and publish an
+          explicit "all quiet" when nothing did.</li>
+          <li><b>Fail loudly</b> when it goes blind — losing both real-time
+          feeds aborts the report rather than quietly guessing.</li>
+        </ul>
+      </div>
+      <div class="panel doesnt">
+        <h3><span class="dot" style="color:var(--muted)">●</span> It does not</h3>
+        <ul>
+          <li><b>Issue tsunami warnings.</b> The USGS flag only means a message
+          exists; real warnings live with NOAA — a source this agent does not
+          have. It states that blindness in every report.</li>
+          <li><b>Cover conflict, epidemics or displacement</b> beyond
+          ReliefWeb's curated lag of days.</li>
+          <li><b>Push notifications or page you.</b> You come to the dashboard
+          or the morning email; it does not chase you.</li>
+          <li><b>Write intraday reports.</b> The dashboard updates continuously,
+          but the model writes exactly one report per day.</li>
+          <li><b>Backfill history</b> beyond its replay fixtures.</li>
+          <li><b>Present agreement as corroboration.</b> GDACS's earthquake lane
+          is USGS-derived — the same detection seen twice is an echo, not two
+          independent confirmations.</li>
+        </ul>
+        <p class="foot">Every report ends with an explicit "what this cannot
+        see" — the blindness is part of the product, not a footnote.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The three feeds</h2>
+    <div class="feeds-scroll">
+      <table class="feeds">
+        <thead>
+          <tr><th>Feed</th><th>What it is</th><th>Character</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>GDACS</b></td>
+            <td>EU/UN multi-hazard alerts across all six hazard types</td>
+            <td class="char">Colour-coded alert levels; fast, modeled impact</td>
+          </tr>
+          <tr>
+            <td><b>USGS</b></td>
+            <td>Real-time earthquake feed, regenerated every minute</td>
+            <td class="char">Fast and raw; events get revised and occasionally deleted</td>
+          </tr>
+          <tr>
+            <td><b>ReliefWeb</b></td>
+            <td>UN OCHA's curated humanitarian record</td>
+            <td class="char">Slow and human-verified: appears once people decide it matters</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why you can trust it</h2>
+    <div class="callout">
+      <p>A quiet report is a statement, not an absence. When HADR Monitor says
+      "all quiet", it means the pipeline ran, fetched every feed, checked every
+      threshold, and found nothing that cleared the bar — and it shows you the
+      last-success time for each feed to prove it. Silence you can trust is the
+      whole point.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    HADR Monitor — an unattended humanitarian assistance &amp; disaster
+    response monitoring agent. Committed JSON is the system of record; the
+    dashboard and sitrep are generated views over it.
+    See <a href="README.md">the README</a> and
+    <a href="prd.html">the PRD</a> for how it is built.
+  </div>
+</footer>
+
+</body>
+</html>
