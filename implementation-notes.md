@@ -4,6 +4,37 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Decisions
 
+- **2026-07-09 — Skills are a generic harness capability (user request:
+  "the harness should be running any skills... design it such that new skills
+  can be added, and all running of skills handled generically by the
+  harness").** Added `harness/skills.py` — a `Skill` (name, description,
+  instructions, model, tools) plus `parse_skill`/`load_skill`/
+  `discover_skills`, a dependency-free `SKILL.md` front-matter reader (no
+  PyYAML; reads the `key: value` fields it needs, tolerates the richer YAML
+  installed skills carry, falls back to folder name + first body line when a
+  file has no front-matter). Stays project-agnostic per CLAUDE.md: point it
+  at any folder of `<name>/SKILL.md`. `harness/agent.py`'s `Agent` gained a
+  `skills=` argument: each discovered skill is advertised generically as a
+  tool (name + description only — progressive disclosure, the model reads the
+  instructions only when it invokes one), and `Agent.run_skill` runs an
+  invoked skill as a *scoped sub-agent* — the skill's own instructions as
+  system prompt, its own model, and only the tools it named (resolved against
+  the parent's local tools + a small `SERVER_TOOLS` map for Anthropic server
+  tools like `web_search`). A sub-agent is given no skills of its own, so a
+  skill can't recurse. `harness/cli.py` gained `--skills DIR`; `agent/main.py`
+  now loads `skills/` so the interactive HADR agent exposes `news-summary`
+  (and any future skill) with zero per-skill wiring. `skills/news-summary/
+  SKILL.md` gained front-matter (name/description/model/`tools: web_search`)
+  so it loads as a real skill instead of pure documentation. Boundary kept:
+  the *daily sitrep* production path (`agent/daily.py` + `agent/assess.py`) is
+  unchanged — it remains the deterministic, gated, structured-output lane the
+  PRD mandates (the news-summary daily call still runs there with its
+  validation and carry-forward); this refactor is the reusable-harness /
+  interactive lane, consistent with the V1/V2/V3-integration note below that
+  already separated `agent/daily.py` (production sitrep) from `harness/` +
+  `agent/main.py` (the reusable tool-calling loop). New tests:
+  `tests/test_skills.py` (parse, discover, run-as-sub-agent, recursion guard).
+
 - **2026-07-08 — Slice V3 built on a reusable 5-level harness (user request).**
   The agent is a hand-rolled harness in five working checkpoints (chat loop →
   standing orders → fetch_feed → agent loop → write_dashboard), one commit

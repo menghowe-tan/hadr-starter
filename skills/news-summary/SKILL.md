@@ -1,3 +1,10 @@
+---
+name: news-summary
+description: "Check for recent, attributed news coverage of the day's disaster events, or a fast-moving disaster the deterministic feeds haven't caught yet, via live web search. Returns a sparing list of news items, each with a real source name and URL; never invents a source, never promotes/demotes/invents an event."
+model: claude-opus-4-8
+tools: web_search
+---
+
 # Skill: news-summary
 
 **Model:** `claude-opus-4-8` (same call as the daily assessment — this is not

@@ -19,6 +19,8 @@ from typing import Callable
 
 import anthropic
 
+from .skills import SERVER_TOOLS, Skill
+
 DEFAULT_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-opus-4-8")
 
 
@@ -45,22 +47,74 @@ class Agent:
         model: str | None = None,
         system: str | None = None,
         tools: list[Tool] | None = None,
+        skills: list[Skill] | None = None,
         client: anthropic.Anthropic | None = None,
         max_tokens: int = 16000,
         max_iterations: int = 20,
+        server_tools: list[dict] | None = None,
     ):
         self.client = client or anthropic.Anthropic()
         self.model = model or DEFAULT_MODEL
         self.system = system
-        self.tools = {t.name: t for t in (tools or [])}
         self.max_tokens = max_tokens
         self.max_iterations = max_iterations
+        self.server_tools = server_tools or []
+        # Skills join the tool table generically: each is advertised as a
+        # tool (name + description only — the model reads the instructions
+        # only once it invokes one) and dispatched through ``run_skill``.
+        self.skills = {s.name: s for s in (skills or [])}
+        skill_tools = [self._skill_tool(s) for s in self.skills.values()]
+        self.tools = {t.name: t for t in [*(tools or []), *skill_tools]}
         self.messages: list[dict] = []
 
     @classmethod
     def with_system_file(cls, path: str | Path, **kwargs) -> "Agent":
         """Standing orders from a text file (a goal.md, a CLAUDE.md, ...)."""
         return cls(system=Path(path).read_text(), **kwargs)
+
+    def _skill_tool(self, skill: Skill) -> Tool:
+        """Advertise one skill as a tool; invoking it runs the skill."""
+        return Tool(
+            name=skill.tool_name,
+            description=skill.description or f"Run the {skill.name} skill.",
+            input_schema={
+                "type": "object",
+                "properties": {
+                    "request": {
+                        "type": "string",
+                        "description": (
+                            "What you want this skill to do, in plain language "
+                            "— any context it needs that isn't in its own "
+                            "standing orders."
+                        ),
+                    }
+                },
+                "required": ["request"],
+            },
+            fn=lambda request="", _skill=skill: self.run_skill(_skill, request),
+        )
+
+    def run_skill(self, skill: Skill, request: str) -> str:
+        """Run one skill as a nested agent turn.
+
+        The sub-agent carries the skill's own instructions as its system
+        prompt, its own model, and only the tools the skill named — resolved
+        against this agent's tool table (local tools) and the known server
+        tools. It is given no skills of its own, so a skill cannot recurse
+        into another. Its final text is the tool result the parent sees.
+        """
+        local = [self.tools[name] for name in skill.tools if name in self.tools]
+        server = [SERVER_TOOLS[name] for name in skill.tools if name in SERVER_TOOLS]
+        sub = Agent(
+            model=skill.model or self.model,
+            system=skill.instructions,
+            tools=local,
+            client=self.client,
+            max_tokens=self.max_tokens,
+            max_iterations=self.max_iterations,
+            server_tools=server,
+        )
+        return sub.send(request)
 
     def send(self, user_input: str) -> str:
         """One turn: keep going while the model keeps requesting tools."""
@@ -91,8 +145,13 @@ class Agent:
         )
         if self.system is not None:
             request["system"] = self.system
-        if self.tools:
-            request["tools"] = [t.to_param() for t in self.tools.values()]
+        # Local tools (we run them) and server tools (the API runs them) ride
+        # in the same list; server-tool blocks come back as ``server_tool_use``
+        # which ``_run_tools`` ignores, and their long-running turns resume
+        # through the ``pause_turn`` branch above.
+        tool_params = [t.to_param() for t in self.tools.values()] + self.server_tools
+        if tool_params:
+            request["tools"] = tool_params
         return self.client.messages.create(**request)
 
     def _run_tools(self, response) -> list[dict]:
