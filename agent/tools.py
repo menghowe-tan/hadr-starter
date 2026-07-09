@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import html
 import json
+import urllib.parse
 from datetime import datetime, timedelta, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 
 import httpx
@@ -262,4 +264,111 @@ WRITE_DASHBOARD = Tool(
     fn=write_dashboard,
 )
 
-TOOLS = [FETCH_FEED, WRITE_DASHBOARD]
+# --- web_search: a keyless alternative to Anthropic's server web_search ----
+#
+# skills/news-summary/SKILL.md used to lean on the API's native
+# ``web_search_20250305`` server tool, which only runs against a live
+# ``ANTHROPIC_API_KEY`` (and its billing). This local tool needs no key: it
+# queries DuckDuckGo's HTML endpoint over plain httpx and parses the results,
+# so the skill runs through the harness's ordinary tool loop against any model
+# backend — including a keyless relay behind ``ANTHROPIC_BASE_URL``. The
+# trade-off is that we now depend on an unversioned HTML shape rather than a
+# documented API; ``_parse_ddg`` is deliberately forgiving and returns
+# whatever it can recognise.
+
+DDG_HTML_URL = "https://html.duckduckgo.com/html/"
+# A browser-ish UA — the HTML endpoint returns an empty page to an obvious bot.
+_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+
+
+def _clean_ddg_url(href: str) -> str:
+    """DuckDuckGo wraps result links as ``//duckduckgo.com/l/?uddg=<enc>``;
+    unwrap to the real destination. Pass anything else through unchanged."""
+    if "uddg=" not in href:
+        return href
+    params = urllib.parse.parse_qs(urllib.parse.urlparse(href).query)
+    target = params.get("uddg", [None])[0]
+    return urllib.parse.unquote(target) if target else href
+
+
+class _DDGParser(HTMLParser):
+    """Pull ``{title, url, snippet}`` out of DuckDuckGo's HTML result list."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.results: list[dict] = []
+        self._grab: str | None = None  # 'title' | 'snippet' | None
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        classes = dict(attrs).get("class", "") or ""
+        if tag == "a" and "result__a" in classes:
+            self.results.append(
+                {"title": "", "url": _clean_ddg_url(dict(attrs).get("href", "")), "snippet": ""}
+            )
+            self._grab = "title"
+        elif "result__snippet" in classes and self.results:
+            self._grab = "snippet"
+
+    def handle_endtag(self, tag: str) -> None:
+        # Titles live inside one <a>; snippets inside one <a>/<div>. Either way
+        # the run of text we care about ends at the next closing tag.
+        self._grab = None
+
+    def handle_data(self, data: str) -> None:
+        if self._grab and self.results:
+            self.results[-1][self._grab] += data
+
+
+def _parse_ddg(html_text: str, max_results: int) -> list[dict]:
+    parser = _DDGParser()
+    parser.feed(html_text)
+    results = []
+    for item in parser.results:
+        title = item["title"].strip()
+        url = item["url"].strip()
+        if not title or not url:
+            continue
+        results.append({"title": title, "url": url, "snippet": item["snippet"].strip()})
+        if len(results) >= max_results:
+            break
+    return results
+
+
+def web_search(query: str, max_results: int = 5) -> str:
+    """Search the live web (DuckDuckGo, no API key) and return ranked hits."""
+    response = httpx.post(
+        DDG_HTML_URL,
+        data={"q": query},
+        headers={"User-Agent": _UA},
+        timeout=30.0,
+        follow_redirects=True,
+    )
+    response.raise_for_status()
+    results = _parse_ddg(response.text, max_results)
+    return json.dumps({"query": query, "result_count": len(results), "results": results})
+
+
+WEB_SEARCH = Tool(
+    name="web_search",
+    description=(
+        "Search the live web and get back a ranked list of results, each with "
+        "a title, URL, and snippet. No API key required. Use it to check "
+        "recent news coverage of an event, or to look for a fast-moving story "
+        "the disaster feeds haven't caught yet. Always keep the real source "
+        "name and URL from a result — never invent either."
+    ),
+    input_schema={
+        "type": "object",
+        "properties": {
+            "query": {"type": "string", "description": "The search query."},
+            "max_results": {
+                "type": "integer",
+                "description": "How many results to return (default 5).",
+            },
+        },
+        "required": ["query"],
+    },
+    fn=web_search,
+)
+
+TOOLS = [FETCH_FEED, WRITE_DASHBOARD, WEB_SEARCH]

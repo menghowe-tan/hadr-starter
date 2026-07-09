@@ -6,6 +6,7 @@ import argparse
 import sys
 
 from .agent import DEFAULT_MODEL, Agent
+from .skills import discover_skills
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -15,12 +16,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--system", metavar="FILE", help="standing orders: system prompt text file"
     )
+    parser.add_argument(
+        "--skills",
+        metavar="DIR",
+        help="folder of <name>/SKILL.md skills to expose to the model",
+    )
     args = parser.parse_args(argv)
 
+    skills = discover_skills(args.skills) if args.skills else None
     if args.system:
-        agent = Agent.with_system_file(args.system, model=args.model)
+        agent = Agent.with_system_file(args.system, model=args.model, skills=skills)
     else:
-        agent = Agent(model=args.model)
+        agent = Agent(model=args.model, skills=skills)
 
     if args.once:
         print(agent.send(args.once))

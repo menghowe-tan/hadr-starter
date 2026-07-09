@@ -6,5 +6,14 @@ the git history ("harness level N" commits).
 """
 
 from .agent import DEFAULT_MODEL, Agent, Tool
+from .skills import Skill, discover_skills, load_skill, parse_skill
 
-__all__ = ["Agent", "DEFAULT_MODEL", "Tool"]
+__all__ = [
+    "Agent",
+    "DEFAULT_MODEL",
+    "Tool",
+    "Skill",
+    "discover_skills",
+    "load_skill",
+    "parse_skill",
+]

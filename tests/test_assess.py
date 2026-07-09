@@ -2,9 +2,12 @@
 (PRD §5) — enforced deterministically on its output."""
 
 import json
+from types import SimpleNamespace as NS
 
 import pytest
+from agent import assess
 from agent.assess import RecordedAssessor, validate_assessment, validate_news_items
+from harness import Tool
 
 CONTEXT = {
     "events": [{"event_id": "gdacs-EQ-1"}],
@@ -172,6 +175,64 @@ def test_validate_news_items_standalone_matches_the_embedded_checks():
         )
     with pytest.raises(ValueError, match="attribution"):
         validate_news_items([{"source": "", "url": ""}], CONTEXT)
+
+
+class _ScriptedClient:
+    """Yields scripted API responses; records each request it was sent."""
+
+    def __init__(self, responses):
+        self._responses = iter(responses)
+        self.requests = []
+        self.messages = NS(create=self._create)
+
+    def _create(self, **request):
+        self.requests.append(request)
+        return next(self._responses)
+
+
+def test_call_structured_runs_the_local_search_tool_then_returns_json():
+    """The daily lane is keyless: when the model asks for web_search,
+    _call_structured runs it locally and feeds the result back, and the
+    model's final turn is the schema-constrained JSON."""
+    ran = {}
+
+    def fake_search(query, max_results=5):
+        ran["query"] = query
+        return json.dumps({"results": [{"title": "Q", "url": "https://x"}]})
+
+    search = Tool("web_search", "searches", {"type": "object"}, fake_search)
+
+    wants_search = NS(
+        stop_reason="tool_use",
+        content=[NS(type="tool_use", id="t0", name="web_search", input={"query": "quakes"})],
+    )
+    final = NS(
+        stop_reason="end_turn",
+        content=[NS(type="text", text='{"news_items": []}')],
+    )
+    client = _ScriptedClient([wants_search, final])
+
+    parsed, searched = assess._call_structured(
+        client, "system", assess.NEWS_SCHEMA, search, "check the news"
+    )
+    assert parsed == {"news_items": []}
+    assert searched is True  # the model actually invoked the search tool
+    assert ran["query"] == "quakes"  # ...and our local fn ran, no network
+    # The tool result was fed back to the model on the second call.
+    followup = client.requests[1]["messages"][-1]["content"]
+    assert followup[0]["type"] == "tool_result"
+    assert "https://x" in followup[0]["content"]
+    # The tool was advertised to the model as a client tool, not a server one.
+    assert client.requests[0]["tools"][0]["name"] == "web_search"
+
+
+def test_call_structured_reports_not_searched_when_model_skips_the_tool():
+    search = Tool("web_search", "searches", {"type": "object"}, lambda query: "[]")
+    final = NS(stop_reason="end_turn", content=[NS(type="text", text='{"news_items": []}')])
+    _, searched = assess._call_structured(
+        _ScriptedClient([final]), "system", assess.NEWS_SCHEMA, search, "check"
+    )
+    assert searched is False
 
 
 def test_recorded_assessor_search_news_replays_the_same_fixture(tmp_path):

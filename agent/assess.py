@@ -55,9 +55,13 @@ MODEL = (
 )
 MAX_TOKENS = 6000
 
-# skills/news-summary/SKILL.md: a server tool, resolved by the API itself —
-# no local fn, no round trip through our tool-execution code.
-NEWS_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
+# skills/news-summary/SKILL.md: search is now a KEYLESS LOCAL tool
+# (agent/tools.py's web_search — DuckDuckGo over httpx), not Anthropic's
+# server web_search, so this lane needs no ANTHROPIC_API_KEY for search. The
+# model requests it like any client tool; _call_structured runs it and feeds
+# the result back, then the model emits the schema-constrained JSON. (A
+# project that has a key and prefers server-side execution can pass a server
+# tool instead — the loop below skips block types it doesn't execute.)
 
 SYSTEM_PROMPT = """\
 You write the daily plain-language layer of a humanitarian disaster sitrep.
@@ -331,46 +335,85 @@ def _json_only_instruction(schema: dict) -> str:
     )
 
 
-def _call_structured(client, system: str, schema: dict, tools: list[dict], user_content: str):
-    """One structured-output call, resuming through ``pause_turn`` (a
-    long-running server tool, e.g. web_search, isn't done yet — Anthropic's
-    documented resume is to resend the paused turn unchanged; harness/
-    agent.py does the same for its own tool loop). Returns
-    ``(parsed_json, searched)`` — ``searched`` is whether any server-tool
-    block appeared in any round, distinct from the model's own answer being
-    empty because it looked and found nothing worth surfacing."""
+def _run_search(search_tool, block) -> dict:
+    """Execute one local-tool call the model requested, as a ``tool_result``
+    to feed back. Mirrors ``harness/agent.py``'s tool runner: an exception
+    comes back to the model as an error it can adapt to, never a crash."""
+    result = {"type": "tool_result", "tool_use_id": block.id}
+    if search_tool is None or block.name != search_tool.name:
+        return result | {"content": f"unknown tool: {block.name}", "is_error": True}
+    try:
+        return result | {"content": search_tool.fn(**block.input)}
+    except Exception as exc:  # the model gets the error and can adapt
+        return result | {"content": f"{type(exc).__name__}: {exc}", "is_error": True}
+
+
+def _call_structured(client, system: str, schema: dict, search_tool, user_content: str):
+    """One structured-output call that lets the model search first.
+
+    ``search_tool`` is a local ``harness.Tool`` (agent/tools.py's keyless
+    ``web_search``): when the model requests it (``stop_reason == "tool_use"``)
+    we run it and feed the result back, the same client-side loop
+    ``harness/agent.py`` runs — no ANTHROPIC_API_KEY needed for search. A
+    ``pause_turn`` (a server tool, if one were ever passed) resumes the same
+    way: resend the turn unchanged. Every round carries ``output_config`` so
+    the model's final, non-tool turn is the schema-constrained JSON.
+
+    Returns ``(parsed_json, searched)`` — ``searched`` is whether the model
+    actually invoked the search tool, distinct from its answer being empty
+    because it looked and found nothing worth surfacing."""
     messages = [{"role": "user", "content": user_content}]
+    tool_params = [search_tool.to_param()] if search_tool is not None else []
     response = None
     searched = False
     for _ in range(MAX_ROUNDS):
-        response = client.messages.create(
+        request: dict = dict(
             model=MODEL,
             max_tokens=MAX_TOKENS,
             thinking={"type": "adaptive"},
             system=system + _json_only_instruction(schema),
-            tools=tools,
             output_config={"format": {"type": "json_schema", "schema": schema}},
             messages=messages,
         )
+        if tool_params:
+            request["tools"] = tool_params
+        response = client.messages.create(**request)
         if response.stop_reason == "refusal":
             raise RuntimeError("model declined the request")
         searched = searched or any(
-            block.type in ("server_tool_use", "web_search_tool_result")
+            (block.type == "tool_use" and search_tool is not None
+             and block.name == search_tool.name)
+            or block.type in ("server_tool_use", "web_search_tool_result")
             for block in response.content
         )
-        if response.stop_reason != "pause_turn":
-            break
-        messages = messages + [{"role": "assistant", "content": response.content}]
+        if response.stop_reason == "tool_use":
+            messages = messages + [
+                {"role": "assistant", "content": response.content},
+                {
+                    "role": "user",
+                    "content": [
+                        _run_search(search_tool, block)
+                        for block in response.content
+                        if block.type == "tool_use"
+                    ],
+                },
+            ]
+            continue
+        if response.stop_reason == "pause_turn":
+            messages = messages + [{"role": "assistant", "content": response.content}]
+            continue
+        break
     else:
-        raise RuntimeError(f"still paused after {MAX_ROUNDS} rounds")
+        raise RuntimeError(f"still working after {MAX_ROUNDS} rounds")
 
     if response.stop_reason == "max_tokens":
         raise RuntimeError(
             f"model response truncated at max_tokens={MAX_TOKENS} before writing "
             "the structured output — raise MAX_TOKENS or trim the context"
         )
-    # web_search may interleave server_tool_use/web_search_tool_result (and
-    # thinking) blocks before the schema-constrained text.
+    # Search rounds (tool_use/tool_result, or server_tool_use/web_search_
+    # tool_result) and thinking blocks are already behind us; the final turn's
+    # text is the schema-constrained JSON.
     text_blocks = [block.text for block in response.content if block.type == "text"]
     parsed = _extract_json(text_blocks)
     if parsed is None:
@@ -389,11 +432,13 @@ class ClaudeAssessor:
     def __call__(self, context: dict) -> dict:
         import anthropic  # lazy: tests never need the live lane
 
+        from .tools import WEB_SEARCH  # keyless local search (no API key)
+
         raw, searched = _call_structured(
             anthropic.Anthropic(),
             SYSTEM_PROMPT,
             ASSESSMENT_SCHEMA,
-            [NEWS_SEARCH_TOOL],
+            WEB_SEARCH,
             "Write the sitrep language for this morning's data.\n\n"
             + json.dumps(context, ensure_ascii=False, indent=1),
         )
@@ -406,11 +451,13 @@ class ClaudeAssessor:
         the sitrep gate, so ``agent/daily.py`` can run it every day."""
         import anthropic  # lazy: tests never need the live lane
 
+        from .tools import WEB_SEARCH  # keyless local search (no API key)
+
         raw, searched = _call_structured(
             anthropic.Anthropic(),
             NEWS_SYSTEM_PROMPT,
             NEWS_SCHEMA,
-            [NEWS_SEARCH_TOOL],
+            WEB_SEARCH,
             "Check today's disaster news.\n\n"
             + json.dumps(context, ensure_ascii=False, indent=1),
         )

@@ -4,6 +4,75 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Decisions
 
+- **2026-07-09 — news-summary's search switched to a keyless local tool
+  (user request: "switch to an alternative that does not need an
+  ANTHROPIC_API_KEY").** In the generic/interactive lane the news-summary
+  skill originally named Anthropic's server-side `web_search_20250305`, which
+  only runs against a live `ANTHROPIC_API_KEY` and its billing. Replaced it
+  with a **local, keyless** `web_search` tool (`agent/tools.py`): plain
+  `httpx.post` to DuckDuckGo's HTML endpoint, parsed by a small stdlib
+  `HTMLParser` (`_parse_ddg`) that unwraps the `/l/?uddg=` redirect links —
+  no API key, no extra dependency. The skill runs entirely through the
+  harness's ordinary local-tool loop, so it now works against any backend,
+  including a keyless relay behind `ANTHROPIC_BASE_URL`. `harness/skills.py`'s
+  `SERVER_TOOLS` map is now empty (documented extension point: a project with
+  a key can still register the server tool there); the server-tool plumbing
+  in `Agent` stays and is still tested. Trade-off: we now depend on an
+  unversioned HTML shape instead of a documented API — `_parse_ddg` is
+  deliberately forgiving. New tests: `tests/test_web_search.py`.
+
+- **2026-07-09 — the daily production lane switched to keyless search too
+  (user follow-up: "the daily production lane should be switched as well").**
+  `agent/assess.py`'s `_call_structured` used to hand the Anthropic API the
+  server `web_search_20250305` tool and let the API execute it — which needs a
+  live key + billing. Reworked it into a client-side tool loop: it now
+  advertises the local `web_search` `Tool` (agent/tools.py) as a client tool,
+  and when the model returns `stop_reason == "tool_use"` it runs the tool with
+  `_run_search` (mirroring `harness/agent.py`'s runner), feeds the
+  `tool_result` back, and loops — the model's final, non-tool turn is still
+  the `output_config` schema-constrained JSON, so `_normalise`/
+  `validate_assessment`/`validate_news_items` and the `searched` flag are all
+  unchanged. Both `ClaudeAssessor.__call__` (gated sitrep call) and
+  `search_news` (always-runs news call) pass `WEB_SEARCH` instead of the
+  server-tool dict; the `pause_turn` branch is kept so a server tool still
+  works if a keyed project ever passes one. Net effect: the daily lane needs
+  no `ANTHROPIC_API_KEY` for search — only a reachable model backend, which
+  can be a keyless relay behind `ANTHROPIC_BASE_URL` (the repo already
+  supports that). New offline tests in `tests/test_assess.py` drive the loop
+  with a scripted fake client (tool_use round → local run → schema JSON;
+  and the not-searched case).
+
+- **2026-07-09 — Skills are a generic harness capability (user request:
+  "the harness should be running any skills... design it such that new skills
+  can be added, and all running of skills handled generically by the
+  harness").** Added `harness/skills.py` — a `Skill` (name, description,
+  instructions, model, tools) plus `parse_skill`/`load_skill`/
+  `discover_skills`, a dependency-free `SKILL.md` front-matter reader (no
+  PyYAML; reads the `key: value` fields it needs, tolerates the richer YAML
+  installed skills carry, falls back to folder name + first body line when a
+  file has no front-matter). Stays project-agnostic per CLAUDE.md: point it
+  at any folder of `<name>/SKILL.md`. `harness/agent.py`'s `Agent` gained a
+  `skills=` argument: each discovered skill is advertised generically as a
+  tool (name + description only — progressive disclosure, the model reads the
+  instructions only when it invokes one), and `Agent.run_skill` runs an
+  invoked skill as a *scoped sub-agent* — the skill's own instructions as
+  system prompt, its own model, and only the tools it named (resolved against
+  the parent's local tools + a small `SERVER_TOOLS` map for Anthropic server
+  tools like `web_search`). A sub-agent is given no skills of its own, so a
+  skill can't recurse. `harness/cli.py` gained `--skills DIR`; `agent/main.py`
+  now loads `skills/` so the interactive HADR agent exposes `news-summary`
+  (and any future skill) with zero per-skill wiring. `skills/news-summary/
+  SKILL.md` gained front-matter (name/description/model/`tools: web_search`)
+  so it loads as a real skill instead of pure documentation. Boundary kept:
+  the *daily sitrep* production path (`agent/daily.py` + `agent/assess.py`) is
+  unchanged — it remains the deterministic, gated, structured-output lane the
+  PRD mandates (the news-summary daily call still runs there with its
+  validation and carry-forward); this refactor is the reusable-harness /
+  interactive lane, consistent with the V1/V2/V3-integration note below that
+  already separated `agent/daily.py` (production sitrep) from `harness/` +
+  `agent/main.py` (the reusable tool-calling loop). New tests:
+  `tests/test_skills.py` (parse, discover, run-as-sub-agent, recursion guard).
+
 - **2026-07-08 — Slice V3 built on a reusable 5-level harness (user request).**
   The agent is a hand-rolled harness in five working checkpoints (chat loop →
   standing orders → fetch_feed → agent loop → write_dashboard), one commit
@@ -190,13 +259,23 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Open questions
 
-- The live `web_search_20250305` server tool + `output_config` json_schema
-  combination in `agent/assess.py` is implemented against documented API
-  shape but has not been exercised against a real `ANTHROPIC_API_KEY` (no
-  key in this environment). Regenerate a live recording
-  (`uv run agent/daily.py --replay <dir> --assess live`) at the first
-  opportunity and diff it against expectations before trusting the sitrep
-  scheduler's next `live` dispatch.
+- `agent/assess.py`'s daily lane now uses a client-side tool loop (local
+  `web_search` + `output_config` json_schema) instead of the server
+  `web_search_20250305`. The loop is unit-tested offline with a scripted
+  fake client, but the *combination* of `output_config` and client `tool_use`
+  rounds has not been exercised against a real model backend from this
+  environment (no key/relay here). It follows the same request shape the old
+  server-tool path assumed (tools + output_config in one call), and the
+  `_json_only_instruction` fallback still covers a relay that ignores
+  `output_config`. Run `uv run agent/daily.py --replay <dir> --assess live`
+  against the real backend at the first opportunity and diff the result
+  before trusting the sitrep scheduler's next `live` dispatch — in
+  particular confirm the model actually emits the schema JSON on the turn
+  *after* the tool result (not alongside the tool call).
+- The keyless `web_search` scrapes DuckDuckGo's unversioned HTML
+  (`agent/tools._parse_ddg`); a markup change or rate-limit would need a
+  parser tweak. Verified returning real results live during development, but
+  it has no contract guarantee the way a JSON API would.
 
 ## Deviations
 

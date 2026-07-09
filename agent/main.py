@@ -9,11 +9,12 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from harness import Agent
+from harness import Agent, discover_skills
 
 from .tools import TOOLS
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+SKILLS_DIR = REPO_ROOT / "skills"
 
 ASSESS_PROMPT = (
     "Carry out your standing orders: fetch the feeds, assess the current "
@@ -22,8 +23,15 @@ ASSESS_PROMPT = (
 
 
 def build_agent(model: str | None = None, client=None) -> Agent:
+    # Every skill under skills/ is exposed generically — the harness runs an
+    # invoked one as a scoped sub-agent. Dropping in a new SKILL.md folder is
+    # all it takes to give this agent another capability.
     return Agent.with_system_file(
-        REPO_ROOT / "goal.md", model=model, tools=TOOLS, client=client
+        REPO_ROOT / "goal.md",
+        model=model,
+        tools=TOOLS,
+        skills=discover_skills(SKILLS_DIR),
+        client=client,
     )
 
 

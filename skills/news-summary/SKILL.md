@@ -1,10 +1,23 @@
+---
+name: news-summary
+description: "Check for recent, attributed news coverage of the day's disaster events, or a fast-moving disaster the deterministic feeds haven't caught yet, via live web search. Returns a sparing list of news items, each with a real source name and URL; never invents a source, never promotes/demotes/invents an event."
+model: claude-opus-4-8
+tools: web_search
+---
+
 # Skill: news-summary
 
-**Model:** `claude-opus-4-8` (same call as the daily assessment — this is not
-a separate model step; it is one extra capability given to the existing
-call in `agent/assess.py`'s `ClaudeAssessor`). Uses the Anthropic API's
-native `web_search_20250305` server tool, so no separate search API key is
-needed beyond `ANTHROPIC_API_KEY`.
+**Model:** `claude-opus-4-8` (configurable; any backend the harness can
+reach, including a keyless relay behind `ANTHROPIC_BASE_URL`).
+
+**Search:** a **keyless** local `web_search` tool (`agent/tools.py`), which
+queries DuckDuckGo over plain HTTP and needs no API key. Both lanes use it:
+the interactive harness runs it in its ordinary tool loop, and the daily
+production lane (`agent/assess.py`) requests it as a client tool inside the
+structured-output call — `_call_structured` runs it locally and feeds the
+result back, then the model emits the schema-constrained JSON. So neither
+lane needs an `ANTHROPIC_API_KEY` for search (the model call itself can run
+against any backend, including a keyless relay behind `ANTHROPIC_BASE_URL`).
 
 ## Why this skill exists
 
