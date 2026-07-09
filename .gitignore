@@ -17,3 +17,9 @@ __pycache__/
 .venv/
 node_modules/
 .DS_Store
+
+# Claude Code local state — personal settings, agent worktrees, cached
+# skill installs. Never shared between machines or committed.
+.claude/
+.agents/
+skills-lock.json
