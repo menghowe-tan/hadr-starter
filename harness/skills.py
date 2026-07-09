@@ -23,9 +23,16 @@ from pathlib import Path
 # These resolve server-side (the API runs them, we never see a local call), so
 # the harness only has to hand the API the right param. A skill names one the
 # same way it names a local tool; the runner in agent.py splits them apart.
-SERVER_TOOLS: dict[str, dict] = {
-    "web_search": {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
-}
+#
+# Empty by default: server tools require a live ``ANTHROPIC_API_KEY`` (and its
+# billing), so nothing is wired here. A project that wants server-side
+# execution and has a key can register one, e.g.:
+#     SERVER_TOOLS["web_search"] = {"type": "web_search_20250305",
+#                                   "name": "web_search", "max_uses": 5}
+# This repo instead ships a keyless local ``web_search`` tool
+# (``agent/tools.py``), so a skill's ``tools: web_search`` resolves to that and
+# needs no key.
+SERVER_TOOLS: dict[str, dict] = {}
 
 # A tool name the model can call must match this (Anthropic's constraint too).
 _TOOL_NAME = re.compile(r"[^a-zA-Z0-9_-]+")

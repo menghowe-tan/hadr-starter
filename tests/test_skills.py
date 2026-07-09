@@ -5,9 +5,9 @@ import copy
 from types import SimpleNamespace as NS
 
 from harness import Agent, Skill, Tool, discover_skills, parse_skill
-from harness.skills import SERVER_TOOLS
 
 ADD = Tool("add", "adds two ints", {"type": "object"}, lambda a, b: str(a + b))
+SEARCH = Tool("web_search", "searches", {"type": "object"}, lambda query: "[]")
 
 
 class FakeClient:
@@ -116,7 +116,9 @@ def test_invoking_a_skill_runs_it_as_a_scoped_sub_agent():
     client = FakeClient(
         [tool_use(("news", {"request": "any quakes today?"})), text("sub found X"), text("done")]
     )
-    agent = Agent(model="parent-model", client=client, tools=[ADD], skills=[skill])
+    agent = Agent(
+        model="parent-model", client=client, tools=[ADD, SEARCH], skills=[skill]
+    )
     assert agent.send("go") == "done"
 
     # Three API calls: parent, child, parent-again.
@@ -126,13 +128,20 @@ def test_invoking_a_skill_runs_it_as_a_scoped_sub_agent():
     assert child["system"] == "You check the news. Use web_search."
     assert child["model"] == "skill-model"
     assert child["messages"][0]["content"] == "any quakes today?"
-    # It got the local tool it named, plus the web_search server tool.
-    names = [t.get("name") for t in child["tools"]]
-    assert "add" in names
-    assert SERVER_TOOLS["web_search"] in child["tools"]
+    # It got exactly the local tools it named — both resolve keylessly.
+    assert sorted(t.get("name") for t in child["tools"]) == ["add", "web_search"]
     # The skill's own result flowed back as the tool_result the parent saw.
     parent_second = client.requests[2]["messages"][-1]["content"]
     assert parent_second[0]["content"] == "sub found X"
+
+
+def test_server_tools_ride_in_the_request_when_configured():
+    """The server-tool plumbing still works for a project that has a key and
+    registers one (SERVER_TOOLS is empty by default — see harness/skills.py)."""
+    server = {"type": "web_search_20250305", "name": "web_search", "max_uses": 5}
+    client = FakeClient([text("ok")])
+    Agent(model="m", client=client, server_tools=[server]).send("go")
+    assert server in client.requests[0]["tools"]
 
 
 def test_skill_sub_agent_has_no_skills_of_its_own():

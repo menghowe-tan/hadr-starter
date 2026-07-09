@@ -4,6 +4,28 @@ Kept by the agent, reviewed by you. One entry per working block.
 
 ## Decisions
 
+- **2026-07-09 — news-summary's search switched to a keyless local tool
+  (user request: "switch to an alternative that does not need an
+  ANTHROPIC_API_KEY").** In the generic/interactive lane the news-summary
+  skill originally named Anthropic's server-side `web_search_20250305`, which
+  only runs against a live `ANTHROPIC_API_KEY` and its billing. Replaced it
+  with a **local, keyless** `web_search` tool (`agent/tools.py`): plain
+  `httpx.post` to DuckDuckGo's HTML endpoint, parsed by a small stdlib
+  `HTMLParser` (`_parse_ddg`) that unwraps the `/l/?uddg=` redirect links —
+  no API key, no extra dependency. The skill runs entirely through the
+  harness's ordinary local-tool loop, so it now works against any backend,
+  including a keyless relay behind `ANTHROPIC_BASE_URL`. `harness/skills.py`'s
+  `SERVER_TOOLS` map is now empty (documented extension point: a project with
+  a key can still register the server tool there); the server-tool plumbing
+  in `Agent` stays and is still tested. Trade-off: we now depend on an
+  unversioned HTML shape instead of a documented API — `_parse_ddg` is
+  deliberately forgiving. New tests: `tests/test_web_search.py`. Scope note:
+  the **daily production lane** (`agent/assess.py`) still uses the Anthropic
+  server tool + structured output and still needs a key — switching it too
+  would mean reworking the tested `_call_structured` path (it relies on the
+  API executing the tool, not the harness loop), so it's left as-is and
+  flagged here; can follow up if the daily lane must also go keyless.
+
 - **2026-07-09 — Skills are a generic harness capability (user request:
   "the harness should be running any skills... design it such that new skills
   can be added, and all running of skills handled generically by the
