@@ -139,6 +139,39 @@
   }
   .callout p{margin:0; font-family:var(--serif); font-size:17px; line-height:1.55}
 
+  /* Screenshot showcase */
+  .showcase{display:grid; gap:24px; grid-template-columns:1fr 1fr; align-items:start}
+  @media(max-width:720px){.showcase{grid-template-columns:1fr}}
+  .showcase h3{margin:0 0 6px}
+  .showcase p{font-size:14px; color:var(--muted); margin:0}
+  .shot-lede{margin-bottom:18px !important}
+  .frame{
+    border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    background:var(--paper); box-shadow:0 1px 3px rgba(27,39,51,.06), 0 8px 24px rgba(27,39,51,.06);
+  }
+  .frame .bar{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 12px; background:var(--wash); border-bottom:1px solid var(--line);
+  }
+  .frame .dots{display:inline-flex; gap:6px}
+  .frame .dots i{width:10px; height:10px; border-radius:50%; display:inline-block}
+  .frame .dots i:nth-child(1){background:#E06C5A}
+  .frame .dots i:nth-child(2){background:#E3B341}
+  .frame .dots i:nth-child(3){background:#5FBF73}
+  .frame .url{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .frame img{display:block; width:100%; height:auto}
+  .frame.tall{max-width:440px}
+  .frame.tall .shot-clip{max-height:620px; overflow:hidden; position:relative}
+  .frame.tall .shot-clip::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:80px;
+    background:linear-gradient(to bottom, rgba(255,255,255,0), var(--paper));
+  }
+  .cap{font-size:12px; color:var(--muted); margin:10px 0 0; font-style:italic}
+  .shot-block{max-width:760px}
+
   footer{
     border-top:1px solid var(--line); background:var(--paper);
     padding:26px 0 34px;
@@ -239,22 +272,59 @@
 
   <section>
     <h2>Two surfaces</h2>
-    <div class="grid two">
-      <div class="card" style="border-top-color:var(--blue)">
-        <h3>The live dashboard</h3>
-        <p style="color:var(--ink)">An interactive map plus the current event
-        list, markers coloured by alert level, click through for detail. It is
-        redeployed whenever the underlying data changes, and always shows the
-        last-fetch time for each feed — so you can see at a glance how fresh it
-        is.</p>
+
+    <div class="shot-block" style="margin-bottom:36px">
+      <h3>The live dashboard</h3>
+      <p class="shot-lede" style="color:var(--ink); max-width:64ch">An interactive
+      map plus the current event list, markers coloured by alert level, click
+      through for detail. It is redeployed whenever the underlying data changes,
+      and always shows the last-fetch time for each feed — so you can see at a
+      glance how fresh it is.</p>
+      <figure class="frame" style="margin:0">
+        <div class="bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="url">hadr-monitor.netlify.app/dashboard</span>
+        </div>
+        <img src="assets/marketing/dashboard.jpg" width="1600" height="1192"
+             alt="The HADR Monitor live dashboard: a world map with alert-coloured
+                  markers — a red tropical cyclone near the Philippines, an orange
+                  wildfire in southern France, two green earthquakes in the South
+                  Pacific — beside a Current Events sidebar and per-feed freshness
+                  stamps in the header.">
+      </figure>
+      <p class="cap">Every marker is coloured by alert level; the header stamps
+      how long ago each feed was last fetched.</p>
+    </div>
+
+    <div class="showcase">
+      <div>
+        <figure class="frame tall" style="margin:0">
+          <div class="bar">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="url">sitrep — Thursday 09 July 2026</span>
+          </div>
+          <div class="shot-clip">
+            <img src="assets/marketing/sitrep.jpg" width="1000" height="2105"
+                 alt="The daily situation report: a plain-language 'all quiet'
+                      summary, an at-a-glance count of red/orange/editorial/changed
+                      events, then severity-ranked event cards — Tropical Cyclone
+                      BAVI-26, forest fires in France, two Pacific earthquakes —
+                      each with Estimated/Reported impact labels and a
+                      'no change since the last report' note.">
+          </div>
+        </figure>
       </div>
-      <div class="card" style="border-top-color:var(--blue)">
+      <div>
         <h3>The 08:30 sitrep</h3>
-        <p style="color:var(--ink)">A self-contained HTML report — inline
-        styles, no external requests, safe to mail. Plain-language summary
-        first, then severity-ranked events with sources, every impact figure
-        labelled <i>Estimated</i> or <i>Reported</i>, and a note on what changed
-        since the last report.</p>
+        <p style="color:var(--ink); font-size:15px; margin-bottom:14px">A
+        self-contained HTML report — inline styles, no external requests, safe to
+        mail. Plain-language summary first, then severity-ranked events with
+        sources, every impact figure labelled <i>Estimated</i> or
+        <i>Reported</i>, and a note on what changed since the last report.</p>
+        <p style="color:var(--muted); font-size:14px">Below what's shown here the
+        report continues with corroborating <b>news mentions</b>, a quieter list
+        of downgrades and withdrawals, and an explicit <b>"what this report cannot
+        see"</b> — the blindness stated in full, every day.</p>
       </div>
     </div>
   </section>
